@@ -13,8 +13,6 @@ jobs:
     steps:
       - uses: ices-tools-prod/ices-tools-prod-actions-checkout@main
 
-
-
       - name: Show repos
         run: |
           jq -r '.[].nameWithOwner' repos.json
