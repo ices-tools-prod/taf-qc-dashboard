@@ -31,8 +31,13 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
+          mkdir repo-work
           gh repo clone "${{ steps.repo.outputs.repo }}" repo-work
 
+      - name: Access cloned repository content
+        run: |
+        cd repo-work
+        ls -la
       - name: Calculate hash
         id: hash
         working-directory: repo-work
