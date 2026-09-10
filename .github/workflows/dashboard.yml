@@ -24,6 +24,11 @@ jobs:
         run: |
           echo "repo=$(jq -r '.[0].nameWithOwner' repos.json)" >> $GITHUB_OUTPUT
 
+          - name: Debug output
+
+        run: |
+          echo "${{ steps.repo.outputs.repo }}"
+
       - name: Run validator
         run: |
           docker run --rm \
