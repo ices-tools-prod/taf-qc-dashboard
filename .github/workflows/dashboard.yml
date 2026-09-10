@@ -25,6 +25,9 @@ jobs:
       - name: Debug output
         run: |
           echo "${{ steps.repo.outputs.repo }}"
+          echo ls -la
+
+          find . -maxdepth 3 -type d | sort
       - name: Clone repository
         env:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
