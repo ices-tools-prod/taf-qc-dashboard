@@ -36,8 +36,8 @@ jobs:
       - name: Store metadata
         if: always()
         run: |
-          mkdir -p metadata \
-          find repo-work -name "*.json" \
+          mkdir -p metadata 
+          find repo-work -name "*.json" 
           cp repo-work/*.json metadata/
 
       - name: Commit metadata
