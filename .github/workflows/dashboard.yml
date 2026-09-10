@@ -24,8 +24,7 @@ jobs:
         run: |
           echo "repo=$(jq -r '.[0].nameWithOwner' repos.json)" >> $GITHUB_OUTPUT
 
-          - name: Debug output
-
+      - name: Debug output
         run: |
           echo "${{ steps.repo.outputs.repo }}"
 
