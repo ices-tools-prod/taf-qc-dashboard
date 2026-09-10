@@ -25,8 +25,61 @@ jobs:
       - name: Debug output
         run: |
           echo "${{ steps.repo.outputs.repo }}"
+      - name: Clone repository
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh repo clone "${{ steps.repo.outputs.repo }}" repo-work
+
+      - name: Calculate hash
+        id: hash
+        working-directory: repo-work
+        run: |
+        QC_HASH=$(
+        {
+        find boot -maxdepth 1 -type f -name "DATA.bib" -print0
+        find boot -maxdepth 1 -type f -name "*.R" -print0
+        find boot/initial/data -type f -print0
+        } |
+        sort -z |
+        xargs -0 sha256sum |
+        sha256sum |
+        cut -d' ' -f1
+        )
+
+        echo "hash=$QC_HASH" >> $GITHUB_OUTPUT
+
+      - name: Read previous hash
+        id: oldhash
+        run: |
+          REPO_NAME=$(basename "${{ steps.repo.outputs.repo }}")
+
+          LATEST="metadata/$REPO_NAME/latest.json"
+
+          if [ -f "$LATEST" ]; then
+          echo "hash=$(jq -r '.qc_hash' "$LATEST")" >> $GITHUB_OUTPUT
+          else
+          echo "hash=" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Compare hashes
+        id: compare
+        run: |
+          if [ "${{ steps.hash.outputs.hash }}" = "${{ steps.oldhash.outputs.hash }}" ] &&
+          [ -n "${{ steps.oldhash.outputs.hash }}" ]; then
+          echo "skip=true" >> $GITHUB_OUTPUT
+          else
+          echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Debug hashes
+        run: |
+        echo "New hash: [${{ steps.hash.outputs.hash }}]"
+        echo "Old hash: [${{ steps.oldhash.outputs.hash }}]"
+        echo "Skip: [${{ steps.compare.outputs.skip }}]"
 
       - name: Run validator
+        if: steps.compare.outputs.skip == 'false'
         run: |
           docker run --rm \
           -v ${{ github.workspace }}/repo-work:/repo \
