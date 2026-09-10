@@ -27,7 +27,6 @@ jobs:
           echo "${{ steps.repo.outputs.repo }}"
           echo ls -la
 
-          find . -maxdepth 3 -type d | sort
       - name: Clone repository
         env:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
@@ -38,6 +37,7 @@ jobs:
         id: hash
         working-directory: repo-work
         run: |
+          cd repo-work
           QC_HASH=$(
           {
           find boot -maxdepth 1 -type f -name "DATA.bib" -print0
