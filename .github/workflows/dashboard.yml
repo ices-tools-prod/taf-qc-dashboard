@@ -36,9 +36,23 @@ jobs:
       - name: Store metadata
         if: always()
         run: |
-          mkdir -p metadata 
-          find repo-work -name "*.json" 
-          cp repo-work/*.json metadata/
+          JSON_FILE=$(find repo-work -name "*.json" | head -1)
+
+          TIMESTAMP=$(jq -r '.timestamp' "$JSON_FILE" \
+          | sed 's/:/-/g')
+
+          REPO="${{ steps.repo.outputs.repo }}"
+
+          REPO_NAME=$(basename "$REPO")
+          
+          mkdir -p "metadata/$REPO_NAME"
+          
+          cp "$JSON_FILE" \
+          "metadata/$REPO_NAME/${TIMESTAMP}.json"
+          
+          cp "$JSON_FILE" \
+          "metadata/$REPO_NAME/latest.json"
+
 
       - name: Commit metadata
         if: always()
