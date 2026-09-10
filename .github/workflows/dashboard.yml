@@ -32,6 +32,7 @@ jobs:
         run: |
           docker run --rm \
           -v ${{ github.workspace }}/repo-work:/repo \
+          -e GITHUB_REPOSITORY=${{ steps.repo.outputs.repo }}" \
           ghcr.io/ices-tools-prod/taf-qc-validator:latest \
           /repo
       - name: Store metadata
