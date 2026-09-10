@@ -32,22 +32,22 @@ jobs:
         run: |
           docker run --rm \
           -v ${{ github.workspace }}/repo-work:/repo \
-          -e GITHUB_REPOSITORY=${{ steps.repo.outputs.repo }}" \
+          -e GITHUB_REPOSITORY="${{ steps.repo.outputs.repo }}" \
           ghcr.io/ices-tools-prod/taf-qc-validator:latest \
           /repo
-      - name: Store metadata
-        run: |
-          mkdir -p metadata \
-          find repo-work -name "*.json" \ 
-          cp repo-work/*.json metadata/
+        - name: Store metadata
+          run: |
+            mkdir -p metadata \
+            find repo-work -name "*.json" \
+            cp repo-work/*.json metadata/
 
-      - name: Commit metadata
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+        - name: Commit metadata
+          run: |
+            git config user.name "github-actions"
+            git config user.email "github-actions@github.com"
 
-          git add metadata
+            git add metadata
 
-          git commit -m "Update metadata" || exit 0
+            git commit -m "Update metadata" || exit 0
 
-          git push
+            g name: Collect QC Metadatait push
