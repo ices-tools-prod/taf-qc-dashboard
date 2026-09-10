@@ -42,7 +42,6 @@ jobs:
         id: hash
         working-directory: repo-work
         run: |
-          cd repo-work
           QC_HASH=$(
           {
           find boot -maxdepth 1 -type f -name "DATA.bib" -print0
