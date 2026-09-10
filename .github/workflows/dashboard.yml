@@ -34,12 +34,14 @@ jobs:
           ghcr.io/ices-tools-prod/taf-qc-validator:latest \
           /repo
       - name: Store metadata
+        if: always()
         run: |
           mkdir -p metadata \
           find repo-work -name "*.json" \
           cp repo-work/*.json metadata/
 
       - name: Commit metadata
+        if: always()
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
