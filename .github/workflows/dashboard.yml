@@ -1,0 +1,48 @@
+name: Collect QC Metadata
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: ices-tools-prod/ices-tools-prod-actions-checkout@main
+
+
+
+      - name: Show repos
+        run: |
+          jq -r '.[].nameWithOwner' repos.json
+
+      - name: Get first repo
+        id: repo
+        run: |
+          echo "repo=$(jq -r '.[0].nameWithOwner' repos.json)" >> $GITHUB_OUTPUT
+
+      - name: Run validator
+        run: |
+          docker run --rm \
+          -v ${{ github.workspace }}/repo-work:/repo \
+          ghcr.io/ices-tools-prod/taf-qc-validator:latest \
+          /repo
+      - name: Store metadata
+        run: |
+          mkdir -p metadata \
+          find repo-work -name "*.json" \ 
+          cp repo-work/*.json metadata/
+
+      - name: Commit metadata
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add metadata
+
+          git commit -m "Update metadata" || exit 0
+
+          git push
