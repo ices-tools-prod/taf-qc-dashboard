@@ -27,7 +27,7 @@ jobs:
           echo "${{ steps.repo.outputs.repo }}"
       - name: Clone repository
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
           gh repo clone "${{ steps.repo.outputs.repo }}" repo-work
 
