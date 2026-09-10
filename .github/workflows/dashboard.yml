@@ -35,19 +35,19 @@ jobs:
         id: hash
         working-directory: repo-work
         run: |
-        QC_HASH=$(
-        {
-        find boot -maxdepth 1 -type f -name "DATA.bib" -print0
-        find boot -maxdepth 1 -type f -name "*.R" -print0
-        find boot/initial/data -type f -print0
-        } |
-        sort -z |
-        xargs -0 sha256sum |
-        sha256sum |
-        cut -d' ' -f1
-        )
+          QC_HASH=$(
+          {
+          find boot -maxdepth 1 -type f -name "DATA.bib" -print0
+          find boot -maxdepth 1 -type f -name "*.R" -print0
+          find boot/initial/data -type f -print0
+          } |
+          sort -z |
+          xargs -0 sha256sum |
+          sha256sum |
+          cut -d' ' -f1
+          )
 
-        echo "hash=$QC_HASH" >> $GITHUB_OUTPUT
+          echo "hash=$QC_HASH" >> $GITHUB_OUTPUT
 
       - name: Read previous hash
         id: oldhash
@@ -74,9 +74,9 @@ jobs:
 
       - name: Debug hashes
         run: |
-        echo "New hash: [${{ steps.hash.outputs.hash }}]"
-        echo "Old hash: [${{ steps.oldhash.outputs.hash }}]"
-        echo "Skip: [${{ steps.compare.outputs.skip }}]"
+          echo "New hash: [${{ steps.hash.outputs.hash }}]"
+          echo "Old hash: [${{ steps.oldhash.outputs.hash }}]"
+          echo "Skip: [${{ steps.compare.outputs.skip }}]"
 
       - name: Run validator
         if: steps.compare.outputs.skip == 'false'
