@@ -6,39 +6,66 @@ TOTAL=0
 PASSED=0
 FAILED=0
 
-FAILED_ROWS=""
-PASSED_ROWS=""
+REPORT_ROWS=""
+FAILED_CHECKS_FILE=$(mktemp)
 
-# Use while read with -r and explicitly point find to output relative or full paths safely
-while IFS= read -r json_file; do
-    [ -z "$json_file" ] && continue
+echo "Scanning metadata..."
+
+FOUND=$(find metadata -type f -name latest.json | wc -l)
+
+echo "Found $FOUND latest.json files"
+
+while IFS= read -r json
+do
+    [ -f "$json" ] || continue
+
     TOTAL=$((TOTAL + 1))
 
-    REPO=$(jq -r '.repository' "$json_file")
-    PASS=$(jq -r '.passed' "$json_file")
-    FAILED_COUNT=$(jq '.failed_checks | length' "$json_file")
-    TIMESTAMP=$(jq -r '.timestamp' "$json_file")
+    REPO=$(jq -r '.repository' "$json")
+    PASS=$(jq -r '.passed' "$json")
+    TIMESTAMP=$(jq -r '.timestamp' "$json")
+
+    FAILED_COUNT=$(jq '.failed_checks | length' "$json")
+
+    jq -r '.failed_checks[]?' "$json" >> "$FAILED_CHECKS_FILE"
 
     if [ "$PASS" = "true" ]; then
         PASSED=$((PASSED + 1))
-        PASSED_ROWS="${PASSED_ROWS}
-| ✅ | $REPO | $TIMESTAMP |"
+        STATUS="✅"
     else
         FAILED=$((FAILED + 1))
-        FAILED_ROWS="${FAILED_ROWS}
-| ❌ | $REPO | $FAILED_COUNT | $TIMESTAMP |"
+        STATUS="❌"
     fi
 
-done < <(find metadata -mindepth 2 -maxdepth 3 -type f -name "latest.json" | sort)
+    REPORT_ROWS="${REPORT_ROWS}
+| ${STATUS} | ${REPO} | ${FAILED_COUNT} | ${TIMESTAMP} |"
+
+done < <(find metadata -type f -name latest.json | sort)
 
 PASS_RATE=0
 
 if [ "$TOTAL" -gt 0 ]; then
-    PASS_RATE=$((PASSED * 100 / TOTAL))
+    PASS_RATE=$(( PASSED * 100 / TOTAL ))
+fi
+
+TOP_FAILED_CHECKS=""
+
+if [ -s "$FAILED_CHECKS_FILE" ]; then
+    while read -r count check
+    do
+        TOP_FAILED_CHECKS="${TOP_FAILED_CHECKS}
+| ${check} | ${count} |"
+    done < <(
+        sort "$FAILED_CHECKS_FILE" |
+        uniq -c |
+        sort -nr
+    )
 fi
 
 cat > README.md <<EOF
 # QC Dashboard
+
+Automatically generated from repository metadata.
 
 ## Summary
 
@@ -50,16 +77,20 @@ cat > README.md <<EOF
 
 Pass rate: ${PASS_RATE}%
 
-## Failed repositories
+## Repository Status
 
-| Status | Repository | Failed checks | Last run |
-|---------|------------|---------------|----------|
-$FAILED_ROWS
+| Status | Repository | Failed Checks | Last Run |
+|---------|---------|---------|---------|
+$REPORT_ROWS
 
-## Passed repositories
+## Most Common Failed Checks
 
-| Status | Repository | Last run |
-|---------|------------|----------|
-$PASSED_ROWS
+| Check | Count |
+|---------|---------|
+$TOP_FAILED_CHECKS
 
 EOF
+
+rm -f "$FAILED_CHECKS_FILE"
+
+echo "Dashboard written to README.md"
