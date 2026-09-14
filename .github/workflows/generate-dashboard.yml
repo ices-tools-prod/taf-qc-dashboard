@@ -1,0 +1,132 @@
+name: Generate QC Dashboard
+
+on:
+  schedule:
+    # Kører hver halve time, på minut 7 og 37.
+    - cron: "7,37 * * * *"
+
+  # Gør det muligt at teste workflowet manuelt.
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generate-qc-dashboard
+  cancel-in-progress: false
+
+jobs:
+  generate-dashboard:
+    name: Generate and commit dashboard
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout dashboard repository
+        uses: ices-tools-prod/ices-tools-prod-actions-checkout@main
+
+      - name: Verify dashboard script
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ ! -f "./dashboard" ]]; then
+            echo "::error::Dashboard script was not found at ./dashboard"
+            exit 1
+          fi
+
+          if [[ ! -d "./metadata" ]]; then
+            echo "::error::Metadata directory was not found at ./metadata"
+            exit 1
+          fi
+
+          echo "Dashboard script:"
+          ls -la ./dashboard
+
+          LATEST_COUNT=$(
+            find metadata \
+              -type f \
+              -name "latest.json" \
+              | wc -l
+          )
+
+          echo "Found ${LATEST_COUNT} latest.json files"
+
+      - name: Generate dashboard
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          chmod +x ./dashboard
+
+          METADATA_DIR="metadata" \
+          README_FILE="README.md" \
+          ./dashboard
+
+      - name: Verify generated README
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ ! -f "README.md" ]]; then
+            echo "::error::Dashboard script did not generate README.md"
+            exit 1
+          fi
+
+          echo "Generated README preview:"
+          echo
+
+          sed -n '1,40p' README.md
+
+      - name: Commit dashboard
+        id: commit
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add README.md
+
+          if git diff --cached --quiet; then
+            echo "README.md is unchanged"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git commit -m "Update TAF QC dashboard"
+
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Push dashboard
+        if: steps.commit.outputs.changed == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git push
+
+      - name: Write workflow summary
+        if: always()
+        shell: bash
+        env:
+          DASHBOARD_CHANGED: ${{ steps.commit.outputs.changed }}
+        run: |
+          {
+            echo "## TAF QC Dashboard"
+            echo
+
+            if [[ "$DASHBOARD_CHANGED" == "true" ]]; then
+              echo "✅ Dashboardet blev genereret, committet og pushed."
+            elif [[ "$DASHBOARD_CHANGED" == "false" ]]; then
+              echo "ℹ️ Dashboardet blev genereret, men README.md var uændret."
+            else
+              echo "⚠️ Workflowet nåede ikke til commit-steppet."
+            fi
+
+            echo
+            echo "- Trigger: \`${{ github.event_name }}\`"
+            echo "- Script: \`./dashboard\`"
+            echo "- Output: \`README.md\`"
+          } >> "$GITHUB_STEP_SUMMARY"
