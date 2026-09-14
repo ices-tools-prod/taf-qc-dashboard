@@ -147,8 +147,12 @@ jobs:
 
           JSON_FILE=$(find repo-work -name "*.json" | head -1)
 
+
           if [ -n "$JSON_FILE" ]; then
             cp "$JSON_FILE" artifact/$REPO_NAME/latest.json
+            
+            cp "$JSON_FILE" artifact/$REPO_NAME/${TIMESTAMP}.json"
+
           fi
 
 
