@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+TOTAL=0
+PASSED=0
+FAILED=0
+
+FAILED_ROWS=""
+PASSED_ROWS=""
+
+# Use while read with -r and explicitly point find to output relative or full paths safely
+while IFS= read -r json_file; do
+    [ -z "$json_file" ] && continue
+    TOTAL=$((TOTAL + 1))
+
+    REPO=$(jq -r '.repository' "$json_file")
+    PASS=$(jq -r '.passed' "$json_file")
+    FAILED_COUNT=$(jq '.failed_checks | length' "$json_file")
+    TIMESTAMP=$(jq -r '.timestamp' "$json_file")
+
+    if [ "$PASS" = "true" ]; then
+        PASSED=$((PASSED + 1))
+        PASSED_ROWS="${PASSED_ROWS}
+| ✅ | $REPO | $TIMESTAMP |"
+    else
+        FAILED=$((FAILED + 1))
+        FAILED_ROWS="${FAILED_ROWS}
+| ❌ | $REPO | $FAILED_COUNT | $TIMESTAMP |"
+    fi
+
+done < <(find metadata -mindepth 2 -maxdepth 3 -type f -name "latest.json" | sort)
+
+PASS_RATE=0
+
+if [ "$TOTAL" -gt 0 ]; then
+    PASS_RATE=$((PASSED * 100 / TOTAL))
+fi
+
+cat > README.md <<EOF
+# QC Dashboard
+
+## Summary
+
+| Metric | Count |
+|---------|---------|
+| Repositories | $TOTAL |
+| Passed | $PASSED |
+| Failed | $FAILED |
+
+Pass rate: ${PASS_RATE}%
+
+## Failed repositories
+
+| Status | Repository | Failed checks | Last run |
+|---------|------------|---------------|----------|
+$FAILED_ROWS
+
+## Passed repositories
+
+| Status | Repository | Last run |
+|---------|------------|----------|
+$PASSED_ROWS
+
+EOF
