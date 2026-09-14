@@ -1,0 +1,33 @@
+  aggregate:
+    needs: taf-qc-validation-pipeline
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: ices-tools-prod/ices-tools-prod-actions-checkout@main
+
+      - name: Download metadata
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Debug artifacts
+        run: |
+          find artifacts -type 
+      - name: Copy metadata
+        run: |
+          mkdir -p metadata
+
+          cp -r artifacts/* metadata/ || true
+
+      - name: Commit metadata
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add metadata
+
+          git commit -m "Update QC metadata" || exit 0
+
+          git push
