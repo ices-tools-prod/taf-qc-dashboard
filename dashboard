@@ -2,95 +2,192 @@
 
 set -euo pipefail
 
+METADATA_DIR="metadata"
+README_FILE="README.md"
+
 TOTAL=0
 PASSED=0
 FAILED=0
+INVALID=0
 
 REPORT_ROWS=""
+FAILED_CHECK_ROWS=""
+
 FAILED_CHECKS_FILE=$(mktemp)
+LATEST_FILES_FILE=$(mktemp)
 
-echo "Scanning metadata..."
+cleanup() {
+  rm -f "$FAILED_CHECKS_FILE" "$LATEST_FILES_FILE"
+}
 
-FOUND=$(find metadata -type f -name latest.json | wc -l)
+trap cleanup EXIT
+
+if [ ! -d "$METADATA_DIR" ]; then
+  echo "Error: Metadata directory does not exist: $METADATA_DIR"
+  exit 1
+fi
+
+echo "Scanning $METADATA_DIR for latest.json files..."
+
+find "$METADATA_DIR" \
+  -type f \
+  -name "latest.json" \
+  -print0 |
+  sort -z > "$LATEST_FILES_FILE"
+
+FOUND=$(tr -cd '\0' < "$LATEST_FILES_FILE" | wc -c)
 
 echo "Found $FOUND latest.json files"
 
-while IFS= read -r json
-do
-    [ -f "$json" ] || continue
+while IFS= read -r -d '' json; do
+  echo "Processing: $json"
 
-    TOTAL=$((TOTAL + 1))
+  if ! jq empty "$json" >/dev/null 2>&1; then
+    echo "Warning: Invalid JSON skipped: $json"
+    INVALID=$((INVALID + 1))
+    continue
+  fi
 
-    REPO=$(jq -r '.repository' "$json")
-    PASS=$(jq -r '.passed' "$json")
-    TIMESTAMP=$(jq -r '.timestamp' "$json")
+  TOTAL=$((TOTAL + 1))
 
-    FAILED_COUNT=$(jq '.failed_checks | length' "$json")
+  REPO=$(jq -r '
+    .repository //
+    "unknown-repository"
+  ' "$json")
 
-    jq -r '.failed_checks[]?' "$json" >> "$FAILED_CHECKS_FILE"
-
-    if [ "$PASS" = "true" ]; then
-        PASSED=$((PASSED + 1))
-        STATUS="✅"
+  PASS=$(jq -r '
+    if .passed == true then
+      "true"
+    elif .passed == false then
+      "false"
     else
-        FAILED=$((FAILED + 1))
-        STATUS="❌"
-    fi
+      "unknown"
+    end
+  ' "$json")
 
-    REPORT_ROWS="${REPORT_ROWS}
-| ${STATUS} | ${REPO} | ${FAILED_COUNT} | ${TIMESTAMP} |"
+  TIMESTAMP=$(jq -r '
+    .timestamp //
+    "unknown"
+  ' "$json")
 
-done < <(find metadata -type f -name latest.json | sort)
+  TAF_VERSION=$(jq -r '
+    .taf_version //
+    "unknown"
+  ' "$json")
 
-PASS_RATE=0
+  QCTAF_VERSION=$(jq -r '
+    .qctaf_version //
+    "unknown"
+  ' "$json")
+
+  FAILED_COUNT=$(jq '
+    if (.failed_checks | type) == "array" then
+      .failed_checks | length
+    else
+      0
+    end
+  ' "$json")
+
+  # Protect the Markdown table from pipes and line breaks.
+  REPO=$(printf '%s' "$REPO" |
+    tr '\r\n' '  ' |
+    sed 's/|/\\|/g')
+
+  TIMESTAMP=$(printf '%s' "$TIMESTAMP" |
+    tr '\r\n' '  ' |
+    sed 's/|/\\|/g')
+
+  TAF_VERSION=$(printf '%s' "$TAF_VERSION" |
+    tr '\r\n' '  ' |
+    sed 's/|/\\|/g')
+
+  QCTAF_VERSION=$(printf '%s' "$QCTAF_VERSION" |
+    tr '\r\n' '  ' |
+    sed 's/|/\\|/g')
+
+  jq -r '
+    if (.failed_checks | type) == "array" then
+      .failed_checks[]?
+    else
+      empty
+    end
+  ' "$json" >> "$FAILED_CHECKS_FILE"
+
+  case "$PASS" in
+    true)
+      PASSED=$((PASSED + 1))
+      STATUS="✅ Passed"
+      ;;
+
+    false)
+      FAILED=$((FAILED + 1))
+      STATUS="❌ Failed"
+      ;;
+
+    *)
+      FAILED=$((FAILED + 1))
+      STATUS="⚠️ Unknown"
+      ;;
+  esac
+
+  REPORT_ROWS+=$(printf \
+    '| %s | %s | %s | %s | %s | %s |\n' \
+    "$STATUS" \
+    "$REPO" \
+    "$FAILED_COUNT" \
+    "$TAF_VERSION" \
+    "$QCTAF_VERSION" \
+    "$TIMESTAMP")
+
+done < "$LATEST_FILES_FILE"
+
+PASS_RATE="0.0"
 
 if [ "$TOTAL" -gt 0 ]; then
-    PASS_RATE=$(( PASSED * 100 / TOTAL ))
+  PASS_RATE=$(awk \
+    -v passed="$PASSED" \
+    -v total="$TOTAL" \
+    'BEGIN { printf "%.1f", (passed / total) * 100 }')
 fi
-
-TOP_FAILED_CHECKS=""
 
 if [ -s "$FAILED_CHECKS_FILE" ]; then
-    while read -r count check
-    do
-        TOP_FAILED_CHECKS="${TOP_FAILED_CHECKS}
-| ${check} | ${count} |"
-    done < <(
-        sort "$FAILED_CHECKS_FILE" |
-        uniq -c |
-        sort -nr
-    )
+  while read -r count check; do
+    [ -n "${check:-}" ] || continue
+
+    check=$(printf '%s' "$check" |
+      tr '\r\n' '  ' |
+      sed 's/|/\\|/g')
+
+    FAILED_CHECK_ROWS+=$(printf \
+      '| `%s` | %s |\n' \
+      "$check" \
+      "$count")
+  done < <(
+    LC_ALL=C sort "$FAILED_CHECKS_FILE" |
+      uniq -c |
+      sort -k1,1nr -k2,2
+  )
 fi
 
-cat > README.md <<EOF
+if [ -z "$REPORT_ROWS" ]; then
+  REPORT_ROWS="| ℹ️ No data | No valid latest.json files found | 0 | unknown | unknown | unknown |
+"
+fi
+
+if [ -z "$FAILED_CHECK_ROWS" ]; then
+  FAILED_CHECK_ROWS="| None | 0 |
+"
+fi
+
+cat > "$README_FILE" <<EOF
 # QC Dashboard
 
-Automatically generated from repository metadata.
+Automatically generated from all \`latest.json\` files found recursively under \`metadata/\`.
 
 ## Summary
 
 | Metric | Count |
-|---------|---------|
-| Repositories | $TOTAL |
+|:-------|------:|
+| Repositories analysed | $TOTAL |
 | Passed | $PASSED |
-| Failed | $FAILED |
-
-Pass rate: ${PASS_RATE}%
-
-## Repository Status
-
-| Status | Repository | Failed Checks | Last Run |
-|---------|---------|---------|---------|
-$REPORT_ROWS
-
-## Most Common Failed Checks
-
-| Check | Count |
-|---------|---------|
-$TOP_FAILED_CHECKS
-
-EOF
-
-rm -f "$FAILED_CHECKS_FILE"
-
-echo "Dashboard written to README.md"
+| Failed | $FAILED
