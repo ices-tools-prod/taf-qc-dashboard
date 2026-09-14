@@ -16,7 +16,7 @@ https://img.shields.io/badge/unknown-1-orange
 
 **1 of 50 repositories passed QC validation.**
 
-| 📦 Valid metadata | ✅ Passed | ❌ Failed | ⚠️ Unknown | 🛑 Invalid metadata |
+| 📦 Processed repositories | ✅ Passed | ❌ Failed | ⚠️ Unknown | 🛑 Invalid metadata |
 |------------------:|----------:|----------:|-----------:|--------------------:|
 | **50** | **1** | **48** | **1** | **0** |
 
