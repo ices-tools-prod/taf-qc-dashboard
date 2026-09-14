@@ -86,6 +86,13 @@ jobs:
           echo "Old hash: [${{ steps.oldhash.outputs.hash }}]"
           echo "Hash changed?: [${{ steps.compare.outputs.changed }}]"
 
+
+      - name: No changes detected
+        if: steps.compare.outputs.changed == 'false'
+        run: |
+          echo "## QC Check" >> $GITHUB_STEP_SUMMARY
+          echo "QC hash unchanged, validation skipped." >> $GITHUB_STEP_SUMMARY
+    
       - name: Run validator
         if: steps.compare.outputs.changed == 'true'
         run: |
