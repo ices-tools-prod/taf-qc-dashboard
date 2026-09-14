@@ -43,13 +43,14 @@ jobs:
         id: hash
         working-directory: repo-work
         run: |
-          if [ -d boot ]; then
-           ROOT=boot
-          elif [ -d bootstrap ]; then
-           ROOT=bootstrap
+          if [ -n "$(find boot -type f 2>/dev/null | head -1)" ]; then
+          ROOT="boot"
+          elif [ -n "$(find bootstrap -type f 2>/dev/null | head -1)" ]; then
+          ROOT="bootstrap"
           else
-           ROOT="."
-          fi
+          ROOT="."
+          fi  
+
           echo "Using root: $ROOT"
           QC_HASH=$(
           {
