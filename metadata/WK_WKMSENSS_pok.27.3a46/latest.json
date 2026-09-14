@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_WK_WKMSENSS_pok.27.3a46",
+  "timestamp": "2026-09-14T15:13:27",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "d57833807bb35d76ef8c3148d11331b32593157e0b3f662b8490cd3e0cc63a46",
+  "github_sha": "ada7eb65807ee66bdc6a6dc28c413684273f5e0a",
+  "failed_checks": ["qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist"],
+  "passed": false
+}

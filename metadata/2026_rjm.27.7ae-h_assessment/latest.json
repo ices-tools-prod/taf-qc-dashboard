@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2026_rjm.27.7ae-h_assessment",
+  "timestamp": "2026-09-14T15:15:10",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "db04ac5d6b1c1e7bc455a3bdae479ac97629acb3fe21c4936a736e3227abf1df",
+  "github_sha": "fec93e667d2e5bec91f4f102f0e9364b41d0b007",
+  "failed_checks": ["qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.only.relative.paths"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist"],
+  "passed": false
+}

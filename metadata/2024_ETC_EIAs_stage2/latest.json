@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2024_ETC_EIAs_stage2",
+  "timestamp": "2026-09-14T15:13:30",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "99f33d58743d449bff37be55440657f98c6c5759d7fd0e7df6a36bb9699b5bf5",
+  "github_sha": "4ada2bf8029c8884ae7574aa251eec238a741f0f",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist"],
+  "passed": false
+}

@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2026_wgmixfish_rdbes",
+  "timestamp": "2026-09-14T15:15:38",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "abcfa6a9d4df344d1781bc2560b5e4cdcae08b39ed303063535e7e1e926a304a",
+  "github_sha": "13396d9457b6ec927284e7147b6e5f7f108038d6",
+  "failed_checks": ["qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.any.scripts.exist", "qc.all.scripts.exist"],
+  "passed_checks": ["dir.exists", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.only.relative.paths"],
+  "passed": false
+}

@@ -1,10 +1,10 @@
 {
-  "repository": "ices-taf_FO_RDBES_landings_exploration",
-  "timestamp": "2026-09-14T15:13:29",
+  "repository": "ices-taf_2026_whb.27.1-91214_benchmark_data",
+  "timestamp": "2026-09-14T15:14:31",
   "taf_version": "4.4.0",
   "qctaf_version": "2026.5.23",
-  "qc_hash": "ff27a2f55d072085979984abd2500be090ea6accc907fd5da6af250dd52f2667",
-  "github_sha": "f196dcbb277513749e2ca84cab251df52687876a",
+  "qc_hash": "22ab7e09639aa6b8fec636c1ffed94ea4b3b61757f0211bb03af8c8602f2dcd5",
+  "github_sha": "6b808b8fa3cc3e2423ae5ab61d132627a1a630b0",
   "failed_checks": ["qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
   "passed_checks": ["dir.exists", "qc.data.declared", "qc.software.declared", "qc.initial.data"],
   "passed": false
