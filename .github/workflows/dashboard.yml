@@ -23,16 +23,6 @@ jobs:
           echo "repo=$(jq -r '.[0].nameWithOwner' repos.json)" >> $GITHUB_OUTPUT
 
 
-      - name: Process repos
-        run: |
-          jq -r '.[0].nameWithOwner' repos.json | while read repo
-          do
-            echo "Processing $repo"
-            rm -rf repo-work
-
-            gh repo clone "$repo" repo-work
-
-
       - name: Debug output
         run: |
           echo "${{ steps.repo.outputs.repo }}"
@@ -101,7 +91,7 @@ jobs:
         run: |
           docker run --rm \
           -v ${{ github.workspace }}/repo-work:/repo \
-          -e QC_HASH=${{ steps.repo.outputs.repo }}" \
+          -e QC_HASH=${{ steps.repo.outputs.hash }}" \
           -e GITHUB_REPOSITORY="${{ steps.repo.outputs.repo }}" \
           ghcr.io/ices-tools-prod/taf-qc-validator:latest \
           /repo
