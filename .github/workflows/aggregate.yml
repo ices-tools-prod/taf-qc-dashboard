@@ -1,5 +1,10 @@
-name: Aggregate metadata
-  aggregate:
+name:Collect metadata
+
+on:
+  workflow_dispatch:
+
+jobs:
+  collect-metadata:
     needs: taf-qc-validation-pipeline
 
     runs-on: ubuntu-latest
