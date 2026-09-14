@@ -1,3 +1,4 @@
+name: Aggregate metadata
   aggregate:
     needs: taf-qc-validation-pipeline
 
