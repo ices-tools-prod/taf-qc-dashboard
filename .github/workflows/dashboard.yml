@@ -87,7 +87,7 @@ jobs:
           echo "Hash changed?: [${{ steps.compare.outputs.changed }}]"
 
       - name: Run validator
-        if: steps.compare.outputs.changed == 'false'
+        if: steps.compare.outputs.changed == 'true'
         run: |
           docker run --rm \
           -v ${{ github.workspace }}/repo-work:/repo \
@@ -96,7 +96,7 @@ jobs:
           ghcr.io/ices-tools-prod/taf-qc-validator:latest \
           /repo
       - name: Store metadata
-        if: steps.compare.outputs.changed == 'false'
+        if: steps.compare.outputs.changed == 'true'
         run: |
           JSON_FILE=$(find repo-work -name "*.json" | head -1)
 
@@ -117,7 +117,7 @@ jobs:
 
 
       - name: Commit metadata
-        if: steps.compare.outputs.skip == 'false'
+        if: steps.compare.outputs.changed == 'true'
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
