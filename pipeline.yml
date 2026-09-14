@@ -1,4 +1,4 @@
-name: Collect QC Metadata
+name: Validation Pipeline - batch
 
 on:
   workflow_dispatch:
