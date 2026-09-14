@@ -11,6 +11,7 @@ FAILED=0
 INVALID=0
 
 REPORT_ROWS=""
+FAILED_REPOSITORY_ROWS=""
 FAILED_CHECK_ROWS=""
 
 FAILED_CHECKS_FILE=$(mktemp)
@@ -22,12 +23,18 @@ cleanup() {
 
 trap cleanup EXIT
 
+markdown_escape() {
+  printf '%s' "$1" |
+    tr '\r\n' '  ' |
+    sed 's/|/\\|/g'
+}
+
 if [ ! -d "$METADATA_DIR" ]; then
-  echo "Error: Metadata directory does not exist: $METADATA_DIR"
+  echo "Error: Directory '$METADATA_DIR' does not exist."
   exit 1
 fi
 
-echo "Scanning $METADATA_DIR for latest.json files..."
+echo "Scanning '$METADATA_DIR' recursively..."
 
 find "$METADATA_DIR" \
   -type f \
@@ -37,7 +44,7 @@ find "$METADATA_DIR" \
 
 FOUND=$(tr -cd '\0' < "$LATEST_FILES_FILE" | wc -c)
 
-echo "Found $FOUND latest.json files"
+echo "Found $FOUND latest.json files."
 
 while IFS= read -r -d '' json; do
   echo "Processing: $json"
@@ -50,12 +57,27 @@ while IFS= read -r -d '' json; do
 
   TOTAL=$((TOTAL + 1))
 
-  REPO=$(jq -r '
-    .repository //
-    "unknown-repository"
+  REPOSITORY=$(jq -r '
+    .repository // "unknown-repository"
   ' "$json")
 
-  PASS=$(jq -r '
+  TIMESTAMP=$(jq -r '
+    .timestamp // "unknown"
+  ' "$json")
+
+  TAF_VERSION=$(jq -r '
+    .taf_version // "unknown"
+  ' "$json")
+
+  QCTAF_VERSION=$(jq -r '
+    .qctaf_version // "unknown"
+  ' "$json")
+
+  GITHUB_SHA=$(jq -r '
+    .github_sha // "unknown"
+  ' "$json")
+
+  PASSED_VALUE=$(jq -r '
     if .passed == true then
       "true"
     elif .passed == false then
@@ -63,21 +85,6 @@ while IFS= read -r -d '' json; do
     else
       "unknown"
     end
-  ' "$json")
-
-  TIMESTAMP=$(jq -r '
-    .timestamp //
-    "unknown"
-  ' "$json")
-
-  TAF_VERSION=$(jq -r '
-    .taf_version //
-    "unknown"
-  ' "$json")
-
-  QCTAF_VERSION=$(jq -r '
-    .qctaf_version //
-    "unknown"
   ' "$json")
 
   FAILED_COUNT=$(jq '
@@ -88,22 +95,15 @@ while IFS= read -r -d '' json; do
     end
   ' "$json")
 
-  # Protect the Markdown table from pipes and line breaks.
-  REPO=$(printf '%s' "$REPO" |
-    tr '\r\n' '  ' |
-    sed 's/|/\\|/g')
-
-  TIMESTAMP=$(printf '%s' "$TIMESTAMP" |
-    tr '\r\n' '  ' |
-    sed 's/|/\\|/g')
-
-  TAF_VERSION=$(printf '%s' "$TAF_VERSION" |
-    tr '\r\n' '  ' |
-    sed 's/|/\\|/g')
-
-  QCTAF_VERSION=$(printf '%s' "$QCTAF_VERSION" |
-    tr '\r\n' '  ' |
-    sed 's/|/\\|/g')
+  FAILED_CHECKS=$(jq -r '
+    if (.failed_checks | type) == "array" and
+       (.failed_checks | length) > 0
+    then
+      .failed_checks | map("`" + tostring + "`") | join("<br>")
+    else
+      "None"
+    end
+  ' "$json")
 
   jq -r '
     if (.failed_checks | type) == "array" then
@@ -113,7 +113,20 @@ while IFS= read -r -d '' json; do
     end
   ' "$json" >> "$FAILED_CHECKS_FILE"
 
-  case "$PASS" in
+  REPOSITORY=$(markdown_escape "$REPOSITORY")
+  TIMESTAMP=$(markdown_escape "$TIMESTAMP")
+  TAF_VERSION=$(markdown_escape "$TAF_VERSION")
+  QCTAF_VERSION=$(markdown_escape "$QCTAF_VERSION")
+  GITHUB_SHA=$(markdown_escape "$GITHUB_SHA")
+  FAILED_CHECKS=$(markdown_escape "$FAILED_CHECKS")
+
+  if [ "$GITHUB_SHA" != "unknown" ]; then
+    SHORT_SHA=${GITHUB_SHA:0:7}
+  else
+    SHORT_SHA="unknown"
+  fi
+
+  case "$PASSED_VALUE" in
     true)
       PASSED=$((PASSED + 1))
       STATUS="✅ Passed"
@@ -122,41 +135,65 @@ while IFS= read -r -d '' json; do
     false)
       FAILED=$((FAILED + 1))
       STATUS="❌ Failed"
+
+      FAILED_REPOSITORY_ROWS+=$(printf \
+        '| %s | %s | %s | %s |\n' \
+        "$REPOSITORY" \
+        "$FAILED_COUNT" \
+        "$FAILED_CHECKS" \
+        "$TIMESTAMP")
       ;;
 
     *)
       FAILED=$((FAILED + 1))
       STATUS="⚠️ Unknown"
+
+      FAILED_REPOSITORY_ROWS+=$(printf \
+        '| %s | %s | %s | %s |\n' \
+        "$REPOSITORY" \
+        "$FAILED_COUNT" \
+        "Missing or invalid passed status" \
+        "$TIMESTAMP")
       ;;
   esac
 
   REPORT_ROWS+=$(printf \
-    '| %s | %s | %s | %s | %s | %s |\n' \
+    '| %s | %s | %s | %s | %s | %s | `%s` |\n' \
     "$STATUS" \
-    "$REPO" \
+    "$REPOSITORY" \
     "$FAILED_COUNT" \
     "$TAF_VERSION" \
     "$QCTAF_VERSION" \
-    "$TIMESTAMP")
+    "$TIMESTAMP" \
+    "$SHORT_SHA")
 
 done < "$LATEST_FILES_FILE"
 
-PASS_RATE="0.0"
+PASS_RATE=0
 
 if [ "$TOTAL" -gt 0 ]; then
-  PASS_RATE=$(awk \
-    -v passed="$PASSED" \
-    -v total="$TOTAL" \
-    'BEGIN { printf "%.1f", (passed / total) * 100 }')
+  PASS_RATE=$((PASSED * 100 / TOTAL))
 fi
+
+PROGRESS_WIDTH=20
+FILLED=$((PASS_RATE * PROGRESS_WIDTH / 100))
+EMPTY=$((PROGRESS_WIDTH - FILLED))
+
+PROGRESS_BAR=""
+
+for ((i = 0; i < FILLED; i++)); do
+  PROGRESS_BAR+="█"
+done
+
+for ((i = 0; i < EMPTY; i++)); do
+  PROGRESS_BAR+="░"
+done
 
 if [ -s "$FAILED_CHECKS_FILE" ]; then
   while read -r count check; do
     [ -n "${check:-}" ] || continue
 
-    check=$(printf '%s' "$check" |
-      tr '\r\n' '  ' |
-      sed 's/|/\\|/g')
+    check=$(markdown_escape "$check")
 
     FAILED_CHECK_ROWS+=$(printf \
       '| `%s` | %s |\n' \
@@ -170,7 +207,12 @@ if [ -s "$FAILED_CHECKS_FILE" ]; then
 fi
 
 if [ -z "$REPORT_ROWS" ]; then
-  REPORT_ROWS="| ℹ️ No data | No valid latest.json files found | 0 | unknown | unknown | unknown |
+  REPORT_ROWS="| ℹ️ No data | No valid repositories found | 0 | unknown | unknown | unknown | \`unknown\` |
+"
+fi
+
+if [ -z "$FAILED_REPOSITORY_ROWS" ]; then
+  FAILED_REPOSITORY_ROWS="| 🎉 None | 0 | No failed checks | N/A |
 "
 fi
 
@@ -180,14 +222,62 @@ if [ -z "$FAILED_CHECK_ROWS" ]; then
 fi
 
 cat > "$README_FILE" <<EOF
-# QC Dashboard
+# TAF QC Dashboard
 
-Automatically generated from all \`latest.json\` files found recursively under \`metadata/\`.
+> Automatically generated from all \`latest.json\` files found recursively under \`metadata/\`.
 
-## Summary
+https://img.shields.io/badge/repositories-${TOTAL}-blue
+https://img.shields.io/badge/passed-${PASSED}-brightgreen
+https://img.shields.io/badge/failed-${FAILED}-red
+https://img.shields.io/badge/pass%20rate-${PASS_RATE}%25-$(
+  if [ "$PASS_RATE" -ge 90 ]; then
+    echo "brightgreen"
+  elif [ "$PASS_RATE" -ge 70 ]; then
+    echo "yellow"
+  else
+    echo "red"
+  fi
+)
 
-| Metric | Count |
-|:-------|------:|
-| Repositories analysed | $TOTAL |
-| Passed | $PASSED |
-| Failed | $FAILED
+## Overall status
+
+### ${PASS_RATE}% passing
+
+\`${PROGRESS_BAR}\` **${PASSED} of ${TOTAL} repositories passed**
+
+| 📦 Repositories | ✅ Passed | ❌ Failed | ⚠️ Invalid metadata |
+|-----------------:|----------:|----------:|--------------------:|
+| **${TOTAL}** | **${PASSED}** | **${FAILED}** | **${INVALID}** |
+
+## Repositories requiring attention
+
+| Repository | Failed checks | Details | Last validation |
+|:-----------|--------------:|:--------|:----------------|
+${FAILED_REPOSITORY_ROWS}
+## Most common failed checks
+
+| QC check | Affected repositories |
+|:---------|----------------------:|
+${FAILED_CHECK_ROWS}
+<details>
+<summary><strong>View all repository results</strong></summary>
+
+<br>
+
+| Status | Repository | Failed checks | TAF | qcTAF | Last validation | Commit |
+|:-------|:-----------|--------------:|:----|:------|:----------------|:-------|
+${REPORT_ROWS}
+</details>
+
+---
+
+_Last generated from ${TOTAL} valid metadata files._
+EOF
+
+echo
+echo "Dashboard written to $README_FILE"
+echo "Repositories: $TOTAL"
+echo "Passed: $PASSED"
+echo "Failed: $FAILED"
+echo "Invalid metadata: $INVALID"
+echo "Pass rate: ${PASS_RATE}%"
