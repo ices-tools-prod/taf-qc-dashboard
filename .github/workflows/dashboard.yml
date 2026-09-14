@@ -43,11 +43,21 @@ jobs:
         id: hash
         working-directory: repo-work
         run: |
+          if [ -d boot ]; then
+           ROOT=boot
+          elif [ -d bootstrap ]; then
+           ROOT=bootstrap
+          else
+           ROOT="."
+          fi
+          echo "Using root: $ROOT"
           QC_HASH=$(
           {
-          find boot -maxdepth 1 -type f -name "DATA.bib" -print0
-          find boot -maxdepth 1 -type f -name "*.R" -print0
-          find boot/initial/data -type f -print0
+          find "$ROOT" -maxdepth 1 -type f -name "DATA.bib" -print0
+          find "$ROOT" -maxdepth 1 -type f -name "*.R" -print0
+
+          [ -d "$ROOT/initial/data" ] &&
+            find "$ROOT/initial/data" -type f -print0
           } |
           sort -z |
           xargs -0 sha256sum |
@@ -86,6 +96,11 @@ jobs:
           echo "Old hash: [${{ steps.oldhash.outputs.hash }}]"
           echo "Hash changed?: [${{ steps.compare.outputs.changed }}]"
 
+      - name: Get repo SHA
+        id: sha
+        working-directory: repo-work
+        run: |
+          echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
       - name: No changes detected
         if: steps.compare.outputs.changed == 'false'
@@ -98,7 +113,7 @@ jobs:
         run: |
           docker run --rm \
           -v ${{ github.workspace }}/repo-work:/repo \
-          -e GITHUB_SHA=${{ github.sha }}" \
+          -e GITHUB_SHA="${{ steps.sha.outputs.sha }}" \
           -e QC_HASH="${{ steps.hash.outputs.hash }}" \
           -e GITHUB_RUN_ID="${{ github.run_id }}" \
           -e GITHUB_REPOSITORY="${{ steps.repo.outputs.repo }}" \
