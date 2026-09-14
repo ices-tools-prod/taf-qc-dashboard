@@ -1,4 +1,4 @@
-name:Collect metadata
+name: Collect metadata
 
 on:
   workflow_dispatch:
