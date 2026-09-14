@@ -1,0 +1,532 @@
+name: Collect QC Metadata
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: read
+
+jobs:
+  build-matrix:
+    name: Build repository batches
+    runs-on: ubuntu-latest
+
+    outputs:
+      batches: ${{ steps.matrix.outputs.batches }}
+      repository-count: ${{ steps.matrix.outputs.repository-count }}
+      batch-count: ${{ steps.matrix.outputs.batch-count }}
+
+    steps:
+      - name: Checkout dashboard repository
+        uses: ices-tools-prod/ices-tools-prod-actions-checkout@main
+
+      - name: Build batch matrix
+        id: matrix
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          BATCH_SIZE=10
+
+          if [[ ! -f "repos.json" ]]; then
+            echo "Error: repos.json was not found"
+            exit 1
+          fi
+
+          if ! jq empty repos.json >/dev/null 2>&1; then
+            echo "Error: repos.json does not contain valid JSON"
+            exit 1
+          fi
+
+          REPOSITORY_COUNT=$(
+            jq '
+              [
+                .[]
+                | select(.nameWithOwner != null)
+                | .nameWithOwner
+              ]
+              | length
+            ' repos.json
+          )
+
+          if ((REPOSITORY_COUNT == 0)); then
+            echo "Error: no repositories were found in repos.json"
+            exit 1
+          fi
+
+          BATCHES=$(
+            jq \
+              --argjson batch_size "$BATCH_SIZE" \
+              -c '
+                [
+                  .[]
+                  | select(.nameWithOwner != null)
+                  | .nameWithOwner
+                ]
+                | sort
+                | . as $repositories
+                | [
+                    range(0; length; $batch_size) as $start
+                    | {
+                        name: (
+                          "batch-"
+                          + (
+                              (($start / $batch_size) | floor) + 1
+                            | tostring
+                            )
+                        ),
+                        repositories:
+                          $repositories[$start:$start + $batch_size]
+                      }
+                  ]
+                | {
+                    include: .
+                  }
+              ' repos.json
+          )
+
+          BATCH_COUNT=$(
+            jq '.include | length' <<< "$BATCHES"
+          )
+
+          echo "Repository count: $REPOSITORY_COUNT"
+          echo "Batch size: $BATCH_SIZE"
+          echo "Batch count: $BATCH_COUNT"
+
+          {
+            echo "repository-count=$REPOSITORY_COUNT"
+            echo "batch-count=$BATCH_COUNT"
+
+            echo "batches<<EOF"
+            echo "$BATCHES"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Show generated batches
+        env:
+          BATCHES: ${{ steps.matrix.outputs.batches }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "$BATCHES" | jq
+
+  taf-qc-validation-pipeline:
+    name: Validate ${{ matrix.name }}
+
+    needs:
+      - build-matrix
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+      # This limits how many batch jobs run simultaneously.
+      max-parallel: 10
+
+      matrix:
+        include: ${{ fromJson(needs.build-matrix.outputs.batches).include }}
+
+    steps:
+      - name: Checkout dashboard repository
+        uses: ices-tools-prod/ices-tools-prod-actions-checkout@main
+
+      - name: Show batch information
+        env:
+          BATCH_NAME: ${{ matrix.name }}
+          REPOSITORIES: ${{ toJson(matrix.repositories) }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "Batch: $BATCH_NAME"
+          echo "Repositories:"
+
+          jq -r '.[] | "- \(.)"' <<< "$REPOSITORIES"
+
+      - name: Validate repositories in batch
+        env:
+          BATCH_NAME: ${{ matrix.name }}
+          REPOSITORIES: ${{ toJson(matrix.repositories) }}
+          GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        shell: bash
+        run: |
+          set -uo pipefail
+
+          mkdir -p artifact
+
+          PROCESSED=0
+          VALIDATED=0
+          SKIPPED=0
+          ERRORS=0
+
+          while IFS= read -r REPOSITORY; do
+            [[ -n "$REPOSITORY" ]] || continue
+
+            PROCESSED=$((PROCESSED + 1))
+
+            REPO_NAME=$(basename "$REPOSITORY")
+            REPO_WORK="$GITHUB_WORKSPACE/repo-work"
+            ARTIFACT_DIR="$GITHUB_WORKSPACE/artifact/$REPO_NAME"
+            LATEST_METADATA="$GITHUB_WORKSPACE/metadata/$REPO_NAME/latest.json"
+
+            echo
+            echo "=================================================="
+            echo "Repository: $REPOSITORY"
+            echo "Batch:      $BATCH_NAME"
+            echo "=================================================="
+
+            rm -rf "$REPO_WORK"
+            mkdir -p "$REPO_WORK"
+            mkdir -p "$ARTIFACT_DIR"
+
+            if ! gh repo clone "$REPOSITORY" "$REPO_WORK"; then
+              echo "::warning title=Clone failed::$REPOSITORY could not be cloned"
+
+              ERRORS=$((ERRORS + 1))
+              continue
+            fi
+
+            echo "Repository cloned successfully"
+
+            if [[ -n "$(find "$REPO_WORK/boot" -type f 2>/dev/null | head -1)" ]]; then
+              ROOT="boot"
+            elif [[ -n "$(find "$REPO_WORK/bootstrap" -type f 2>/dev/null | head -1)" ]]; then
+              ROOT="bootstrap"
+            else
+              ROOT="."
+            fi
+
+            echo "Using validation root: $ROOT"
+
+            QC_HASH=$(
+              cd "$REPO_WORK"
+
+              {
+                find "$ROOT" \
+                  -maxdepth 1 \
+                  -type f \
+                  -name "DATA.bib" \
+                  -print0
+
+                find "$ROOT" \
+                  -maxdepth 1 \
+                  -type f \
+                  -name "*.R" \
+                  -print0
+
+                if [[ -d "$ROOT/initial/data" ]]; then
+                  find "$ROOT/initial/data" \
+                    -type f \
+                    -print0
+                fi
+              } \
+                | sort -z \
+                | xargs -0 -r sha256sum \
+                | sha256sum \
+                | cut -d' ' -f1
+            )
+
+            echo "New hash: $QC_HASH"
+
+            OLD_HASH=""
+
+            if [[ -f "$LATEST_METADATA" ]]; then
+              if jq empty "$LATEST_METADATA" >/dev/null 2>&1; then
+                OLD_HASH=$(
+                  jq -r '.qc_hash // empty' "$LATEST_METADATA"
+                )
+              else
+                echo "::warning title=Invalid existing metadata::$LATEST_METADATA contains invalid JSON"
+              fi
+            fi
+
+            echo "Old hash: ${OLD_HASH:-<empty>}"
+
+            if [[ -n "$OLD_HASH" && "$QC_HASH" == "$OLD_HASH" ]]; then
+              echo "QC hash unchanged, validation skipped"
+
+              SKIPPED=$((SKIPPED + 1))
+
+              {
+                echo "### ⏭️ $REPOSITORY"
+                echo
+                echo "QC hash unchanged, validation skipped."
+                echo
+                echo "- Batch: \`$BATCH_NAME\`"
+                echo "- Hash: \`$QC_HASH\`"
+                echo
+              } >> "$GITHUB_STEP_SUMMARY"
+
+              continue
+            fi
+
+            GITHUB_SHA=$(
+              git -C "$REPO_WORK" rev-parse HEAD
+            )
+
+            echo "Commit SHA: $GITHUB_SHA"
+            echo "Hash changed, running validator"
+
+            # Record the current time so output created by the validator can
+            # be distinguished from JSON files already present in the repo.
+            VALIDATOR_STARTED_FILE=$(mktemp)
+            touch "$VALIDATOR_STARTED_FILE"
+
+            if docker run --rm \
+              -v "$REPO_WORK:/repo" \
+              -e GITHUB_SHA="$GITHUB_SHA" \
+              -e QC_HASH="$QC_HASH" \
+              -e GITHUB_RUN_ID="$GITHUB_RUN_ID" \
+              -e GITHUB_REPOSITORY="$REPOSITORY" \
+              ghcr.io/ices-tools-prod/taf-qc-validator:latest \
+              /repo
+            then
+              VALIDATOR_EXIT_CODE=0
+              echo "Validator completed successfully"
+            else
+              VALIDATOR_EXIT_CODE=$?
+              echo "::warning title=Validator failed::$REPOSITORY returned exit code $VALIDATOR_EXIT_CODE"
+            fi
+
+            VALIDATED=$((VALIDATED + 1))
+
+            JSON_FILE=$(
+              find "$REPO_WORK" \
+                -type f \
+                -name "*.json" \
+                -newer "$VALIDATOR_STARTED_FILE" \
+                -printf '%T@ %p\n' 2>/dev/null \
+                | sort -nr \
+                | head -1 \
+                | cut -d' ' -f2-
+            )
+
+            rm -f "$VALIDATOR_STARTED_FILE"
+
+            if [[ -z "$JSON_FILE" ]]; then
+              echo "::warning title=Metadata missing::Validator did not produce a new JSON file for $REPOSITORY"
+
+              ERRORS=$((ERRORS + 1))
+
+              {
+                echo "### ⚠️ $REPOSITORY"
+                echo
+                echo "The validator ran, but no generated metadata JSON file was found."
+                echo
+                echo "- Batch: \`$BATCH_NAME\`"
+                echo "- Validator exit code: \`$VALIDATOR_EXIT_CODE\`"
+                echo "- Commit: \`${GITHUB_SHA:0:7}\`"
+                echo
+              } >> "$GITHUB_STEP_SUMMARY"
+
+              continue
+            fi
+
+            echo "Metadata JSON: $JSON_FILE"
+
+            if ! jq empty "$JSON_FILE" >/dev/null 2>&1; then
+              echo "::warning title=Invalid metadata::Generated file contains invalid JSON: $JSON_FILE"
+
+              ERRORS=$((ERRORS + 1))
+              continue
+            fi
+
+            TIMESTAMP=$(
+              jq -r '.timestamp // empty' "$JSON_FILE"
+            )
+
+            if [[ -z "$TIMESTAMP" ]]; then
+              TIMESTAMP=$(
+                date -u '+%Y-%m-%dT%H:%M:%SZ'
+              )
+            fi
+
+            SAFE_TIMESTAMP=$(
+              printf '%s' "$TIMESTAMP" \
+                | tr ':/' '--' \
+                | tr -cd '[:alnum:]_.-'
+            )
+
+            if [[ -z "$SAFE_TIMESTAMP" ]]; then
+              SAFE_TIMESTAMP=$(
+                date -u '+%Y-%m-%dT%H-%M-%SZ'
+              )
+            fi
+
+            cp "$JSON_FILE" "$ARTIFACT_DIR/latest.json"
+            cp "$JSON_FILE" "$ARTIFACT_DIR/$SAFE_TIMESTAMP.json"
+
+            echo "Prepared metadata:"
+            echo "  $ARTIFACT_DIR/latest.json"
+            echo "  $ARTIFACT_DIR/$SAFE_TIMESTAMP.json"
+
+            PASSED=$(
+              jq -r '
+                if .passed == true then
+                  "true"
+                elif .passed == false then
+                  "false"
+                else
+                  "unknown"
+                end
+              ' "$JSON_FILE"
+            )
+
+            case "$PASSED" in
+              true)
+                SUMMARY_STATUS="✅ Passed"
+                ;;
+
+              false)
+                SUMMARY_STATUS="❌ Failed"
+                ;;
+
+              *)
+                SUMMARY_STATUS="⚠️ Unknown"
+                ;;
+            esac
+
+            {
+              echo "### $SUMMARY_STATUS: $REPOSITORY"
+              echo
+              echo "- Batch: \`$BATCH_NAME\`"
+              echo "- Commit: \`${GITHUB_SHA:0:7}\`"
+              echo "- QC hash: \`$QC_HASH\`"
+              echo "- Validator exit code: \`$VALIDATOR_EXIT_CODE\`"
+              echo
+            } >> "$GITHUB_STEP_SUMMARY"
+
+          done < <(
+            jq -r '.[]' <<< "$REPOSITORIES"
+          )
+
+          {
+            echo "## Batch summary"
+            echo
+            echo "| Result | Count |"
+            echo "|:-------|------:|"
+            echo "| Repositories processed | $PROCESSED |"
+            echo "| Validator executed | $VALIDATED |"
+            echo "| Unchanged and skipped | $SKIPPED |"
+            echo "| Processing errors | $ERRORS |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          echo
+          echo "Batch completed"
+          echo "Processed: $PROCESSED"
+          echo "Validated: $VALIDATED"
+          echo "Skipped: $SKIPPED"
+          echo "Errors: $ERRORS"
+
+          # Intentionally do not exit with an error here.
+          #
+          # QC failures are represented in metadata and must not prevent
+          # artifacts from being uploaded or other repositories from running.
+
+      - name: Show prepared artifacts
+        if: always()
+        shell: bash
+        run: |
+          if [[ -d "artifact" ]]; then
+            find artifact -type f -print
+          else
+            echo "No artifact directory was created"
+          fi
+
+      - name: Upload batch metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: metadata-${{ matrix.name }}
+          path: artifact/
+          if-no-files-found: ignore
+          retention-days: 7
+
+  collect-metadata:
+    name: Collect metadata and update dashboard repository
+
+    needs:
+      - build-matrix
+      - taf-qc-validation-pipeline
+
+    # Run aggregation even if one or more batch jobs have problems.
+    if: always() && needs.build-matrix.result == 'success'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout dashboard repository
+        uses: ices-tools-prod/ices-tools-prod-actions-checkout@main
+
+      - name: Download metadata artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: metadata-*
+          path: artifacts
+          merge-multiple: true
+
+      - name: Debug downloaded artifacts
+        shell: bash
+        run: |
+          echo "Downloaded artifact files:"
+
+          if [[ -d "artifacts" ]]; then
+            find artifacts -type f -print | sort
+          else
+            echo "No artifacts directory exists"
+          fi
+
+      - name: Copy metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p metadata
+
+          if [[ -d "artifacts" ]] &&
+             find artifacts -type f -name "*.json" -print -quit |
+               grep -q .
+          then
+            cp -r artifacts/. metadata/
+          else
+            echo "No new metadata files were downloaded"
+          fi
+
+          LATEST_COUNT=$(
+            find metadata \
+              -type f \
+              -name "latest.json" \
+              | wc -l
+          )
+
+          HISTORY_COUNT=$(
+            find metadata \
+              -type f \
+              -name "*.json" \
+              ! -name "latest.json" \
+              | wc -l
+          )
+
+          echo "Current latest.json files: $LATEST_COUNT"
+          echo "Current historical JSON files: $HISTORY_COUNT"
+
+      - name: Commit metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add metadata
+
+          if git diff --cached --quiet; then
+            echo "No metadata changes to commit"
+            exit 0
+          fi
+
+          git commit -m "Update QC metadata"
+          git push
