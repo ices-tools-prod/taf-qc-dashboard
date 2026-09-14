@@ -20,12 +20,12 @@ jobs:
       - name: Get first repo
         id: repo
         run: |
-          echo "repo=$(jq -r '.[0:50].nameWithOwner' repos.json)" >> $GITHUB_OUTPUT
+          echo "repo=$(jq -r '.[0].nameWithOwner' repos.json)" >> $GITHUB_OUTPUT
 
 
       - name: Process repos
         run: |
-          jq -r '.[0:50].[]nameWithOwner' repos.json | while read repo
+          jq -r '.[0].nameWithOwner' repos.json | while read repo
           do
             echo "Processing $repo"
             rm -rf repo-work
