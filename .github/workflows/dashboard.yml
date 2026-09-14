@@ -7,21 +7,23 @@ permissions:
   contents: write
 
 jobs:
-  collect:
+  taf-qc-validation-pipeline:
     runs-on: ubuntu-latest
 
     steps:
       - uses: ices-tools-prod/ices-tools-prod-actions-checkout@main
 
-      - name: Show repos
-        run: |
-          jq -r '.[].nameWithOwner' repos.json
-
-      - name: Get first repo
+      - name: Select repository from repos.json and store in enviroment
         id: repo
         run: |
-          echo "repo=$(jq -r '.[1].nameWithOwner' repos.json)" >> $GITHUB_OUTPUT
+          echo "repo=$(jq -r '.nameWithOwner' repos.json)" >> $GITHUB_OUTPUT
 
+      - name: Process repositories
+        run: |
+          jq -r '.[].nameWithOwner' repos.json | while read repo
+          do
+            echo "Processing $repo"
+          done
 
       - name: Debug output
         run: |
