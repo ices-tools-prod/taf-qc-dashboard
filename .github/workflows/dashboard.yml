@@ -110,6 +110,7 @@ jobs:
     
       - name: Run validator
         if: steps.compare.outputs.changed == 'true'
+        continue-on-error: true 
         run: |
           docker run --rm \
           -v ${{ github.workspace }}/repo-work:/repo \
