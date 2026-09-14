@@ -281,7 +281,7 @@ cat > "$OUTPUT_FILE" <<EOF
 ![Repositories](https://img.shields.io/badge/repositories-${TOTAL}-blue)
 ![Passed](https://img.shields.io/badge/passed-${PASSED}-brightgreen)
 ![Failed](https://img.shields.io/badge/failed-${FAILED}-red)
-https://img.shields.io/badge/unknown-${UNKNOWN}-orange
+![Unkown](https://img.shields.io/badge/unknown-${UNKNOWN}-orange)
 ![Pass rate](https://img.shields.io/badge/pass%20rate-${PASS_RATE}%25-${PASS_RATE_COLOR})
 
 ## Overall status
@@ -292,7 +292,7 @@ https://img.shields.io/badge/unknown-${UNKNOWN}-orange
 
 **${PASSED} of ${TOTAL} repositories passed QC validation.**
 
-| 📦 Valid metadata | ✅ Passed | ❌ Failed | ⚠️ Unknown | 🛑 Invalid metadata |
+| 📦 Processed repositories | ✅ Passed | ❌ Failed | ⚠️ Unknown | 🛑 Invalid metadata |
 |------------------:|----------:|----------:|-----------:|--------------------:|
 | **${TOTAL}** | **${PASSED}** | **${FAILED}** | **${UNKNOWN}** | **${INVALID}** |
 
