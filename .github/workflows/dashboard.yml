@@ -20,7 +20,7 @@ jobs:
       - name: Build matrix
         id: matrix
         run: |
-          echo "repos=$(jq -c '[.[].nameWithOwner][]' repos.json)" >> $GITHUB_OUTPUT
+          echo "repos=$(jq -c '[.[].nameWithOwner]' repos.json)" >> $GITHUB_OUTPUT
 
 
 
