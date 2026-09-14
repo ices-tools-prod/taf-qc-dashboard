@@ -5,7 +5,7 @@
 ![Repositories](https://img.shields.io/badge/repositories-50-blue)
 ![Passed](https://img.shields.io/badge/passed-1-brightgreen)
 ![Failed](https://img.shields.io/badge/failed-48-red)
-https://img.shields.io/badge/unknown-1-orange
+![Unknown](https://img.shields.io/badge/unknown-1-orange)
 ![Pass rate](https://img.shields.io/badge/pass%20rate-2.0%25-red)
 
 ## Overall status
