@@ -98,7 +98,9 @@ jobs:
         run: |
           docker run --rm \
           -v ${{ github.workspace }}/repo-work:/repo \
+          -e GITHUB_SHA=${{ github.sha }}" \
           -e QC_HASH="${{ steps.hash.outputs.hash }}" \
+          -e GITHUB_RUN_ID="${{ github.run_id }}" \
           -e GITHUB_REPOSITORY="${{ steps.repo.outputs.repo }}" \
           ghcr.io/ices-tools-prod/taf-qc-validator:latest \
           /repo
