@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2024_ele.2737.nea_assessment",
+  "timestamp": "2026-09-14T17:28:53",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "cc5768d0567a5afdc3517460d5a0d988cf3def031087823a1e24a421b59e88c2",
+  "github_sha": "308f1ad0a2b4394a72ad4d4e3e115fdb47b8a56f",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.only.relative.paths"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist"],
+  "passed": false
+}

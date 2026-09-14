@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2018_gfb.27.nea",
+  "timestamp": "2026-09-14T17:25:49",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "6c6ba34bdab0f81b78dbdc63017289b0de79a12126c820fdff4806748dff9f52",
+  "github_sha": "bc2272f942a2d038dc5426b3961f806f8d0d1ac1",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

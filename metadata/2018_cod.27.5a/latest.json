@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2018_cod.27.5a",
+  "timestamp": "2026-09-14T17:25:43",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "63f820737753968ff4a2efb06e4713c13c94ace9da8c5eff119ce8b2a22bf2bd",
+  "github_sha": "5fcdb76bfe26c965a669e9b2f38d5ea41e8e99ee",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.only.relative.paths"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist"],
+  "passed": false
+}

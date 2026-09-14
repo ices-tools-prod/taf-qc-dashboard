@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2019_wgmixfish_accessions",
+  "timestamp": "2026-09-14T17:26:20",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "c08682ceea4334c85c46dcee54d0e7c28d4fea42427cbcee82735171ca988926",
+  "github_sha": "9bac2d5730e463da327ba5ab6f50fdf078df884f",
+  "failed_checks": ["qc.software.bib.processed", "qc.software.declared", "qc.all.scripts.exist"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.initial.data", "qc.any.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

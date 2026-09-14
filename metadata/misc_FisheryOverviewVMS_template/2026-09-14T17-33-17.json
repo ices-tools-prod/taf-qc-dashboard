@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_misc_FisheryOverviewVMS_template",
+  "timestamp": "2026-09-14T17:33:17",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "868011c9ede48413c327eff718228ab3175dc7a011a6aad6c80a3d6d45666867",
+  "github_sha": "366ca831b73a8e80c7a9c89579efca4c16e3a8b3",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.processed", "qc.all.scripts.exist"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

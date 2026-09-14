@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2020_sol.27.4_survey",
+  "timestamp": "2026-09-14T17:26:52",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "e4170bbf25e5decfd34128ac5467dbfbfbe7064d03cf51b4818dac47709e54ec",
+  "github_sha": "ea3a5222e31383045341386e82a470eb653175e9",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.processed"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

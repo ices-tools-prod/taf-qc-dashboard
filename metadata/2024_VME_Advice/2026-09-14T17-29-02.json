@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2024_VME_Advice",
+  "timestamp": "2026-09-14T17:29:02",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "3ad1301ec7fb8ab35e2480dd765c824c140d49778780555a057db2323e777e85",
+  "github_sha": "25d7a3a4b56350d3d4a98424da3f448db22190b0",
+  "failed_checks": ["qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed_checks": ["dir.exists", "qc.data.declared", "qc.software.declared", "qc.initial.data"],
+  "passed": false
+}

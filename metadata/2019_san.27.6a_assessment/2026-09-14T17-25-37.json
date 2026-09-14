@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2019_san.27.6a_assessment",
+  "timestamp": "2026-09-14T17:25:37",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "58d693bdbd05c0e8c7311487729257b527d4a49f53ea1d17163368aa41097b76",
+  "github_sha": "291f3c11ebc4dd1b8e9dec96b390383c1439ae84",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.all.scripts.exist"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2020_bss.27.4bc7ad-h_catchAllocationTool-for-2021",
+  "timestamp": "2026-09-14T17:26:26",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "78c67e76eb6e3015679493ca03371d92f84980c0b275b9c60cafd6021e1918af",
+  "github_sha": "989591831c6b883ca1eb01f80c203b9b11be38d2",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.processed", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist"],
+  "passed": false
+}

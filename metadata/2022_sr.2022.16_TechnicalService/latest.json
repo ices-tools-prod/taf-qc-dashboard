@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2022_sr.2022.16_TechnicalService",
+  "timestamp": "2026-09-14T17:27:47",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "b9e4c9ac5f7cf0e3323f0135705fb8bfe0c39642bc79bd40f09a0d57ae5f24fc",
+  "github_sha": "4e8a225eee70c26a22579350c0e9d2e829e46bb8",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.only.relative.paths"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist"],
+  "passed": false
+}

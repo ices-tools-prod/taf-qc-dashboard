@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2022_sol.27.4_forecast",
+  "timestamp": "2026-09-14T17:28:18",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "e6dac92f4f996c84ec604c5328b34455f9b6c696bfcc3c8dcb414df4b7b5c243",
+  "github_sha": "3bb0f561a90115666a61f632e9ac42d73d62044c",
+  "failed_checks": ["qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed"],
+  "passed_checks": ["dir.exists", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

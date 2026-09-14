@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2019_her.27.3a47d_multifleet",
+  "timestamp": "2026-09-14T17:25:45",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "6e3fa4263454501c4a60ea4eda632f531c49dd20b17c601e4e0aaf443444bfb4",
+  "github_sha": "edefceacf3deb13f83b0bc9821828d3c61c7d563",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.processed"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

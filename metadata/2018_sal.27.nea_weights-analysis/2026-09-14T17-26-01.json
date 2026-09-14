@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2018_sal.27.nea_weights-analysis",
+  "timestamp": "2026-09-14T17:26:01",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "fca30cdf983cc5ccee6bb2b1ef2b452063a1b23b68804786bd362d6b00580a01",
+  "github_sha": "9f66cacc39a4a288ac96eb959f81c3abd4b45129",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

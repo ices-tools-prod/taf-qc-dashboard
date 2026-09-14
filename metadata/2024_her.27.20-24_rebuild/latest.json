@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2024_her.27.20-24_rebuild",
+  "timestamp": "2026-09-14T17:29:11",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "43561a4a6e6896820df5e646e7b25b79c0dfa0ac93cf2c0fe90e7bdd3987c4b4",
+  "github_sha": "4ec147b269ce48cf52aca5de0b7e31e86b962d6c",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

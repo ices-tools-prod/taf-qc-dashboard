@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2020_ETC_fish-distribution-indicator",
+  "timestamp": "2026-09-14T17:27:09",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "884264eb681c3e575f51bd53e1d8dea57690c7945edca7b4d59f0bd8ce665480",
+  "github_sha": "017110e99467ef5bad9a3e903339590fe773b47b",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.processed"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

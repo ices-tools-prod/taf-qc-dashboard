@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2018_EcosystemOverviewVMSMaps",
+  "timestamp": "2026-09-14T17:25:37",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "66c1d28970a6b29f0918bdc4f25dd9501e8d1c2160992d6a33e6b2aa13d7802e",
+  "github_sha": "94e2c492d1c156f7adb9b42979c83b9e71c3d2af",
+  "failed_checks": ["qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed_checks": ["dir.exists", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist"],
+  "passed": false
+}

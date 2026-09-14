@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2020_CS_MixedFisheriesAdvice",
+  "timestamp": "2026-09-14T17:27:05",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "66e72ed22ee352a347079a1b74e2d2ab16073286ca894fb874920e39481d4d7d",
+  "github_sha": "6b163dd336ed7b667eeb475bbbdbc8b0d3148a8d",
+  "failed_checks": ["qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.software.declared", "qc.initial.data"],
+  "passed": false
+}

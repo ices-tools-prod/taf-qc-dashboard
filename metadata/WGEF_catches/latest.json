@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_WGEF_catches",
+  "timestamp": "2026-09-14T17:33:26",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "22817362a08d9a4994d58c51e498aa53a76c122b45d013682b9577c68857a60c",
+  "github_sha": "dd049d90fd580d43becb9d489b745573d5ad5b19",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.any.scripts.exist", "qc.all.scripts.exist"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.only.relative.paths"],
+  "passed": false
+}

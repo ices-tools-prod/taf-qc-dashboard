@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2019_VMS_ICES-QC",
+  "timestamp": "2026-09-14T17:25:41",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "408a6de55501e927ef447a3bbffe86ce7af34ffb33c9ede70607bbc31a8ab001",
+  "github_sha": "7ea1032d5f5d6e4ba1474bd5564b24d6413aa5b1",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.processed", "qc.software.declared", "qc.all.scripts.exist"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.initial.data", "qc.any.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

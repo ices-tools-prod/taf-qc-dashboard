@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_ACOM_survey",
+  "timestamp": "2026-09-14T17:32:48",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "7b8db668497631d3a56f81701a3ebe1b542d6813f8b2c4a6ee58a7cedaa0d6ba",
+  "github_sha": "ade27bb86372c8658c53c831ebaec32e7f5d792f",
+  "failed_checks": ["qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed"],
+  "passed_checks": ["dir.exists", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

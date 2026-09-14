@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2020_her.27.1-24a514a_assessment",
+  "timestamp": "2026-09-14T17:26:26",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "github_sha": "640dfa2bd1981ab82617f6871a8dd874b0684a26",
+  "failed_checks": ["qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.any.scripts.exist", "qc.all.scripts.exist"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.software.declared", "qc.initial.data", "qc.only.relative.paths"],
+  "passed": false
+}

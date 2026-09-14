@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_workflow-test",
+  "timestamp": "2026-09-14T17:35:11",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "0737c34a9f36fe9672afdbc47dc5ae74646c69493df157e0efa332dd178a1174",
+  "github_sha": "458b05c9765a010a314c7fdfbe8fa2deabc54e1d",
+  "failed_checks": "qc.software.bib.processed",
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

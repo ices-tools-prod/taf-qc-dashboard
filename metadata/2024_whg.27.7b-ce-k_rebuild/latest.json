@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2024_whg.27.7b-ce-k_rebuild",
+  "timestamp": "2026-09-14T17:30:30",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "77ded7f52a8c56e8f28107cea150b3061478c093e7458ba4a7f322b07507d5db",
+  "github_sha": "9cf10b49ee36e8b85caf17feb1677b942042f08b",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

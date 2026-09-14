@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2022_AZ_FisheriesOverview",
+  "timestamp": "2026-09-14T17:27:39",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "55771b1e3fd08308ac350f813aad574d8ec54719759f12c375ac60c6a3009882",
+  "github_sha": "474d81b26f2fb745267340fc5c08173562cec6d1",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.processed", "qc.all.scripts.exist"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2024_mac.27.nea_assessment",
+  "timestamp": "2026-09-14T17:29:14",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "037825d5efbd89c667b72246f549b908729c14ad5938a9d3b98e93045a6321c8",
+  "github_sha": "e6620b7c2f418fd26b11ecd939593224abc0a9d1",
+  "failed_checks": "qc.software.bib.processed",
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

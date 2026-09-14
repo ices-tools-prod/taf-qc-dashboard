@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2022_CS_FisheriesOverview",
+  "timestamp": "2026-09-14T17:27:39",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "ef9e404d782ba23e63eb6eaa86ae92e2ab0ab53e13883ea29afd4cd3d82a426f",
+  "github_sha": "f453ec8b33a8cd9b6c2ab843238d23e763b902db",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.processed", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist"],
+  "passed": false
+}

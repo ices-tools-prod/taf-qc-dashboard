@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2024_cod.27.1-2.coastN_stox",
+  "timestamp": "2026-09-14T17:29:19",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "c5caeb99c43aba23bb8fc2c2f303e5068f52a4e6bb66563cd4d3274c1d39e000",
+  "github_sha": "0312ead9131f9c88c78c06de3f5db936c83da8b6",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

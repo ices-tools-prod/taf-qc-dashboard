@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_WGCRAN_adhoc-vms-data",
+  "timestamp": "2026-09-14T17:33:23",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "0a0d03945cbe7a9c6ec37f350a9a8e33c05dcdfd5a084d9984bbb7707a79ff21",
+  "github_sha": "37398a56c36db8514df76cdc7b8c32dbcc958eb9",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.all.scripts.exist"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

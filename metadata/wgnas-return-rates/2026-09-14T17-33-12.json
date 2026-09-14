@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_wgnas-return-rates",
+  "timestamp": "2026-09-14T17:33:12",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "ab425eb62a542161c8304396f33aa14dca82b064e5b3555fcc34f3799192d395",
+  "github_sha": "116191add549b1b56be799ed8d05201fa4e0fa08",
+  "failed_checks": ["qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed_checks": ["dir.exists", "qc.data.declared", "qc.software.declared", "qc.initial.data"],
+  "passed": false
+}

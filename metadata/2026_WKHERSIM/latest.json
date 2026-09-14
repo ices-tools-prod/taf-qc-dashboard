@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2026_WKHERSIM",
+  "timestamp": "2026-09-14T17:31:55",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "a4704730b137910f8dd34eb4451f4f5beb7e05d9c47355ef57c487e79d9e39d0",
+  "github_sha": "1650ea4a4a2016ec460440c4a88b4d31e6e4d067",
+  "failed_checks": ["qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.any.scripts.exist", "qc.all.scripts.exist"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.only.relative.paths"],
+  "passed": false
+}

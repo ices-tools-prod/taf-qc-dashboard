@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2020_hke.27.3a46-8abd_assessment",
+  "timestamp": "2026-09-14T17:26:36",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "5cf3d2affba83b260b39704b58dafe364c5a99ffa5e8a737aa71b5937ac1fea6",
+  "github_sha": "a0676148ed63bac1a4a8f1d1ead0e7e0ddd86dbe",
+  "failed_checks": ["qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.software.bib.processed", "qc.only.relative.paths"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist"],
+  "passed": false
+}

@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2024_whg.27.47d_assessment",
+  "timestamp": "2026-09-14T17:30:13",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "b17f5a82f624dcfbc96ef0fc5d78ca71c3ac017eafff548bcae54ab60f634841",
+  "github_sha": "5430ddc5f82b2540b11417aa8c85430cb10c7ae9",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.valid", "qc.software.bib.processed", "qc.only.relative.paths"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.bib.exists", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist"],
+  "passed": false
+}

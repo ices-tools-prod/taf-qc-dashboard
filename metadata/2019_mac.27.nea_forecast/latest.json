@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2019_mac.27.nea_forecast",
+  "timestamp": "2026-09-14T17:25:55",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "6cb138612316cf53476f5f8cedcc508ce264633faf62183ff76ceae0653949af",
+  "github_sha": "7ff2b3ef70d4f219f6bd129560e030cd1cb2b3d8",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.processed"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

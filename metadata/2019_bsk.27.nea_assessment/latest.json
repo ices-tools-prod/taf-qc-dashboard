@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2019_bsk.27.nea_assessment",
+  "timestamp": "2026-09-14T17:25:47",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "62d8bd438d89a1172f0928a68d17cc5e4e5a8cb4cf6d1be3faeb081e0fbf3974",
+  "github_sha": "029f9572d96a8468f3331280e16003b05373282f",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.all.scripts.exist"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

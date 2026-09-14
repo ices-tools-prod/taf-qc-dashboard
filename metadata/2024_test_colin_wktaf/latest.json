@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2024_test_colin_wktaf",
+  "timestamp": "2026-09-14T17:30:24",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "e68346c3bdf7e652a6c5241bb917864cdb802d2611811cbcf8e3382fd787e38e",
+  "github_sha": "7f7ba3fb2bc14a5760c7223661d29c37f1b4d834",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.only.relative.paths"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist"],
+  "passed": false
+}

@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_wk_WKNSMSE_had.27.46a20",
+  "timestamp": "2026-09-14T17:33:57",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "ab30ca71c4cce36bbfa876b50c56b86e2d103a5d45cd204fa33e0c48c4d9516b",
+  "github_sha": "5d5af0565a56b2dd68877badefeb57a4afb7059c",
+  "failed_checks": ["qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed_checks": ["dir.exists", "qc.data.declared", "qc.software.declared", "qc.initial.data"],
+  "passed": false
+}

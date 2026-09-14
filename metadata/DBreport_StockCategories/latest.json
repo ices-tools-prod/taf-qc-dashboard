@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_DBreport_StockCategories",
+  "timestamp": "2026-09-14T17:32:54",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "74fa8dbb74326bf3b5be54e26ba77b6f94562e6191a4d3941175ea351466327a",
+  "github_sha": "2cfba412d9bac474012dc8a79a33668cf92fdb36",
+  "failed_checks": ["qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.all.scripts.exist"],
+  "passed_checks": ["dir.exists", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

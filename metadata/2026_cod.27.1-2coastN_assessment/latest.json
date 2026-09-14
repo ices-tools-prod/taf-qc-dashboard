@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2026_cod.27.1-2coastN_assessment",
+  "timestamp": "2026-09-14T17:31:44",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "bd1cdbf4b8d287e3f307881d1c825ae104cef5443891d74cf9e77b7cbe40d5dc",
+  "github_sha": "45607cf3b3c8a36198eb75d1ff45155680558047",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.all.scripts.exist"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

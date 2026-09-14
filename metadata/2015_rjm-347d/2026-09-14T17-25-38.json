@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2015_rjm-347d",
+  "timestamp": "2026-09-14T17:25:38",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "93c8193e75a050521f5a7c2bb26e12fc02a2645459e165baea52fcb344736101",
+  "github_sha": "518df7349b7efdebb52ca38f53686d7bced7f29f",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.processed"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

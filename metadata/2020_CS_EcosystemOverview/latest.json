@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2020_CS_EcosystemOverview",
+  "timestamp": "2026-09-14T17:26:32",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "d0bb57c6b3f4fad9bf650527c19a57d022e6167e854f3888cc210d7fdae48806",
+  "github_sha": "be9ec9f1c50fde23b051df36f869c933dedfd77c",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.processed", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist"],
+  "passed": false
+}

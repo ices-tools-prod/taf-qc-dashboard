@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2023_ane.27.9a_south_assessment",
+  "timestamp": "2026-09-14T17:28:52",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "81c1b7ebb1265554551a344acf13feb5ab02d093cbed7a06d6032b4b7622f6fa",
+  "github_sha": "f0ec157769ab1aa9ed7d1b9b68aec3a46c495c9c",
+  "failed_checks": ["qc.software.bib.processed", "qc.software.declared", "qc.all.scripts.exist"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.initial.data", "qc.any.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

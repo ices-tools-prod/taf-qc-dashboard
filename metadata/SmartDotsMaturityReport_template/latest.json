@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_SmartDotsMaturityReport_template",
+  "timestamp": "2026-09-14T17:33:56",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "a4a90e6b6073411b1d2ddf68bb559e30202b2f9ead4f8ab619109907a3a158b2",
+  "github_sha": "9ce9938fa1c3d75a52449ffce5a6fb30337bdc13",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.processed", "qc.only.relative.paths"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist"],
+  "passed": false
+}

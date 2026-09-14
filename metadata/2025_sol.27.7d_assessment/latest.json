@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2025_sol.27.7d_assessment",
+  "timestamp": "2026-09-14T17:32:05",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "4ffd1db30bee708182fc521c957efc4d871bbdbaf1706340e847980812f28c03",
+  "github_sha": "339811bb657725500e460a6a7c681c7dfdfba342",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.processed"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

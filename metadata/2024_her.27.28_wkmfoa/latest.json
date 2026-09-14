@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2024_her.27.28_wkmfoa",
+  "timestamp": "2026-09-14T17:28:50",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "3f1ec795c5829ac605f566359ad82037051fe4e3be8531ee29eceba47cb4144a",
+  "github_sha": "0393455e47e80f9f4c8b3e35c38b186304dc9bad",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist"],
+  "passed": false
+}

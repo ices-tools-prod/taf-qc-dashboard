@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_vme_weighting_algorithm",
+  "timestamp": "2026-09-14T17:33:25",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "869871df518caa9d4c16b8a78cf8b9dc17f639000fc351d1fbea6f5ca3e99044",
+  "github_sha": "d071ad532dbaea50c6647eb0b3f1a0a5dffa39ab",
+  "failed_checks": ["qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed", "qc.all.scripts.exist"],
+  "passed_checks": ["dir.exists", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}

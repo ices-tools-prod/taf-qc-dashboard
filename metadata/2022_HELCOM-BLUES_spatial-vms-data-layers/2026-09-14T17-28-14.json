@@ -1,0 +1,11 @@
+{
+  "repository": "ices-taf_2022_HELCOM-BLUES_spatial-vms-data-layers",
+  "timestamp": "2026-09-14T17:28:14",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "3269ce84feb19ce6da0d44963537ddb30a36a1d833df7a5cf9605f9eb8dcbbdb",
+  "github_sha": "a1d867af2b46b9a501148b1d9d5f3635074d0c6c",
+  "failed_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed": false
+}
