@@ -7,27 +7,41 @@ permissions:
   contents: write
 
 jobs:
-  taf-qc-validation-pipeline:
+
+  build-matrix:
     runs-on: ubuntu-latest
+
+    outputs:
+      repos: ${{ steps.matrix.outputs.repos }}
 
     steps:
       - uses: ices-tools-prod/ices-tools-prod-actions-checkout@main
 
-      - name: Select repository from repos.json and store in enviroment
-        id: repo
+      - name: Build matrix
+        id: matrix
         run: |
-          echo "repo=$(jq -r '.nameWithOwner' repos.json)" >> $GITHUB_OUTPUT
+          echo "repos=$(jq -c '[.[].nameWithOwner][:50]' repos.json)" >> $GITHUB_OUTPUT
 
-      - name: Process repositories
-        run: |
-          jq -r '.[].nameWithOwner' repos.json | while read repo
-          do
-            echo "Processing $repo"
-          done
+
+
+  taf-qc-validation-pipeline:
+    runs-on: ubuntu-latest
+    needs: build-matrix
+
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        repo: ${{ fromJson(needs.build-matrix.outputs.repos) }}
+    
+    
+    steps:
+    
+      - uses: ices-tools-prod/ices-tools-prod-actions-checkout@main
 
       - name: Debug output
         run: |
-          echo "${{ steps.repo.outputs.repo }}"
+          echo "${{ matrix.repo }}"
           echo ls -la
 
       - name: Clone repository
@@ -35,7 +49,7 @@ jobs:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
           mkdir repo-work
-          gh repo clone "${{ steps.repo.outputs.repo }}" repo-work
+          gh repo clone "${{ matrix.repo }}" repo-work
             
       - name: Access cloned repository content
         run: |
@@ -73,7 +87,7 @@ jobs:
       - name: Read previous hash
         id: oldhash
         run: |
-          REPO_NAME=$(basename "${{ steps.repo.outputs.repo }}")
+          REPO_NAME=$(basename "${{ matrix.repo }}")
 
           LATEST="metadata/$REPO_NAME/latest.json"
 
@@ -120,38 +134,69 @@ jobs:
           -e GITHUB_SHA="${{ steps.sha.outputs.sha }}" \
           -e QC_HASH="${{ steps.hash.outputs.hash }}" \
           -e GITHUB_RUN_ID="${{ github.run_id }}" \
-          -e GITHUB_REPOSITORY="${{ steps.repo.outputs.repo }}" \
+          -e GITHUB_REPOSITORY="${{ matrix.repo }}" \
           ghcr.io/ices-tools-prod/taf-qc-validator:latest \
           /repo
-      - name: Store metadata
-        if: steps.compare.outputs.changed == 'true'
+
+      - name: Prepare artifacts
+        if: always()
         run: |
+          REPO_NAME=$(basename "${{ matrix.repo }}")
+
+          mkdir -p artifact/$REPO_NAME
+
           JSON_FILE=$(find repo-work -name "*.json" | head -1)
 
-          TIMESTAMP=$(jq -r '.timestamp' "$JSON_FILE" \
-          | sed 's/:/-/g')
+          if [ -n "$JSON_FILE" ]; then
+            cp "$JSON_FILE" artifact/$REPO_NAME/latest.json
+          fi
 
-          REPO="${{ steps.repo.outputs.repo }}"
 
-          REPO_NAME=$(basename "$REPO")
-          
-          mkdir -p "metadata/$REPO_NAME"
-          
-          cp "$JSON_FILE" \
-          "metadata/$REPO_NAME/${TIMESTAMP}.json"
-          
-          cp "$JSON_FILE" \
-          "metadata/$REPO_NAME/latest.json"
 
+      - name: Upload metadata
+        if: always()
+        uses: actions/upload-artifact@v4 
+        with:
+          name: metadata-${{ strategy.job-index }}
+          path: artifact
+  
+  collect-metadata:
+    needs: taf-qc-validation-pipeline
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: ices-tools-prod/ices-tools-prod-actions-checkout@main
+
+      - name: Download metadata
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Debug artifacts
+        run: |
+          find artifacts -type f
+      - name: Copy metadata
+        run: |
+          mkdir -p metadata
+
+          cp -r artifacts/* metadata/ || true
 
       - name: Commit metadata
-        if: steps.compare.outputs.changed == 'true'
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
           git add metadata
 
-          git commit -m "Update metadata" || exit 0
+          git commit -m "Update QC metadata" || exit 0
 
           git push
+
+
+
+
+
+
+
