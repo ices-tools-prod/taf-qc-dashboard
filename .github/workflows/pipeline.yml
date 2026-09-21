@@ -54,8 +54,8 @@ jobs:
             jq '
               [
                 .[]
-                | select(.fullName != null)
-                | .fullName
+                | select(.nameWithOwner != null)
+                | .nameWithOwner
               ]
               | length
             ' "$REPOS_FILE"
@@ -72,15 +72,15 @@ jobs:
               -c '
                 [
                   .[]
-                  | select(.fullName != null)
+                  | select(.nameWithOwner != null)
                   | {
-                  fullName, 
+                 .nameWithOwner, 
                   isPrivate, 
                   name, 
                   updatedAt
                 }
                 ]
-                | sort_by(.fullName)
+                | sort_by(.nameWithOwner)
                 | . as $repositories
                 | [
                     range(0; length; $batch_size) as $start
@@ -162,7 +162,7 @@ jobs:
 
           jq -r '
           .[]
-          | "- \(.fullName) (private: \(.isPrivate))"
+          | "- \(.nameWithOwner) (private: \(.isPrivate))"
           ' <<< "$REPOSITORIES"
       - name: Validate repositories in batch
         env:
@@ -183,7 +183,7 @@ jobs:
           while IFS= read -r REPO_JSON; do
           [[ -n "$REPO_JSON" ]] || continue
 
-          REPOSITORY=$(jq -r '.fullName' <<< "$REPO_JSON")
+          REPOSITORY=$(jq -r '.nameWithOwner' <<< "$REPO_JSON")
           IS_PRIVATE=$(jq -r '.isPrivate' <<< "$REPO_JSON")
           UPDATED_AT=$(jq -r '.updatedAt' <<< "$REPO_JSON")
           REPO_SHORT_NAME=$(jq -r '.name' <<< "$REPO_JSON")
