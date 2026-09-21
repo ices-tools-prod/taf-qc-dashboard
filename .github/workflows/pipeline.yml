@@ -39,7 +39,7 @@ jobs:
 
           BATCH_SIZE=10
 
-          if [[ ! -f "repos.json" ]]; then
+          if [[ ! -f "/json/repos.json" ]]; then
             echo "Error: repos.json was not found"
             exit 1
           fi
