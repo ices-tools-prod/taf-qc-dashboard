@@ -5,11 +5,10 @@ on:
     inputs:
        force-validation:
            description: "Run validation even if hash is unchanged"
-           type: boolean
            required: false
            default: "false"
-                type: choice
-                options:
+           type: choice
+           options:
                 - "false"
                 - "true"
             
