@@ -36,10 +36,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          REPOS_FILE="json/repos.json"
 
           BATCH_SIZE=10
 
-          if [[ ! -f "/json/repos.json" ]]; then
+          if [[ ! -f "$REPOS_FILE" ]]; then
             echo "Error: repos.json was not found"
             exit 1
           fi
