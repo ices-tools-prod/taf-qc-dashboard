@@ -3,7 +3,7 @@ name: Validation Pipeline - batch
 on:
   workflow_dispatch:
     inputs:
-       force-validation:
+       force_validation:
            description: "Run validation even if hash is unchanged"
            required: false
            default: "false"
