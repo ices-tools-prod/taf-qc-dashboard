@@ -29,7 +29,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [[ ! -f "./dashboard" ]]; then
+          if [[ ! -f "./scripts/dashboard" ]]; then
             echo "::error::Dashboard script was not found at ./dashboard"
             exit 1
           fi
@@ -40,7 +40,7 @@ jobs:
           fi
 
           echo "Dashboard script:"
-          ls -la ./dashboard
+          ls -la scripts/dashboard
 
           LATEST_COUNT=$(
             find metadata \
@@ -56,11 +56,11 @@ jobs:
         run: |
           set -euo pipefail
 
-          chmod +x ./dashboard
+          chmod +x scripts/dashboard
 
           METADATA_DIR="metadata" \
           README_FILE="README.md" \
-          ./dashboard
+          ./scripts/dashboard
 
       - name: Verify generated README
         shell: bash
@@ -127,6 +127,6 @@ jobs:
 
             echo
             echo "- Trigger: \`${{ github.event_name }}\`"
-            echo "- Script: \`./dashboard\`"
+            echo "- Script: \`./scripts/dashboard\`"
             echo "- Output: \`README.md\`"
           } >> "$GITHUB_STEP_SUMMARY"
