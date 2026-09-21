@@ -73,7 +73,6 @@ jobs:
                 [
                   .[]
                   | select(.fullName != null)
-                  | sort_by(.fullName)
                   | {
                   fullName, 
                   isPrivate, 
@@ -81,7 +80,7 @@ jobs:
                   updatedAt
                 }
                 ]
-                | sort
+                | sort_by(.fullName)
                 | . as $repositories
                 | [
                     range(0; length; $batch_size) as $start
@@ -161,8 +160,10 @@ jobs:
           echo "Batch: $BATCH_NAME"
           echo "Repositories:"
 
-          jq -r '.[] | "- \(.)"' <<< "$REPOSITORIES"
-
+          jq -r '
+          .[]
+          | "- \(.fullName) (private: \(.isPrivate))"
+          ' <<< "$REPOSITORIES"
       - name: Validate repositories in batch
         env:
           BATCH_NAME: ${{ matrix.name }}
@@ -170,7 +171,7 @@ jobs:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         shell: bash
         run: |
-          set -uo pipefail
+          set -euo pipefail
 
           mkdir -p artifact
 
@@ -179,20 +180,25 @@ jobs:
           SKIPPED=0
           ERRORS=0
 
-          while IFS= read -r REPOSITORY; do
-            [[ -n "$REPOSITORY" ]] || continue
+          while IFS= read -r REPO_JSON; do
+          [[ -n "$REPO_JSON" ]] || continue
 
-            PROCESSED=$((PROCESSED + 1))
+          REPOSITORY=$(jq -r '.fullName' <<< "$REPO_JSON")
+          IS_PRIVATE=$(jq -r '.isPrivate' <<< "$REPO_JSON")
+          UPDATED_AT=$(jq -r '.updatedAt' <<< "$REPO_JSON")
+          REPO_SHORT_NAME=$(jq -r '.name' <<< "$REPO_JSON")
 
-            REPO_NAME=$(basename "$REPOSITORY")
-            REPO_WORK="$GITHUB_WORKSPACE/repo-work"
-            ARTIFACT_DIR="$GITHUB_WORKSPACE/artifact/$REPO_NAME"
-            LATEST_METADATA="$GITHUB_WORKSPACE/metadata/$REPO_NAME/latest.json"
+          REPO_NAME="$REPO_SHORT_NAME"
 
-            REPOSITORY=$(jq -r '.fullName' <<< "$REPO_JSON")
-            IS_PRIVATE=$(jq -r '.isPrivate' <<< "$REPO_JSON")
-            UPDATED_AT=$(jq -r '.updatedAt' <<< "$REPO_JSON")
-            REPO_SHORT_NAME=$(jq -r '.name' <<< "$REPO_JSON")
+          PROCESSED=$((PROCESSED + 1))
+
+          REPO_WORK="$GITHUB_WORKSPACE/repo-work"
+          ARTIFACT_DIR="$GITHUB_WORKSPACE/artifact/$REPO_NAME"
+          LATEST_METADATA="$GITHUB_WORKSPACE/metadata/$REPO_NAME/latest.json"
+
+          echo "Repository: $REPOSITORY"
+          echo "Private: $IS_PRIVATE"
+          echo "Updated at: $UPDATED_AT"
 
             echo
             echo "=================================================="
