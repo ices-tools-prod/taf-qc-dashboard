@@ -53,8 +53,8 @@ jobs:
             jq '
               [
                 .[]
-                | select(.nameWithOwner != null)
-                | .nameWithOwner
+                | select(.fullName != null)
+                | .fullName
               ]
               | length
             ' repos.json
@@ -71,8 +71,13 @@ jobs:
               -c '
                 [
                   .[]
-                  | select(.nameWithOwner != null)
-                  | .nameWithOwner
+                  | select(.fullName != null)
+                  | {
+                  fullName, 
+                  isPrivate, 
+                  name, 
+                  updatedAt
+                }
                 ]
                 | sort
                 | . as $repositories
@@ -297,6 +302,8 @@ jobs:
               -v "$REPO_WORK:/repo" \
               -e GITHUB_SHA="$GITHUB_SHA" \
               -e QC_HASH="$QC_HASH" \
+              -e IS_PRIVATE="${{ matrix.repo.isPrivate}}" \
+              -e UPDATED_AT="${{ matrix.repo.updatedAt}}" \
               -e GITHUB_RUN_ID="$GITHUB_RUN_ID" \
               -e GITHUB_REPOSITORY="$REPOSITORY" \
               ghcr.io/ices-tools-prod/taf-qc-validator:latest \
