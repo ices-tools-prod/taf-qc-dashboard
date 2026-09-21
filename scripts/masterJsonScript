@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+METADATA_DIR="metadata"
+OUTPUT_FILE="master.json"
+
+
+find "$METADATA_DIR" -type f -name "latest.json" \
+  -exec cat {} \; \
+  | jq -s '.' > "$OUTPUT_FILE"
+
+COUNT=$(jq length "$OUTPUT_FILE")
+
+echo "Created $OUTPUT_FILE containing $COUNT repositories"
