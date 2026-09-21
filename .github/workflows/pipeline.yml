@@ -2,6 +2,17 @@ name: Validation Pipeline - batch
 
 on:
   workflow_dispatch:
+    inputs:
+       force-validation:
+           description: "Run validation even if hash is unchanged"
+           type: boolean
+           required: false
+           default: "false"
+                type: choice
+                options:
+                - "false"
+                - "true"
+            
 
 permissions:
   contents: write
@@ -244,8 +255,13 @@ jobs:
             fi
 
             echo "Old hash: ${OLD_HASH:-<empty>}"
+            FORCE_VALIDATION="${{ inputs.force_validation }}"
 
-            if [[ -n "$OLD_HASH" && "$QC_HASH" == "$OLD_HASH" ]]; then
+            echo "Force validation: $FORCE_VALIDATION"
+            echo "Old hash: $OLD_HASH"
+            echo "New hash: $QC_HASH"
+
+            if [[ "$FORCE_VALIDATION" != "true" && -n "$OLD_HASH" && "$QC_HASH" == "$OLD_HASH" ]]; then
               echo "QC hash unchanged, validation skipped"
 
               SKIPPED=$((SKIPPED + 1))
@@ -259,10 +275,13 @@ jobs:
                 echo "- Hash: \`$QC_HASH\`"
                 echo
               } >> "$GITHUB_STEP_SUMMARY"
-
               continue
             fi
 
+            if [[ "$FORCE_VALIDATION" == "true" ]]; then
+              echo "Force validation enabled, running validator regardless of hash"
+            fi
+            
             GITHUB_SHA=$(
               git -C "$REPO_WORK" rev-parse HEAD
             )
