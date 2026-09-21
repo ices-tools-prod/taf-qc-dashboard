@@ -41,12 +41,12 @@ jobs:
           BATCH_SIZE=10
 
           if [[ ! -f "$REPOS_FILE" ]]; then
-            echo "Error: "$REPOS_FILE" was not found"
+            echo "Error: $REPOS_FILE was not found"
             exit 1
           fi
 
           if ! jq empty "$REPOS_FILE" >/dev/null 2>&1; then
-            echo "Error: "$REPOS_FILE" does not contain valid JSON"
+            echo "Error: $REPOS_FILE does not contain valid JSON"
             exit 1
           fi
 
@@ -62,7 +62,7 @@ jobs:
           )
 
           if ((REPOSITORY_COUNT == 0)); then
-            echo "Error: no repositories were found in "$REPOS_FILE""
+            echo "Error: no repositories were found in $REPOS_FILE"
             exit 1
           fi
 
@@ -73,6 +73,7 @@ jobs:
                 [
                   .[]
                   | select(.fullName != null)
+                  | sort_by(.fullName)
                   | {
                   fullName, 
                   isPrivate, 
@@ -187,6 +188,11 @@ jobs:
             REPO_WORK="$GITHUB_WORKSPACE/repo-work"
             ARTIFACT_DIR="$GITHUB_WORKSPACE/artifact/$REPO_NAME"
             LATEST_METADATA="$GITHUB_WORKSPACE/metadata/$REPO_NAME/latest.json"
+
+            REPOSITORY=$(jq -r '.fullName' <<< "$REPO_JSON")
+            IS_PRIVATE=$(jq -r '.isPrivate' <<< "$REPO_JSON")
+            UPDATED_AT=$(jq -r '.updatedAt' <<< "$REPO_JSON")
+            REPO_SHORT_NAME=$(jq -r '.name' <<< "$REPO_JSON")
 
             echo
             echo "=================================================="
@@ -303,8 +309,8 @@ jobs:
               -v "$REPO_WORK:/repo" \
               -e GITHUB_SHA="$GITHUB_SHA" \
               -e QC_HASH="$QC_HASH" \
-              -e IS_PRIVATE="${{ matrix.repo.isPrivate}}" \
-              -e UPDATED_AT="${{ matrix.repo.updatedAt}}" \
+              -e IS_PRIVATE="$IS_PRIVATE" \
+              -e UPDATED_AT="$UPDATED_AT" \
               -e GITHUB_RUN_ID="$GITHUB_RUN_ID" \
               -e GITHUB_REPOSITORY="$REPOSITORY" \
               ghcr.io/ices-tools-prod/taf-qc-validator:latest \
@@ -426,7 +432,7 @@ jobs:
             } >> "$GITHUB_STEP_SUMMARY"
 
           done < <(
-            jq -r '.[]' <<< "$REPOSITORIES"
+            jq -c '.[]' <<< "$REPOSITORIES"
           )
 
           {
