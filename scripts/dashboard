@@ -400,6 +400,15 @@ cat > "$OUTPUT_FILE" <<EOF
 ![Unknown](https://img.shields.io/badge/unknown-0-orange)
 ![Pass Rate](https://img.shields.io/badge/pass%20rate-17.3%25-red)
 
+## Flowchart of the system
+```mermaid
+flowchart LR
+
+A[TAF Repository] --> B[GitHub Actions]
+B --> C[qcTAF Validation]
+C --> D[Metadata JSON]
+D --> E[Dashboard]
+```
 
 ## Overall status
 
@@ -487,6 +496,16 @@ cat >> "$OUTPUT_FILE" <<EOF
 </details>
 
 ---
+
+## Data Disclaimer
+
+The general ICES Data Disclaimer can be found here:
+
+https://www.ices.dk/data/guidelines-and-policy/Pages/ICES-data-policy.aspx
+
+Under the ICES Data Policy (2021), public data are available under the CC BY 4.0 licence and data products are by default publicly available.
+
+See the full policy on the ICES website.
 
 _Last generated at ${GENERATED_AT} from ${TOTAL} valid active metadata files. ${INVALID} invalid files were skipped._
 EOF
