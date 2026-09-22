@@ -8,6 +8,17 @@
 ![Unknown](https://img.shields.io/badge/unknown-0-orange)
 ![Pass Rate](https://img.shields.io/badge/pass%20rate-17.3%25-red)
 
+
+```mermaid
+flowchart LR
+
+A[TAF Repository] --> B[GitHub Actions]
+B --> C[qcTAF Validation]
+C --> D[Metadata JSON]
+D --> E[Dashboard]
+```
+
+
 ## Overall status
 
 ### 17.3% passing
