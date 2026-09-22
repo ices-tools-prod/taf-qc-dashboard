@@ -1,0 +1,3002 @@
+{
+  "136527": {
+    "stock": "ele-nea",
+    "expertGroup": "WGEEL",
+    "adviceDraftingGroup": "ADGEEL"
+  },
+  "136681": {
+    "stock": "sal-nea",
+    "expertGroup": "WGNAS",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136482": {
+    "stock": "alf-comb",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136484": {
+    "stock": "ane-bisc",
+    "expertGroup": "WGHANSA",
+    "adviceDraftingGroup": "ADGHANSA"
+  },
+  "136485": {
+    "stock": "ane-pore",
+    "expertGroup": "WGHANSA",
+    "adviceDraftingGroup": "ADGHANSA"
+  },
+  "136486": {
+    "stock": "ang-78ab",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": null
+  },
+  "136487": {
+    "stock": "ang-ivvi",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "136488": {
+    "stock": "anp-8c9a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136490": {
+    "stock": "arg-icel",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136491": {
+    "stock": "arg-oth",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": null
+  },
+  "136492": {
+    "stock": "bli-5a14",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136493": {
+    "stock": "bli-5b67",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136495": {
+    "stock": "bli-oth",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136496": {
+    "stock": "bll-2232",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "136497": {
+    "stock": "bll-nsea",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136498": {
+    "stock": "bsh-nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": null
+  },
+  "136499": {
+    "stock": "boc-nea",
+    "expertGroup": "WGWIDE",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "136500": {
+    "stock": "bsf-89",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": null
+  },
+  "136502": {
+    "stock": "bsf-nrtn",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": null
+  },
+  "136503": {
+    "stock": "bsf-oth",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": null
+  },
+  "136504": {
+    "stock": "bsk-nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136506": {
+    "stock": "cap-bars",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136507": {
+    "stock": "cap-icel",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "136508": {
+    "stock": "cod-2224",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136509": {
+    "stock": "cod-2532",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "136510": {
+    "stock": "cod-347d",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136511": {
+    "stock": "cod-7e-k",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136512": {
+    "stock": "cod-arct",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "136513": {
+    "stock": "cod-coas",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136514": {
+    "stock": "cod-ewgr",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": null
+  },
+  "136515": {
+    "stock": "cod-farb",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136516": {
+    "stock": "cod-farp",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "136517": {
+    "stock": "cod-iceg",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136518": {
+    "stock": "cod-iris",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136519": {
+    "stock": "cod-kat",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "136520": {
+    "stock": "cod-rock",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136521": {
+    "stock": "cod-scow",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136522": {
+    "stock": "cyo-nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136524": {
+    "stock": "dab-2232",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "136525": {
+    "stock": "dab-nsea",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136526": {
+    "stock": "dgs-nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136528": {
+    "stock": "fle-2232",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": null
+  },
+  "136529": {
+    "stock": "fle-nsea",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136530": {
+    "stock": "gag-nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136531": {
+    "stock": "gfb-comb",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136532": {
+    "stock": "ghl-arct",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136533": {
+    "stock": "ghl-grn",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136534": {
+    "stock": "gug-347d",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136535": {
+    "stock": "gug-89a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": null
+  },
+  "136536": {
+    "stock": "gug-celt",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": null
+  },
+  "136538": {
+    "stock": "guq-nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136539": {
+    "stock": "had-34",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": null
+  },
+  "136540": {
+    "stock": "had-7b-k",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136541": {
+    "stock": "had-arct",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136542": {
+    "stock": "had-faro",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136543": {
+    "stock": "had-iceg",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136544": {
+    "stock": "had-iris",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136546": {
+    "stock": "had-rock",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136551": {
+    "stock": "had-scow",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": null
+  },
+  "136552": {
+    "stock": "her-2532-gor",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "136553": {
+    "stock": "her-30",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "136554": {
+    "stock": "her-31",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "136555": {
+    "stock": "her-3a22",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "136556": {
+    "stock": "her-47d3",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "136557": {
+    "stock": "her-irls",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136558": {
+    "stock": "her-irlw",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": null
+  },
+  "136559": {
+    "stock": "her-nirs",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136560": {
+    "stock": "her-noss",
+    "expertGroup": "WGWIDE",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "136561": {
+    "stock": "her-riga",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136562": {
+    "stock": "her-vasu",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "136563": {
+    "stock": "her-vian",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": null
+  },
+  "136564": {
+    "stock": "hke-nrtn",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136565": {
+    "stock": "hke-soth",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "136566": {
+    "stock": "hom-nsea",
+    "expertGroup": "WGWIDE",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "136567": {
+    "stock": "hom-soth",
+    "expertGroup": "WGHANSA",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "136568": {
+    "stock": "hom-west",
+    "expertGroup": "WGWIDE",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "136569": {
+    "stock": "jaa-10",
+    "expertGroup": "WGHANSA",
+    "adviceDraftingGroup": "ADGHANSA"
+  },
+  "136570": {
+    "stock": "lem-nsea",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136571": {
+    "stock": "lin-arct",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136573": {
+    "stock": "lin-faro",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136574": {
+    "stock": "lin-icel",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGHANSA"
+  },
+  "136575": {
+    "stock": "lin-oth",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136576": {
+    "stock": "mac-nea",
+    "expertGroup": "WGWIDE",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "136577": {
+    "stock": "meg-4a6a",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136578": {
+    "stock": "meg-rock",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "136579": {
+    "stock": "mgb-8c9a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136580": {
+    "stock": "mgw-78",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136581": {
+    "stock": "mgw-8c9a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "136585": {
+    "stock": "nep-10",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136586": {
+    "stock": "nep-11",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "136587": {
+    "stock": "nep-12",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "136588": {
+    "stock": "nep-13",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "136589": {
+    "stock": "nep-14",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "136590": {
+    "stock": "nep-15",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "136591": {
+    "stock": "nep-16",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "136592": {
+    "stock": "nep-17",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "136593": {
+    "stock": "nep-19",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "136594": {
+    "stock": "nep-2021",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "136596": {
+    "stock": "nep-22",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "136597": {
+    "stock": "nep-2324",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "136598": {
+    "stock": "nep-25",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "136599": {
+    "stock": "nep-2627",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "136600": {
+    "stock": "nep-2829",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "136601": {
+    "stock": "nep-30",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "136602": {
+    "stock": "nep-31",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "136603": {
+    "stock": "nep-32",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136604": {
+    "stock": "nep-33",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136605": {
+    "stock": "nep-3-4",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "136606": {
+    "stock": "nep-5",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136607": {
+    "stock": "nep-6",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136608": {
+    "stock": "nep-7",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136609": {
+    "stock": "nep-8",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136610": {
+    "stock": "nep-9",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136612": {
+    "stock": "nop-scow",
+    "expertGroup": null,
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136613": {
+    "stock": "ory-comb",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136615": {
+    "stock": "pan-barn",
+    "expertGroup": "NIPAG",
+    "adviceDraftingGroup": "ADGPAND"
+  },
+  "136616": {
+    "stock": "pan-flad",
+    "expertGroup": "NIPAG",
+    "adviceDraftingGroup": "ADGPAND"
+  },
+  "136617": {
+    "stock": "pan-sknd",
+    "expertGroup": "NIPAG",
+    "adviceDraftingGroup": "ADGPAND"
+  },
+  "136618": {
+    "stock": "ple-2123",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136620": {
+    "stock": "ple-2432",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "136621": {
+    "stock": "ple-7b-c",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136622": {
+    "stock": "ple-7h-k",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136623": {
+    "stock": "ple-89a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "136624": {
+    "stock": "ple-celt",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136625": {
+    "stock": "ple-eche",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "136626": {
+    "stock": "ple-echw",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136627": {
+    "stock": "ple-iris",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136629": {
+    "stock": "ple-nsea",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136630": {
+    "stock": "ple-skag",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": null
+  },
+  "136631": {
+    "stock": "pol-89a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "136632": {
+    "stock": "pol-celt",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136633": {
+    "stock": "pol-nsea",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136634": {
+    "stock": "por-nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136635": {
+    "stock": "raj-347d",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136636": {
+    "stock": "raj-89a",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136637": {
+    "stock": "raj-celt",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136638": {
+    "stock": "raj-mar",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136639": {
+    "stock": "rjb-347d",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": null
+  },
+  "136640": {
+    "stock": "rjb-89a",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136641": {
+    "stock": "rjb-celt",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136642": {
+    "stock": "rjc-347de",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": null
+  },
+  "136643": {
+    "stock": "rjc-7afg",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136644": {
+    "stock": "rjc-bisc",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136646": {
+    "stock": "rjc-pore",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136647": {
+    "stock": "rjc-VI",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136648": {
+    "stock": "rje-7fg",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136649": {
+    "stock": "rje-ech",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136650": {
+    "stock": "rjf-celt",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136651": {
+    "stock": "rjh-4c7de",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": null
+  },
+  "136652": {
+    "stock": "rjh-7afg",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136653": {
+    "stock": "rjh-pore",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136654": {
+    "stock": "rjh-VI",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": null
+  },
+  "136655": {
+    "stock": "rji-celt",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136656": {
+    "stock": "rjm-347d",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136657": {
+    "stock": "rjm-7afg",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": null
+  },
+  "136658": {
+    "stock": "rjm-bisc",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136659": {
+    "stock": "rjm-pore",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136660": {
+    "stock": "rjm-VI",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": null
+  },
+  "136661": {
+    "stock": "rjn-347d",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": null
+  },
+  "136662": {
+    "stock": "rjn-bisc",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": null
+  },
+  "136663": {
+    "stock": "rjn-celt",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": null
+  },
+  "136664": {
+    "stock": "rjn-pore",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136665": {
+    "stock": "rjr-347d",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": null
+  },
+  "136666": {
+    "stock": "rju-7j",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": null
+  },
+  "136667": {
+    "stock": "rju-ech",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136668": {
+    "stock": "rng-1012",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136669": {
+    "stock": "rng-5b67",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136671": {
+    "stock": "rng-comb",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": null
+  },
+  "136672": {
+    "stock": "rng-kask",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136673": {
+    "stock": "rng-oth",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136674": {
+    "stock": "sai-3a46",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "136675": {
+    "stock": "sai-arct",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136676": {
+    "stock": "sai-faro",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136677": {
+    "stock": "sai-icel",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136678": {
+    "stock": "sal-2431",
+    "expertGroup": "WGBAST",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136679": {
+    "stock": "sal-32",
+    "expertGroup": "WGBAST",
+    "adviceDraftingGroup": null
+  },
+  "136680": {
+    "stock": "sal-na",
+    "expertGroup": "WGNAS",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136683": {
+    "stock": "san-ns1",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136684": {
+    "stock": "san-ns2",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": null
+  },
+  "136685": {
+    "stock": "san-ns3",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": null
+  },
+  "136686": {
+    "stock": "san-ns4",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGSandeel"
+  },
+  "136687": {
+    "stock": "san-ns5",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGSandeel"
+  },
+  "136688": {
+    "stock": "san-ns6",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGSandeel"
+  },
+  "136689": {
+    "stock": "san-ns7",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGSandeel"
+  },
+  "136690": {
+    "stock": "san-scow",
+    "expertGroup": null,
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136691": {
+    "stock": "sar-78",
+    "expertGroup": "WGHANSA",
+    "adviceDraftingGroup": "ADGHANSA"
+  },
+  "136692": {
+    "stock": "sar-soth",
+    "expertGroup": "WGHANSA",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136693": {
+    "stock": "sbr-678",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136695": {
+    "stock": "sbr-ix",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136696": {
+    "stock": "sbr-x",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136697": {
+    "stock": "sck-nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136698": {
+    "stock": "sma-nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": null
+  },
+  "136702": {
+    "stock": "smn-arct",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "136703": {
+    "stock": "smn-con",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136704": {
+    "stock": "smn-dp",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136705": {
+    "stock": "smn-grl",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136706": {
+    "stock": "smn-sp",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136707": {
+    "stock": "smr-5614",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136708": {
+    "stock": "smr-arct",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136709": {
+    "stock": "sol-7b-c",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136710": {
+    "stock": "sol-7h-k",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136711": {
+    "stock": "sol-8c9a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "136712": {
+    "stock": "sol-bisc",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": null
+  },
+  "136713": {
+    "stock": "sol-celt",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": null
+  },
+  "136714": {
+    "stock": "sol-eche",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGSandeel"
+  },
+  "136715": {
+    "stock": "sol-echw",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136716": {
+    "stock": "sol-iris",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGSandeel"
+  },
+  "136717": {
+    "stock": "sol-kask",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGSandeel"
+  },
+  "136718": {
+    "stock": "sol-nsea",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136719": {
+    "stock": "spr-2232",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGHANSA"
+  },
+  "136720": {
+    "stock": "spr-celt",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136721": {
+    "stock": "spr-ech",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136722": {
+    "stock": "spr-kask",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136723": {
+    "stock": "spr-nsea",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136724": {
+    "stock": "syc-347d",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136725": {
+    "stock": "syc-8c9a",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136726": {
+    "stock": "syc-bisc",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136727": {
+    "stock": "syc-celt",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136728": {
+    "stock": "trk-nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136729": {
+    "stock": "trt-bal",
+    "expertGroup": "WGBAST",
+    "adviceDraftingGroup": null
+  },
+  "136730": {
+    "stock": "tur-2232",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "136731": {
+    "stock": "tur-nsea",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136732": {
+    "stock": "usk-arct",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136733": {
+    "stock": "usk-icel",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136734": {
+    "stock": "usk-mar",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136735": {
+    "stock": "usk-oth",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136736": {
+    "stock": "usk-rock",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "136737": {
+    "stock": "whb-comb",
+    "expertGroup": "WGWIDE",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "136738": {
+    "stock": "whg-47d",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136739": {
+    "stock": "whg-7e-k",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136740": {
+    "stock": "whg-89a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "136741": {
+    "stock": "whg-iris",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136742": {
+    "stock": "whg-kask",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "136743": {
+    "stock": "whg-rock",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "136744": {
+    "stock": "whg-scow",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "136745": {
+    "stock": "wit-nsea",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "137167": {
+    "stock": "bss-8ab",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "137168": {
+    "stock": "bss-8c9a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "137169": {
+    "stock": "bss-wosi",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "137170": {
+    "stock": "bss-47",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "137181": {
+    "stock": "nep-34",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "137194": {
+    "stock": "tur-kask",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "137436": {
+    "stock": "mur-347d",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "137437": {
+    "stock": "mur-west",
+    "expertGroup": "WGWIDE",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "137810": {
+    "stock": "nop-34-june",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": null
+  },
+  "137811": {
+    "stock": "nop-34-oct",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "140772": {
+    "stock": "cod-ingr",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "140773": {
+    "stock": "cod-offgr",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": null
+  },
+  "140798": {
+    "stock": "gur-comb",
+    "expertGroup": "WGWIDE",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "149801": {
+    "stock": "her-67bc",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "136481": {
+    "stock": "agn-nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "136483": {
+    "stock": "anb-8c9a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "136611": {
+    "stock": "nop-34",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": null
+  },
+  "136628": {
+    "stock": "ple-kask",
+    "expertGroup": null,
+    "adviceDraftingGroup": null
+  },
+  "136645": {
+    "stock": "rjc-echw",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "137435": {
+    "stock": "ang-arct",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": null
+  },
+  "137837": {
+    "stock": "anb-78ab",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "137838": {
+    "stock": "anp-78ab",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "137842": {
+    "stock": "fle-2425",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "140776": {
+    "stock": "fle-2223",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "140777": {
+    "stock": "fle-2628",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "140778": {
+    "stock": "fle-2732",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "140779": {
+    "stock": "rju-8ab",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "140780": {
+    "stock": "rju-8c",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "140781": {
+    "stock": "rju-9a",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "140782": {
+    "stock": "sho-89a",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "140783": {
+    "stock": "rjh-4aVI",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "140784": {
+    "stock": "rjm-67bj",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "140785": {
+    "stock": "rjm-7aeh",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "140786": {
+    "stock": "rju-7bj",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "140787": {
+    "stock": "sho-celt",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "140788": {
+    "stock": "syt-celt",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "140789": {
+    "stock": "had-346a",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "140790": {
+    "stock": "rjb-34",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "140791": {
+    "stock": "rjc-347d",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "140792": {
+    "stock": "rjh-4c7d",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "140793": {
+    "stock": "rjh-7e",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "140794": {
+    "stock": "rjn-34",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "140795": {
+    "stock": "rjr-234",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "140796": {
+    "stock": "rja-nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "141062": {
+    "stock": "bsf-nea",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "141064": {
+    "stock": "rjn-678abd",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "141065": {
+    "stock": "rjn-8c",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169658": {
+    "stock": "nep-oth-4",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169659": {
+    "stock": "nep-oth-6a",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": null
+  },
+  "169660": {
+    "stock": "nep-oth-7",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": null
+  },
+  "149450": {
+    "stock": "cod-segr",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "149451": {
+    "stock": "cod-wgr",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "149796": {
+    "stock": "thr-nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "149799": {
+    "stock": "rhg-nea",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "150496": {
+    "stock": "arg-123a4",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "150497": {
+    "stock": "arg-5b6a",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "150506": {
+    "stock": "arg-rest",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "151510": {
+    "stock": "tsu-nea",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169059": {
+    "stock": "aru.27.5a14",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169061": {
+    "stock": "bli.27.5a14",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169062": {
+    "stock": "bli.27.5b67",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169063": {
+    "stock": "bli.27.nea",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169064": {
+    "stock": "bll.27.22-32",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "169065": {
+    "stock": "bll.27.3a47de",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169066": {
+    "stock": "boc.27.6-8",
+    "expertGroup": "WGWIDE",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "169068": {
+    "stock": "bsk.27.nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169073": {
+    "stock": "cap.27.1-2",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": "ADGCAP"
+  },
+  "169074": {
+    "stock": "cap.27.2a514",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169075": {
+    "stock": "cod.27.22-24",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "169076": {
+    "stock": "cod.27.24-32",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "169077": {
+    "stock": "cod.27.47d20",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169078": {
+    "stock": "cod.27.7e-k",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169079": {
+    "stock": "cod.27.1-2",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169080": {
+    "stock": "cod.27.1-2coast",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169081": {
+    "stock": "cod.27.5b2",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGICAPFS"
+  },
+  "169082": {
+    "stock": "cod.27.5b1",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGICAPFS"
+  },
+  "169083": {
+    "stock": "cod.27.5a",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169085": {
+    "stock": "cod.27.7a",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169086": {
+    "stock": "cod.27.21",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169087": {
+    "stock": "cod.27.6b",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169088": {
+    "stock": "cod.27.6a",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169091": {
+    "stock": "cyo.27.nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169092": {
+    "stock": "dab.27.22-32",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "169093": {
+    "stock": "dab.27.3a4",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169094": {
+    "stock": "dgs.27.nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169100": {
+    "stock": "fle.27.3a4",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169101": {
+    "stock": "gag.27.nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169102": {
+    "stock": "gfb.27.nea",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169103": {
+    "stock": "ghl.27.1-2",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169104": {
+    "stock": "ghl.27.561214",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169105": {
+    "stock": "gug.27.3a47d",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169106": {
+    "stock": "guq.27.nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169109": {
+    "stock": "had.27.7b-k",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169110": {
+    "stock": "had.27.1-2",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169111": {
+    "stock": "had.27.5b",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGICAPFS"
+  },
+  "169112": {
+    "stock": "had.27.5a",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169113": {
+    "stock": "had.27.7a",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169114": {
+    "stock": "had.27.6b",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169115": {
+    "stock": "her.27.25-2932",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "169118": {
+    "stock": "her.27.20-24",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGHERSP"
+  },
+  "169095": {
+    "stock": "ele.2737.nea",
+    "expertGroup": "WGEEL",
+    "adviceDraftingGroup": "ADGEEL"
+  },
+  "169171": {
+    "stock": "nep.27.4outFU",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169172": {
+    "stock": "nep.27.6aoutFU",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169173": {
+    "stock": "nep.27.7outFU",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169047": {
+    "stock": "agn.27.nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169048": {
+    "stock": "alf.27.nea",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169051": {
+    "stock": "ane.27.8",
+    "expertGroup": "WGHANSA",
+    "adviceDraftingGroup": "ADGHANSA"
+  },
+  "169052": {
+    "stock": "ane.27.9a",
+    "expertGroup": "WGHANSA",
+    "adviceDraftingGroup": "ADGHANSA"
+  },
+  "169054": {
+    "stock": "anf.27.3a46",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169121": {
+    "stock": "her.27.irls",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGHERSP"
+  },
+  "169122": {
+    "stock": "her.27.nirs",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGHERSP"
+  },
+  "169123": {
+    "stock": "her.27.1-24a514a",
+    "expertGroup": "WGWIDE",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "169124": {
+    "stock": "her.27.28",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "169125": {
+    "stock": "her.27.5a",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169126": {
+    "stock": "hke.27.3a46-8abd",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "169128": {
+    "stock": "hom.27.3a4bc7d",
+    "expertGroup": "WGWIDE",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "169129": {
+    "stock": "hom.27.9a",
+    "expertGroup": "WGHANSA",
+    "adviceDraftingGroup": "ADGHANSA"
+  },
+  "169130": {
+    "stock": "hom.27.2a4a5b6a7a-ce-k8",
+    "expertGroup": "WGWIDE",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "169131": {
+    "stock": "jaa.27.10a2",
+    "expertGroup": "WGHANSA",
+    "adviceDraftingGroup": "ADGHANSA"
+  },
+  "169132": {
+    "stock": "lem.27.3a47d",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169133": {
+    "stock": "lin.27.1-2",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169134": {
+    "stock": "lin.27.5b",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169135": {
+    "stock": "lin.27.5a",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169136": {
+    "stock": "lin.27.3a4a6-91214",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169138": {
+    "stock": "lez.27.4a6a",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169139": {
+    "stock": "lez.27.6b",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169140": {
+    "stock": "ldb.27.8c9a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "169141": {
+    "stock": "meg.27.7b-k8abd",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "169142": {
+    "stock": "meg.27.8c9a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "169145": {
+    "stock": "nep.fu.10",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169146": {
+    "stock": "nep.fu.11",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169147": {
+    "stock": "nep.fu.12",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169148": {
+    "stock": "nep.fu.13",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169149": {
+    "stock": "nep.fu.14",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169150": {
+    "stock": "nep.fu.15",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169151": {
+    "stock": "nep.fu.16",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169152": {
+    "stock": "nep.fu.17",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169153": {
+    "stock": "nep.fu.19",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169180": {
+    "stock": "ple.27.21-23",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "169181": {
+    "stock": "ple.27.24-32",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "169182": {
+    "stock": "ple.27.7bc",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169183": {
+    "stock": "ple.27.7h-k",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169184": {
+    "stock": "ple.27.89a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "169185": {
+    "stock": "ple.27.7fg",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169186": {
+    "stock": "ple.27.7d",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169187": {
+    "stock": "ple.27.7e",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169188": {
+    "stock": "ple.27.7a",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169189": {
+    "stock": "ple.27.420",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169190": {
+    "stock": "pol.27.89a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "169191": {
+    "stock": "pol.27.67",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169192": {
+    "stock": "pol.27.3a4",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169193": {
+    "stock": "por.27.nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169194": {
+    "stock": "raj.27.3a47d",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169195": {
+    "stock": "raj.27.89a",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169196": {
+    "stock": "raj.27.67a-ce-h",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169197": {
+    "stock": "raj.27.1012",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169201": {
+    "stock": "rjb.27.89a",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169202": {
+    "stock": "rjb.27.67a-ce-k",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169204": {
+    "stock": "rjc.27.7afg",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169205": {
+    "stock": "rjc.27.8",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169206": {
+    "stock": "rjc.27.7e",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169207": {
+    "stock": "rjc.27.9a",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169208": {
+    "stock": "rjc.27.6",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169209": {
+    "stock": "rje.27.7fg",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169210": {
+    "stock": "rje.27.7de",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169211": {
+    "stock": "rjf.27.67",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169214": {
+    "stock": "rjh.27.7afg",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169216": {
+    "stock": "rjh.27.9a",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169217": {
+    "stock": "rji.27.67",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169218": {
+    "stock": "rjm.27.3a47d",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169221": {
+    "stock": "rjm.27.8",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169222": {
+    "stock": "rjm.27.9a",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169226": {
+    "stock": "rjn.27.9a",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169232": {
+    "stock": "rju.27.7de",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169233": {
+    "stock": "rng.27.5a10b12ac14b",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169234": {
+    "stock": "rng.27.5b6712b",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169235": {
+    "stock": "rng.27.3a",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169236": {
+    "stock": "rng.27.1245a8914ab",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169237": {
+    "stock": "pok.27.3a46",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169238": {
+    "stock": "pok.27.1-2",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169239": {
+    "stock": "pok.27.5b",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGICAPFS"
+  },
+  "169240": {
+    "stock": "pok.27.5a",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169241": {
+    "stock": "sal.27.22-31",
+    "expertGroup": "WGBAST",
+    "adviceDraftingGroup": "RG/ADGSalmon"
+  },
+  "169242": {
+    "stock": "sal.27.32",
+    "expertGroup": "WGBAST",
+    "adviceDraftingGroup": "RG/ADGSalmon"
+  },
+  "169246": {
+    "stock": "san.sa.1r",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGSandeel"
+  },
+  "169247": {
+    "stock": "san.sa.2r",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGSandeel"
+  },
+  "169248": {
+    "stock": "san.sa.3r",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGSandeel"
+  },
+  "169249": {
+    "stock": "san.sa.4",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGSandeel"
+  },
+  "169250": {
+    "stock": "san.sa.5r",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGSandeel"
+  },
+  "169251": {
+    "stock": "san.sa.6",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGSandeel"
+  },
+  "169252": {
+    "stock": "san.sa.7r",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGSandeel"
+  },
+  "169253": {
+    "stock": "san.27.6a",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGSandeel"
+  },
+  "169155": {
+    "stock": "nep.fu.22",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169156": {
+    "stock": "nep.fu.2324",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169157": {
+    "stock": "nep.fu.25",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169158": {
+    "stock": "nep.fu.2627",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169159": {
+    "stock": "nep.fu.2829",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169160": {
+    "stock": "nep.fu.30",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169161": {
+    "stock": "nep.fu.31",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169162": {
+    "stock": "nep.fu.32",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169163": {
+    "stock": "nep.fu.33",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169165": {
+    "stock": "nep.fu.3-4",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169166": {
+    "stock": "nep.fu.5",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169167": {
+    "stock": "nep.fu.6",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169168": {
+    "stock": "nep.fu.7",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169169": {
+    "stock": "nep.fu.8",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169170": {
+    "stock": "nep.fu.9",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169175": {
+    "stock": "nop.27.6a",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169176": {
+    "stock": "ory.27.nea",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169177": {
+    "stock": "pra.27.1-2",
+    "expertGroup": "NIPAG",
+    "adviceDraftingGroup": "ADGPAND"
+  },
+  "169178": {
+    "stock": "pra.27.4a",
+    "expertGroup": "NIPAG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169255": {
+    "stock": "pil.27.8c9a",
+    "expertGroup": "WGHANSA",
+    "adviceDraftingGroup": "ADGHANSA"
+  },
+  "169256": {
+    "stock": "sbr.27.6-8",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169257": {
+    "stock": "sbr.27.9",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169258": {
+    "stock": "sbr.27.10",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169259": {
+    "stock": "sck.27.nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169262": {
+    "stock": "reb.27.1-2",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169263": {
+    "stock": "reb.27.5a14",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169264": {
+    "stock": "reb.2127.dp",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "169265": {
+    "stock": "reb.27.14b",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169266": {
+    "stock": "reb.2127.sp",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "169267": {
+    "stock": "reg.27.561214",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169268": {
+    "stock": "reg.27.1-2",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169269": {
+    "stock": "sol.27.7bc",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169270": {
+    "stock": "sol.27.7h-k",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169271": {
+    "stock": "sol.27.8c9a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "169272": {
+    "stock": "sol.27.8ab",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "169273": {
+    "stock": "sol.27.7fg",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169274": {
+    "stock": "sol.27.7d",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169275": {
+    "stock": "sol.27.7e",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169276": {
+    "stock": "sol.27.7a",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169277": {
+    "stock": "sol.27.20-24",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169278": {
+    "stock": "sol.27.4",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169279": {
+    "stock": "spr.27.22-32",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "169283": {
+    "stock": "spr.27.4",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGSprat"
+  },
+  "169284": {
+    "stock": "syc.27.3a47d",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169285": {
+    "stock": "syc.27.8c9a",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169286": {
+    "stock": "syc.27.8abd",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169287": {
+    "stock": "syc.27.67a-ce-j",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169290": {
+    "stock": "sdv.27.nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169291": {
+    "stock": "trs.27.22-32",
+    "expertGroup": "WGBAST",
+    "adviceDraftingGroup": null
+  },
+  "169293": {
+    "stock": "tur.27.22-32",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "169295": {
+    "stock": "tur.27.4",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169296": {
+    "stock": "usk.27.1-2",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169297": {
+    "stock": "usk.27.5a14",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169298": {
+    "stock": "usk.27.12ac",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169299": {
+    "stock": "usk.27.3a45b6a7-912b",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169300": {
+    "stock": "usk.27.6b",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169301": {
+    "stock": "whb.27.1-91214",
+    "expertGroup": "WGWIDE",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "169302": {
+    "stock": "whg.27.47d",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169303": {
+    "stock": "whg.27.7b-ce-k",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169304": {
+    "stock": "whg.27.89a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "169305": {
+    "stock": "whg.27.7a",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169306": {
+    "stock": "whg.27.3a",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169307": {
+    "stock": "whg.27.6b",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169308": {
+    "stock": "whg.27.6a",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169309": {
+    "stock": "wit.27.3a47d",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169070": {
+    "stock": "bss.27.8ab",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "169071": {
+    "stock": "bss.27.8c9a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "169072": {
+    "stock": "bss.27.6a7bj",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169069": {
+    "stock": "bss.27.4bc7ad-h",
+    "expertGroup": "WGCSE",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169164": {
+    "stock": "nep.fu.34",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169294": {
+    "stock": "tur.27.3a",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169143": {
+    "stock": "mur.27.3a47d",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169144": {
+    "stock": "mur.27.67a-ce-k89a",
+    "expertGroup": "WGWIDE",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "169174": {
+    "stock": "nop.27.3a4",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGPOUT"
+  },
+  "169097": {
+    "stock": "fle.27.2425",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "169084": {
+    "stock": "cod.21.1",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169096": {
+    "stock": "fle.27.2223",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "169098": {
+    "stock": "fle.27.2628",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "169099": {
+    "stock": "fle.27.2729-32",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "169229": {
+    "stock": "rju.27.8ab",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169230": {
+    "stock": "rju.27.8c",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169231": {
+    "stock": "rju.27.9a",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169260": {
+    "stock": "sho.27.89a",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169212": {
+    "stock": "rjh.27.4a6",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169219": {
+    "stock": "rjm.27.67bj",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169220": {
+    "stock": "rjm.27.7ae-h",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169228": {
+    "stock": "rju.27.7bj",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169261": {
+    "stock": "sho.27.67",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169288": {
+    "stock": "syt.27.67",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169108": {
+    "stock": "had.27.46a20",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "169200": {
+    "stock": "rjb.27.3a4",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169203": {
+    "stock": "rjc.27.3a47d",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169213": {
+    "stock": "rjh.27.4c7d",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169215": {
+    "stock": "rjh.27.7e",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169223": {
+    "stock": "rjn.27.3a4",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169227": {
+    "stock": "rjr.27.23a4",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169199": {
+    "stock": "rja.27.nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169107": {
+    "stock": "gur.27.3-8",
+    "expertGroup": "WGWIDE",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "169067": {
+    "stock": "bsf.27.nea",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169224": {
+    "stock": "rjn.27.678abd",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169225": {
+    "stock": "rjn.27.8c",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169089": {
+    "stock": "cod.2127.1f14",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169090": {
+    "stock": "cod.21.1a-e",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169289": {
+    "stock": "thr.27.nea",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "169198": {
+    "stock": "rhg.27.nea",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169057": {
+    "stock": "aru.27.123a4",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169058": {
+    "stock": "aru.27.5b6a",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169060": {
+    "stock": "aru.27.6b7-1012",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169292": {
+    "stock": "tsu.27.nea",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "169053": {
+    "stock": "anf.27.1-2",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": null
+  },
+  "169120": {
+    "stock": "her.27.6a7bc",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGCS"
+  },
+  "169282": {
+    "stock": "spr.27.3a",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGSprat"
+  },
+  "169154": {
+    "stock": "nep.fu.2021",
+    "expertGroup": "WGNEPH",
+    "adviceDraftingGroup": "ADGNEPH"
+  },
+  "169049": {
+    "stock": "ank.27.78ab",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "169127": {
+    "stock": "hke.27.8c9a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "169280": {
+    "stock": "spr.27.67a-cf-k",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGHERSP"
+  },
+  "169281": {
+    "stock": "spr.27.7de",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGHERSP"
+  },
+  "169055": {
+    "stock": "mon.27.78ab",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "169179": {
+    "stock": "pra.27.3a4a",
+    "expertGroup": "NIPAG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "169050": {
+    "stock": "ank.27.8c9a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "169056": {
+    "stock": "mon.27.8c9a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "169119": {
+    "stock": "her.27.3a47d",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGHERSP"
+  },
+  "169137": {
+    "stock": "mac.27.nea",
+    "expertGroup": "WGWIDE",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "169673": {
+    "stock": "her.27.3031",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "169785": {
+    "stock": "ldb.27.7b-k8abd",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "194229": {
+    "stock": "pil.27.7",
+    "expertGroup": "WGHANSA",
+    "adviceDraftingGroup": "ADGHANSA"
+  },
+  "194230": {
+    "stock": "pil.27.8abd",
+    "expertGroup": "WGHANSA",
+    "adviceDraftingGroup": null
+  },
+  "169244": {
+    "stock": "sal.27.nea",
+    "expertGroup": "WGNAS",
+    "adviceDraftingGroup": "RG/ADGSalmon"
+  },
+  "169245": {
+    "stock": "sal.2127.1a-f14",
+    "expertGroup": "WGNAS",
+    "adviceDraftingGroup": "RG/ADGSalmon"
+  },
+  "169243": {
+    "stock": "sal.21.2-5",
+    "expertGroup": "WGNAS",
+    "adviceDraftingGroup": "RG/ADGSalmon"
+  },
+  "195875": {
+    "stock": "ank.27.78abd",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "195876": {
+    "stock": "mon.27.78abd",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "197909": {
+    "stock": "spr.27.3a4",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGHANSA"
+  },
+  "199794": {
+    "stock": "sal.nac.all",
+    "expertGroup": "WGNAS",
+    "adviceDraftingGroup": "RG/ADGSalmon"
+  },
+  "199795": {
+    "stock": "sal.wgc.all",
+    "expertGroup": "WGNAS",
+    "adviceDraftingGroup": "RG/ADGSalmon"
+  },
+  "199793": {
+    "stock": "sal.neac.all",
+    "expertGroup": "WGNAS",
+    "adviceDraftingGroup": "RG/ADGSalmon"
+  },
+  "228591": {
+    "stock": "bwq.27.2628",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "228587": {
+    "stock": "bwp.27.2729-32",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "228589": {
+    "stock": "bwq.27.2425",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "198763": {
+    "stock": "pok.27.7-10",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "233927": {
+    "stock": "lin.27.346-91214",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "233878": {
+    "stock": "bzq.27.2425",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "233880": {
+    "stock": "bzq.27.2628",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "228791": {
+    "stock": "seh.27.125a14",
+    "expertGroup": "WGHARP",
+    "adviceDraftingGroup": null
+  },
+  "228792": {
+    "stock": "seh.27.1",
+    "expertGroup": "WGHARP",
+    "adviceDraftingGroup": null
+  },
+  "228793": {
+    "stock": "sez.27.2514",
+    "expertGroup": "WGHARP",
+    "adviceDraftingGroup": null
+  },
+  "232325": {
+    "stock": "cod.27.1-2.coastN",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "232326": {
+    "stock": "cod.27.2.coastS",
+    "expertGroup": "AFWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "233883": {
+    "stock": "ple.27.5a",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "233882": {
+    "stock": "caa.27.5a",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "251072": {
+    "stock": "her.27.6aS7bc",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGHERSP"
+  },
+  "251073": {
+    "stock": "her.27.6aN",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGHERSP"
+  },
+  "249959": {
+    "stock": "raj.27.67a-ce-k",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "252350": {
+    "stock": "rjc.27.8c",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "252349": {
+    "stock": "rjc.27.8abd",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "255566": {
+    "stock": "cod.27.46a7d20",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "264010": {
+    "stock": "hom.27.4bc7d",
+    "expertGroup": "WGWIDE",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "264011": {
+    "stock": "hom.27.2a3a4a5b6a7a-ce-k8",
+    "expertGroup": "WGWIDE",
+    "adviceDraftingGroup": "ADGWIDE"
+  },
+  "255577": {
+    "stock": "cod.21.27.1.14",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "255580": {
+    "stock": "cod.21.1.osc",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "263840": {
+    "stock": "bli.27.123a4",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "263841": {
+    "stock": "bli.27.5b6712",
+    "expertGroup": "WGDEEP",
+    "adviceDraftingGroup": "ADGDEEP"
+  },
+  "264687": {
+    "stock": "ane.27.9aS",
+    "expertGroup": "WGHANSA",
+    "adviceDraftingGroup": "ADGHANSA"
+  },
+  "264688": {
+    "stock": "ane.27.9aW",
+    "expertGroup": "WGHANSA",
+    "adviceDraftingGroup": "ADGHANSA"
+  },
+  "264634": {
+    "stock": "her.27.7ef",
+    "expertGroup": "HAWG",
+    "adviceDraftingGroup": "ADGHERSP"
+  },
+  "261361": {
+    "stock": "rjh.27.4bc7d",
+    "expertGroup": "WGEF",
+    "adviceDraftingGroup": "ADGEF"
+  },
+  "265194": {
+    "stock": "cod.21.1.isc",
+    "expertGroup": "NWWG",
+    "adviceDraftingGroup": "ADGANW"
+  },
+  "265228": {
+    "stock": "ple.27.21-32",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": "ADGBS"
+  },
+  "266867": {
+    "stock": "sos.27.8c9a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "266868": {
+    "stock": "oal.27.8c9a",
+    "expertGroup": "WGBIE",
+    "adviceDraftingGroup": "ADGBBI"
+  },
+  "267353": {
+    "stock": "fle.27.420",
+    "expertGroup": "WGNSSK",
+    "adviceDraftingGroup": "ADGNS"
+  },
+  "267352": {
+    "stock": "fle.27.21-23",
+    "expertGroup": "WGBFAS",
+    "adviceDraftingGroup": null
+  }
+}
