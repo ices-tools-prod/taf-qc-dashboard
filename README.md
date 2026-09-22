@@ -8,25 +8,7 @@
 ![Unknown](https://img.shields.io/badge/unknown-0-orange)
 ![Pass Rate](https://img.shields.io/badge/pass%20rate-17.3%25-red)
 
-## Resources
-
-| Resource | Description |
-|-----------|-------------|
-| [Running qcTAF Locally](docs/running-qcTAF-locally.md) | How to install qcTAF and reproduce checks on your Common qcTAF Issues] |
-| [Fixing common issues with tests](docs/fixing-qcTAF-issues.md) | Common issues with tests. Guide on how to fix.] |
-| [qcTAF Package](https://github.com/ices-tools-prod/qcTAF) | Source code and documentation for s used by this dashboard. |
-| [ICES TAF Organisation](https://github.com/ices-taf) | Stock assessment repositories hosted by ICES. |
-
-## Flowchart
-
-```mermaid
-flowchart LR
-
-A[TAF Repository] --> B[GitHub Actions]
-B --> C[qcTAF Validation]
-C --> D[Metadata JSON]
-D --> E[Dashboard]
-```
+## Flowchart of the system
 
 
 ## Overall status
@@ -785,31 +767,12 @@ Showing up to 5 of 12 failed check types.
 
 ## Data Disclaimer
 
-This dashboard presents the results of automated quality control checks performed against selected repositories hosted within the ICES TAF GitHub organisation.
-
-Results are provided for informational purposes only and reflect repository status at the time the checks were executed.
-
-The presence of a **PASS** or **FAIL** status does not constitute a formal review, endorsement, certification, or approval by ICES.
-
-Users should independently verify repository contents and validation results before relying on them for scientific, operational, management, or decision-making purposes.
-
-The general ICES Data Policy is available at:
+The general ICES Data Disclaimer can be found here:
 
 https://www.ices.dk/data/guidelines-and-policy/Pages/ICES-data-policy.aspx
 
----
+Under the ICES Data Policy (2021), public data are available under the CC BY 4.0 licence and data products are by default publicly available.
 
-## Licensing
+See the full policy on the ICES website.
 
-This repository contains both source code and generated data products.
-
-### Source Code
-
-All source code, workflows, scripts, and dashboard generation logic are licensed under the MIT License.
-
-### Data Products
-
-Dashboard outputs, repository metadata, quality control results, generated datasets, and exported reports are available under the Creative Commons Attribution 4.0 International (CC BY 4.0) licence.
-
-See the `LICENSE` file for details.
-
+_Last generated at 2026-09-22 17:13:56 UTC from 364 valid active metadata files. 0 invalid files were skipped._
