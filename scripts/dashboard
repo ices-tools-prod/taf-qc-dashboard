@@ -5,22 +5,41 @@ set -euo pipefail
 METADATA_DIR="${METADATA_DIR:-metadata}"
 README_FILE="${README_FILE:-README.md}"
 
+# Number of failing repositories shown before the collapsed section.
+ATTENTION_LIMIT="${ATTENTION_LIMIT:-10}"
+
+# Number of common failed checks shown before the collapsed section.
+CHECK_LIMIT="${CHECK_LIMIT:-5}"
+
 TOTAL=0
 PASSED=0
 FAILED=0
 UNKNOWN=0
 INVALID=0
 
-REPORT_ROWS=""
-ATTENTION_ROWS=""
-FAILED_CHECK_ROWS=""
-
 LATEST_FILES_FILE=$(mktemp)
 FAILED_CHECKS_FILE=$(mktemp)
+REPORT_ROWS_FILE=$(mktemp)
+ATTENTION_DATA_FILE=$(mktemp)
+ATTENTION_SORTED_FILE=$(mktemp)
+ATTENTION_PREVIEW_FILE=$(mktemp)
+ATTENTION_ALL_FILE=$(mktemp)
+FAILED_CHECK_ROWS_FILE=$(mktemp)
+FAILED_CHECK_PREVIEW_FILE=$(mktemp)
 OUTPUT_FILE=$(mktemp)
 
 cleanup() {
-  rm -f "$LATEST_FILES_FILE" "$FAILED_CHECKS_FILE" "$OUTPUT_FILE"
+  rm -f \
+    "$LATEST_FILES_FILE" \
+    "$FAILED_CHECKS_FILE" \
+    "$REPORT_ROWS_FILE" \
+    "$ATTENTION_DATA_FILE" \
+    "$ATTENTION_SORTED_FILE" \
+    "$ATTENTION_PREVIEW_FILE" \
+    "$ATTENTION_ALL_FILE" \
+    "$FAILED_CHECK_ROWS_FILE" \
+    "$FAILED_CHECK_PREVIEW_FILE" \
+    "$OUTPUT_FILE"
 }
 
 trap cleanup EXIT
@@ -34,7 +53,7 @@ require_command() {
 
 markdown_escape() {
   printf '%s' "$1" \
-    | tr '\r\n' ' ' \
+    | tr '\r\n\t' '   ' \
     | sed 's/\\/\\\\/g; s/|/\\|/g'
 }
 
@@ -47,24 +66,42 @@ require_command jq
 require_command sort
 require_command awk
 require_command sed
+require_command head
+require_command tail
+require_command uniq
+require_command date
+require_command mkdir
+require_command dirname
+
+if [[ ! "$ATTENTION_LIMIT" =~ ^[0-9]+$ ]]; then
+  printf 'Error: ATTENTION_LIMIT must be a non-negative integer.\n' >&2
+  exit 1
+fi
+
+if [[ ! "$CHECK_LIMIT" =~ ^[0-9]+$ ]]; then
+  printf 'Error: CHECK_LIMIT must be a non-negative integer.\n' >&2
+  exit 1
+fi
 
 if [[ ! -d "$METADATA_DIR" ]]; then
   printf "Error: directory '%s' does not exist.\n" "$METADATA_DIR" >&2
   exit 1
 fi
 
-printf "Scanning '%s' recursively...\n" "$METADATA_DIR"
+README_DIR=$(dirname "$README_FILE")
+mkdir -p "$README_DIR"
 
+printf "Scanning active metadata under '%s'...\n" "$METADATA_DIR"
+
+# Find latest.json recursively, but do not enter archive directories.
 find "$METADATA_DIR" \
-  -path "$METADATA_DIR/archive" -prune -o \
-  -type f \
-  -name 'latest.json' \
-  -print0 \
+  -type d -name archive -prune -o \
+  -type f -name 'latest.json' -print0 \
   | sort -z > "$LATEST_FILES_FILE"
 
-FOUND=$(awk 'BEGIN { RS="\0" } END { print NR }' "$LATEST_FILES_FILE")
+FOUND=$(awk 'BEGIN { RS = "\0" } END { print NR }' "$LATEST_FILES_FILE")
 
-printf 'Found %s latest.json files.\n' "$FOUND"
+printf 'Found %s active latest.json files.\n' "$FOUND"
 
 while IFS= read -r -d '' json; do
   printf 'Processing: %s\n' "$json"
@@ -78,23 +115,28 @@ while IFS= read -r -d '' json; do
   TOTAL=$((TOTAL + 1))
 
   REPOSITORY=$(jq -r '
-    .repository // "unknown-repository" | tostring
+    .repository // "unknown-repository"
+    | tostring
   ' "$json")
 
   TIMESTAMP=$(jq -r '
-    .timestamp // "unknown" | tostring
+    .timestamp // "unknown"
+    | tostring
   ' "$json")
 
   TAF_VERSION=$(jq -r '
-    .taf_version // "unknown" | tostring
+    .taf_version // "unknown"
+    | tostring
   ' "$json")
 
   QCTAF_VERSION=$(jq -r '
-    .qctaf_version // "unknown" | tostring
+    .qctaf_version // "unknown"
+    | tostring
   ' "$json")
 
   GITHUB_SHA=$(jq -r '
-    .github_sha // "unknown" | tostring
+    .github_sha // "unknown"
+    | tostring
   ' "$json")
 
   PASSED_VALUE=$(jq -r '
@@ -130,7 +172,7 @@ while IFS= read -r -d '' json; do
     end
   ' "$json")
 
-  # Each check is counted at most once per repository.
+  # Count each check at most once per repository.
   jq -r '
     if (.failed_checks | type) == "array" then
       [.failed_checks[] | tostring]
@@ -162,39 +204,38 @@ while IFS= read -r -d '' json; do
       FAILED=$((FAILED + 1))
       STATUS="❌ Failed"
 
-      printf -v ATTENTION_ROWS \
-        '%s| %s | %s | %s | %s |\n' \
-        "$ATTENTION_ROWS" \
-        "$REPOSITORY" \
+      # Tab-separated temporary data:
+      # failed count, repository, checks, timestamp.
+      printf '%s\t%s\t%s\t%s\n' \
         "$FAILED_COUNT" \
+        "$REPOSITORY" \
         "$FAILED_CHECKS" \
-        "$TIMESTAMP"
+        "$TIMESTAMP" \
+        >> "$ATTENTION_DATA_FILE"
       ;;
 
     *)
       UNKNOWN=$((UNKNOWN + 1))
       STATUS="⚠️ Unknown"
 
-      printf -v ATTENTION_ROWS \
-        '%s| %s | %s | %s | %s |\n' \
-        "$ATTENTION_ROWS" \
-        "$REPOSITORY" \
+      printf '%s\t%s\t%s\t%s\n' \
         "$FAILED_COUNT" \
-        "Missing or invalid \`passed\` status" \
-        "$TIMESTAMP"
+        "$REPOSITORY" \
+        'Missing or invalid `passed` status' \
+        "$TIMESTAMP" \
+        >> "$ATTENTION_DATA_FILE"
       ;;
   esac
 
-  printf -v REPORT_ROWS \
-    '%s| %s | %s | %s | %s | %s | %s | `%s` |\n' \
-    "$REPORT_ROWS" \
+  printf '| %s | %s | %s | %s | %s | %s | `%s` |\n' \
     "$STATUS" \
     "$REPOSITORY" \
     "$FAILED_COUNT" \
     "$TAF_VERSION" \
     "$QCTAF_VERSION" \
     "$TIMESTAMP" \
-    "$SHORT_SHA"
+    "$SHORT_SHA" \
+    >> "$REPORT_ROWS_FILE"
 
 done < "$LATEST_FILES_FILE"
 
@@ -232,6 +273,10 @@ if ((FILLED > PROGRESS_WIDTH)); then
   FILLED=$PROGRESS_WIDTH
 fi
 
+if ((FILLED < 0)); then
+  FILLED=0
+fi
+
 EMPTY=$((PROGRESS_WIDTH - FILLED))
 
 printf -v PROGRESS_BAR '%*s' "$FILLED" ''
@@ -240,96 +285,44 @@ PROGRESS_BAR=${PROGRESS_BAR// /█}
 printf -v EMPTY_BAR '%*s' "$EMPTY" ''
 PROGRESS_BAR+=${EMPTY_BAR// /░}
 
-if [[ -s "$FAILED_CHECKS_FILE" ]]; then
-  while read -r count check; do
-    [[ -n "${check:-}" ]] || continue
+#
+# Build the attention tables.
+#
 
-    check=$(markdown_escape "$check")
+if [[ -s "$ATTENTION_DATA_FILE" ]]; then
+  # Sort numerically by failed-check count, highest first.
+  sort -t $'\t' -k1,1nr -k2,2 "$ATTENTION_DATA_FILE" \
+    > "$ATTENTION_SORTED_FILE"
 
-    printf -v FAILED_CHECK_ROWS \
-      '%s| `%s` | %s |\n' \
-      "$FAILED_CHECK_ROWS" \
-      "$check" \
-      "$count"
+  while IFS=$'\t' read -r count repository checks timestamp; do
+    [[ -n "${repository:-}" ]] || continue
 
-  done < <(
-    LC_ALL=C sort "$FAILED_CHECKS_FILE" \
-      | uniq -c \
-      | sort -k1,1nr -k2,2 \
-      | sed -E 's/^[[:space:]]+//'
-  )
+    # Compact preview without the long details column.
+    printf '| %s | %s | %s |\n' \
+      "$repository" \
+      "$count" \
+      "$timestamp" \
+      >> "$ATTENTION_PREVIEW_FILE"
+
+    # Complete hidden table with check details.
+    printf '| %s | %s | %s | %s |\n' \
+      "$repository" \
+      "$count" \
+      "$checks" \
+      "$timestamp" \
+      >> "$ATTENTION_ALL_FILE"
+
+  done < "$ATTENTION_SORTED_FILE"
 fi
 
-if [[ -z "$REPORT_ROWS" ]]; then
-  REPORT_ROWS=$'| ℹ️ No data | No valid repositories found | 0 | unknown | unknown | unknown | `unknown` |\n'
+if [[ ! -s "$ATTENTION_PREVIEW_FILE" ]]; then
+  printf '| 🎉 None | 0 | N/A |\n' > "$ATTENTION_PREVIEW_FILE"
+else
+  head -n "$ATTENTION_LIMIT" \
+    "$ATTENTION_PREVIEW_FILE" \
+    > "${ATTENTION_PREVIEW_FILE}.limited"
+
+  mv "${ATTENTION_PREVIEW_FILE}.limited" "$ATTENTION_PREVIEW_FILE"
 fi
 
-if [[ -z "$ATTENTION_ROWS" ]]; then
-  ATTENTION_ROWS=$'| 🎉 None | 0 | No repositories require attention | N/A |\n'
-fi
-
-if [[ -z "$FAILED_CHECK_ROWS" ]]; then
-  FAILED_CHECK_ROWS=$'| None | 0 |\n'
-fi
-
-GENERATED_AT=$(date -u '+%Y-%m-%d %H:%M:%S UTC')
-
-cat > "$OUTPUT_FILE" <<EOF
-# TAF QC Dashboard
-
-> Automatically generated from every \`latest.json\` file found recursively under \`${METADATA_DIR}/\`.
-
-![Repositories](https://img.shields.io/badge/repositories-${TOTAL}-blue)
-![Passed](https://img.shields.io/badge/passed-${PASSED}-brightgreen)
-![Failed](https://img.shields.io/badge/failed-${FAILED}-red)
-![Unkown](https://img.shields.io/badge/unknown-${UNKNOWN}-orange)
-![Pass rate](https://img.shields.io/badge/pass%20rate-${PASS_RATE}%25-${PASS_RATE_COLOR})
-
-## Overall status
-
-### ${PASS_RATE}% passing
-
-\`${PROGRESS_BAR}\`
-
-**${PASSED} of ${TOTAL} repositories passed QC validation.**
-
-| 📦 Processed repositories | ✅ Passed | ❌ Failed | ⚠️ Unknown | 🛑 Invalid metadata |
-|------------------:|----------:|----------:|-----------:|--------------------:|
-| **${TOTAL}** | **${PASSED}** | **${FAILED}** | **${UNKNOWN}** | **${INVALID}** |
-
-## Repositories requiring attention
-
-| Repository | Failed checks | Details | Last validation |
-|:-----------|--------------:|:--------|:----------------|
-${ATTENTION_ROWS}
-## Most common failed checks
-
-| QC check | Affected repositories |
-|:---------|----------------------:|
-${FAILED_CHECK_ROWS}
-<details>
-<summary><strong>View all ${TOTAL} repository results</strong></summary>
-
-<br>
-
-| Status | Repository | Failed checks | TAF | qcTAF | Last validation | Commit |
-|:-------|:-----------|--------------:|:----|:------|:----------------|:-------|
-${REPORT_ROWS}
-</details>
-
----
-
-_Last generated at ${GENERATED_AT} from ${TOTAL} valid metadata files. ${INVALID} invalid files were skipped._
-EOF
-
-# Replace README only after the complete dashboard has been generated.
-mv "$OUTPUT_FILE" "$README_FILE"
-
-printf '\nDashboard written to %s\n' "$README_FILE"
-printf 'Discovered: %s\n' "$FOUND"
-printf 'Valid metadata: %s\n' "$TOTAL"
-printf 'Passed: %s\n' "$PASSED"
-printf 'Failed: %s\n' "$FAILED"
-printf 'Unknown: %s\n' "$UNKNOWN"
-printf 'Invalid metadata: %s\n' "$INVALID"
-printf 'Pass rate: %s%%\n' "$PASS_RATE"
+if [[ ! -s "$ATTENTION_ALL_FILE
