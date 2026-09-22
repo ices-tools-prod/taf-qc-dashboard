@@ -394,11 +394,12 @@ cat > "$OUTPUT_FILE" <<EOF
 
 > Automatically generated from active repository metadata under \`${METADATA_DIR}/\`. Archived metadata is excluded.
 
-https://img.shields.io/badge/repositories-${TOTAL}-blue
-https://img.shields.io/badge/passed-${PASSED}-brightgreen
-https://img.shields.io/badge/failed-${FAILED}-red
-https://img.shields.io/badge/unknown-${UNKNOWN}-orange
-https://img.shields.io/badge/pass%20rate-${PASS_RATE}%25-${PASS_RATE_COLOR}
+![Repositories](https://img.shields.io/badge/Total_repositories-364-blue)
+![Passed](https://img.shields.io/badge/passed-63-brightgreen)
+![Failed](https://img.shields.io/badge/failed-301-red)
+![Unknown](https://img.shields.io/badge/unknown-0-orange)
+![Pass Rate](https://img.shields.io/badge/pass%20rate-17.3%25-red)
+
 
 ## Overall status
 
