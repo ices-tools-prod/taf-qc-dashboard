@@ -2,11 +2,11 @@
 
 > Automatically generated from active repository metadata under `metadata/`. Archived metadata is excluded.
 
-https://img.shields.io/badge/repositories-364-blue
-https://img.shields.io/badge/passed-63-brightgreen
-https://img.shields.io/badge/failed-301-red
-https://img.shields.io/badge/unknown-0-orange
-https://img.shields.io/badge/pass%20rate-17.3%25-red
+![Repositories](https://img.shields.io/badge/Total_repositories-364-blue)
+![Passed](https://img.shields.io/badge/passed-63-brightgreen)
+![Failed](https://img.shields.io/badge/failed-301-red)
+![Unknown](https://img.shields.io/badge/unknown-0-orange)
+![Pass Rate](https://img.shields.io/badge/pass%20rate-17.3%25-red)
 
 ## Overall status
 
