@@ -325,4 +325,181 @@ else
   mv "${ATTENTION_PREVIEW_FILE}.limited" "$ATTENTION_PREVIEW_FILE"
 fi
 
-if [[ ! -s "$ATTENTION_ALL_FILE
+if [[ ! -s "$ATTENTION_ALL_FILE" ]]; then
+  printf '| 🎉 None | 0 | No repositories require attention | N/A |\n' \
+    > "$ATTENTION_ALL_FILE"
+fi
+
+#
+# Build failed-check frequency tables.
+#
+
+if [[ -s "$FAILED_CHECKS_FILE" ]]; then
+  while read -r count check; do
+    [[ -n "${check:-}" ]] || continue
+
+    check=$(markdown_escape "$check")
+
+    printf '| `%s` | %s |\n' \
+      "$check" \
+      "$count" \
+      >> "$FAILED_CHECK_ROWS_FILE"
+
+  done < <(
+    LC_ALL=C sort "$FAILED_CHECKS_FILE" \
+      | uniq -c \
+      | sort -k1,1nr -k2,2 \
+      | sed -E 's/^[[:space:]]+//'
+  )
+fi
+
+if [[ ! -s "$FAILED_CHECK_ROWS_FILE" ]]; then
+  printf '| None | 0 |\n' > "$FAILED_CHECK_ROWS_FILE"
+fi
+
+head -n "$CHECK_LIMIT" \
+  "$FAILED_CHECK_ROWS_FILE" \
+  > "$FAILED_CHECK_PREVIEW_FILE"
+
+if [[ ! -s "$REPORT_ROWS_FILE" ]]; then
+  printf '| ℹ️ No data | No valid repositories found | 0 | unknown | unknown | unknown | `unknown` |\n' \
+    > "$REPORT_ROWS_FILE"
+fi
+
+ATTENTION_TOTAL=$((FAILED + UNKNOWN))
+ATTENTION_PREVIEW_COUNT=$ATTENTION_TOTAL
+
+if ((ATTENTION_PREVIEW_COUNT > ATTENTION_LIMIT)); then
+  ATTENTION_PREVIEW_COUNT=$ATTENTION_LIMIT
+fi
+
+FAILED_CHECK_TYPE_COUNT=$(wc -l < "$FAILED_CHECK_ROWS_FILE")
+FAILED_CHECK_TYPE_COUNT=${FAILED_CHECK_TYPE_COUNT//[[:space:]]/}
+
+if ((FAILED_CHECK_TYPE_COUNT == 1)) &&
+   grep -q '^| None | 0 |$' "$FAILED_CHECK_ROWS_FILE"; then
+  FAILED_CHECK_TYPE_COUNT=0
+fi
+
+CHECK_PREVIEW_COUNT=$FAILED_CHECK_TYPE_COUNT
+
+if ((CHECK_PREVIEW_COUNT > CHECK_LIMIT)); then
+  CHECK_PREVIEW_COUNT=$CHECK_LIMIT
+fi
+
+GENERATED_AT=$(date -u '+%Y-%m-%d %H:%M:%S UTC')
+
+cat > "$OUTPUT_FILE" <<EOF
+# TAF QC Dashboard
+
+> Automatically generated from active repository metadata under \`${METADATA_DIR}/\`. Archived metadata is excluded.
+
+https://img.shields.io/badge/repositories-${TOTAL}-blue
+https://img.shields.io/badge/passed-${PASSED}-brightgreen
+https://img.shields.io/badge/failed-${FAILED}-red
+https://img.shields.io/badge/unknown-${UNKNOWN}-orange
+https://img.shields.io/badge/pass%20rate-${PASS_RATE}%25-${PASS_RATE_COLOR}
+
+## Overall status
+
+### ${PASS_RATE}% passing
+
+\`${PROGRESS_BAR}\`
+
+**${PASSED} of ${TOTAL} repositories passed QC validation.**
+
+| 📦 Processed repositories | ✅ Passed | ❌ Failed | ⚠️ Unknown | 🛑 Invalid metadata |
+|--------------------------:|----------:|----------:|-----------:|--------------------:|
+| **${TOTAL}** | **${PASSED}** | **${FAILED}** | **${UNKNOWN}** | **${INVALID}** |
+
+## Repositories requiring attention
+
+**${ATTENTION_TOTAL} repositories currently require attention.**
+
+Showing up to ${ATTENTION_PREVIEW_COUNT} repositories, ordered by number of failed checks.
+
+| Repository | Failed checks | Last validation |
+|:-----------|--------------:|:----------------|
+EOF
+
+cat "$ATTENTION_PREVIEW_FILE" >> "$OUTPUT_FILE"
+
+cat >> "$OUTPUT_FILE" <<EOF
+
+<details>
+<summary><strong>View all ${ATTENTION_TOTAL} repositories requiring attention</strong></summary>
+
+<br>
+
+| Repository | Failed checks | Details | Last validation |
+|:-----------|--------------:|:--------|:----------------|
+EOF
+
+cat "$ATTENTION_ALL_FILE" >> "$OUTPUT_FILE"
+
+cat >> "$OUTPUT_FILE" <<EOF
+
+</details>
+
+## Most common failed checks
+
+Showing up to ${CHECK_PREVIEW_COUNT} of ${FAILED_CHECK_TYPE_COUNT} failed check types.
+
+| QC check | Affected repositories |
+|:---------|----------------------:|
+EOF
+
+cat "$FAILED_CHECK_PREVIEW_FILE" >> "$OUTPUT_FILE"
+
+cat >> "$OUTPUT_FILE" <<EOF
+
+<details>
+<summary><strong>View all ${FAILED_CHECK_TYPE_COUNT} failed check types</strong></summary>
+
+<br>
+
+| QC check | Affected repositories |
+|:---------|----------------------:|
+EOF
+
+cat "$FAILED_CHECK_ROWS_FILE" >> "$OUTPUT_FILE"
+
+cat >> "$OUTPUT_FILE" <<EOF
+
+</details>
+
+## Complete repository results
+
+<details>
+<summary><strong>View all ${TOTAL} repository results</strong></summary>
+
+<br>
+
+| Status | Repository | Failed checks | TAF | qcTAF | Last validation | Commit |
+|:-------|:-----------|--------------:|:----|:------|:----------------|:-------|
+EOF
+
+cat "$REPORT_ROWS_FILE" >> "$OUTPUT_FILE"
+
+cat >> "$OUTPUT_FILE" <<EOF
+
+</details>
+
+---
+
+_Last generated at ${GENERATED_AT} from ${TOTAL} valid active metadata files. ${INVALID} invalid files were skipped._
+EOF
+
+# Replace README only after the complete dashboard has been generated.
+mv "$OUTPUT_FILE" "$README_FILE"
+
+printf '\nDashboard written to %s\n' "$README_FILE"
+printf 'Discovered active metadata files: %s\n' "$FOUND"
+printf 'Valid metadata: %s\n' "$TOTAL"
+printf 'Passed: %s\n' "$PASSED"
+printf 'Failed: %s\n' "$FAILED"
+printf 'Unknown: %s\n' "$UNKNOWN"
+printf 'Invalid metadata: %s\n' "$INVALID"
+printf 'Pass rate: %s%%\n' "$PASS_RATE"
+printf 'Attention preview limit: %s\n' "$ATTENTION_LIMIT"
+printf 'Failed-check preview limit: %s\n' "$CHECK_LIMIT"
