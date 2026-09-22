@@ -8,6 +8,15 @@
 ![Unknown](https://img.shields.io/badge/unknown-0-orange)
 ![Pass Rate](https://img.shields.io/badge/pass%20rate-17.3%25-red)
 
+## Resources
+
+| Resource | Description |
+|-----------|-------------|
+| [Running qcTAF Locally](docs/running-qcTAF-locally.md) | How to install qcTAF and reproduce checks on your Common qcTAF Issues](docs/fixing-qcTAF-issuesommon FAIL and NOTE findings. |
+| [qcTAF Package](https://github.com/ices-tools-prod/qcTAF) | Source code and documentation for s used by this dashboard. |
+| [ICES TAF Organisation](https://github.com/ices-taf) | Stock assessment repositories hosted by ICES. |
+
+## Flowchart
 
 ```mermaid
 flowchart LR
