@@ -394,24 +394,24 @@ cat > "$OUTPUT_FILE" <<EOF
 
 > Automatically generated from active repository metadata under \`${METADATA_DIR}/\`. Archived metadata is excluded.
 
-![Repositories](https://img.shields.io/badge/Total_repositories-364-blue)
-![Passed](https://img.shields.io/badge/passed-63-brightgreen)
-![Failed](https://img.shields.io/badge/failed-301-red)
-![Unknown](https://img.shields.io/badge/unknown-0-orange)
-![Pass Rate](https://img.shields.io/badge/pass%20rate-17.3%25-red)
+![Repositories](https://img.shields.io/badge/Total_repositories-${TOTAL}-blue)
+![Passed](https://img.shields.io/badge/passed-${PASSED}-brightgreen)
+![Failed](https://img.shields.io/badge/failed-${FAILED}-red)
+![Unknown](https://img.shields.io/badge/unknown-${UNKNOWN}-orange)
+![Pass Rate](https://img.shields.io/badge/pass%20rate-${PASS_RATE}%25-${PASS_RATE_COLOR})
 
 # TAF Documentation
 To see how to run these tests locally see [this documentation](docs/running-qcTAF-locally.md)
 To see how to interpret qcTAF test results you can view [this documentation](docs/fixing-qcTAF-issues.md)
 
 ## Flowchart of the system
-```mermaid
+\`\`\`mermaid
 flowchart LR
     A[TAF Repository] --> B[GitHub Actions]
     B --> C[qcTAF Validation]
     C --> D[Metadata JSON]
     D --> E[Dashboard]
-```
+\`\`\`
 
 ## Overall status
 
