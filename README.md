@@ -8,6 +8,10 @@
 ![Unknown](https://img.shields.io/badge/unknown-0-orange)
 ![Pass Rate](https://img.shields.io/badge/pass%20rate-17.3%25-red)
 
+# TAF Documentation
+To see how to run these tests locally see [this documentation](docs/running-qcTAF-locally.md)
+To see how to interpret qcTAF test results you can view [this documentation](docs/fixing-qcTAF-issues.md)
+
 ## Flowchart of the system
 
 
@@ -775,4 +779,4 @@ Under the ICES Data Policy (2021), public data are available under the CC BY 4.0
 
 See the full policy on the ICES website.
 
-_Last generated at 2026-09-28 11:57:12 UTC from 364 valid active metadata files. 0 invalid files were skipped._
+_Last generated at 2026-09-28 12:08:23 UTC from 364 valid active metadata files. 0 invalid files were skipped._
