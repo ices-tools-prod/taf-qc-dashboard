@@ -785,4 +785,4 @@ Under the ICES Data Policy (2021), public data are available under the CC BY 4.0
 
 See the full policy on the ICES website.
 
-_Last generated at 2026-10-07 00:59:36 UTC from 364 valid active metadata files. 0 invalid files were skipped._
+_Last generated at 2026-10-07 07:08:38 UTC from 364 valid active metadata files. 0 invalid files were skipped._
