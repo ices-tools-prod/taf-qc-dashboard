@@ -1,8 +1,8 @@
 name: Create Master Json for Front End Consumption
 
 on:
-  schedule:
-  - cron: "7 * * * *"
+#  schedule:
+#  - cron: "7 * * * *"
 
   workflow_dispatch:
 
