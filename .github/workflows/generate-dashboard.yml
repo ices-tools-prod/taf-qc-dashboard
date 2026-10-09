@@ -1,9 +1,9 @@
 name: Generate QC Dashboard
 
 on:
-  schedule:
+#  schedule:
     # Kører hver halve time, på minut 7 og 37.
-    - cron: "7,37 * * * *"
+#    - cron: "7,37 * * * *"
 
   # Gør det muligt at teste workflowet manuelt.
   workflow_dispatch:
