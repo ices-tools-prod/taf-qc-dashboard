@@ -13,12 +13,15 @@ CHECK_LIMIT="${CHECK_LIMIT:-5}"
 
 TOTAL=0
 PASSED=0
+PASSED_CLEAN=0
+PASSED_OPTIONAL=0
 FAILED=0
 UNKNOWN=0
 INVALID=0
 
 LATEST_FILES_FILE=$(mktemp)
 FAILED_CHECKS_FILE=$(mktemp)
+OPTIONAL_CHECKS_FILE=$(mktemp)
 REPORT_ROWS_FILE=$(mktemp)
 ATTENTION_DATA_FILE=$(mktemp)
 ATTENTION_SORTED_FILE=$(mktemp)
@@ -26,12 +29,15 @@ ATTENTION_PREVIEW_FILE=$(mktemp)
 ATTENTION_ALL_FILE=$(mktemp)
 FAILED_CHECK_ROWS_FILE=$(mktemp)
 FAILED_CHECK_PREVIEW_FILE=$(mktemp)
+OPTIONAL_CHECK_ROWS_FILE=$(mktemp)
+OPTIONAL_CHECK_PREVIEW_FILE=$(mktemp)
 OUTPUT_FILE=$(mktemp)
 
 cleanup() {
   rm -f \
     "$LATEST_FILES_FILE" \
     "$FAILED_CHECKS_FILE" \
+    "$OPTIONAL_CHECKS_FILE" \
     "$REPORT_ROWS_FILE" \
     "$ATTENTION_DATA_FILE" \
     "$ATTENTION_SORTED_FILE" \
@@ -39,6 +45,8 @@ cleanup() {
     "$ATTENTION_ALL_FILE" \
     "$FAILED_CHECK_ROWS_FILE" \
     "$FAILED_CHECK_PREVIEW_FILE" \
+    "$OPTIONAL_CHECK_ROWS_FILE" \
+    "$OPTIONAL_CHECK_PREVIEW_FILE" \
     "$OUTPUT_FILE"
 }
 
@@ -154,6 +162,8 @@ while IFS= read -r -d '' json; do
       [.failed_checks[] | tostring]
       | unique
       | length
+    elif (.failed_checks | type) == "string" and (.failed_checks | length) > 0 then
+      1
     else
       0
     end
@@ -167,6 +177,35 @@ while IFS= read -r -d '' json; do
       | unique
       | map("`" + gsub("`"; "") + "`")
       | join("<br>")
+    elif (.failed_checks | type) == "string" and (.failed_checks | length) > 0 then
+      "`" + (.failed_checks | gsub("`"; "")) + "`"
+    else
+      "None"
+    end
+  ' "$json")
+
+  WARNING_COUNT=$(jq '
+    if (.warning_checks | type) == "array" then
+      [.warning_checks[] | tostring]
+      | unique
+      | length
+    elif (.warning_checks | type) == "string" and (.warning_checks | length) > 0 then
+      1
+    else
+      0
+    end
+  ' "$json")
+
+  WARNING_CHECKS=$(jq -r '
+    if (.warning_checks | type) == "array"
+       and (.warning_checks | length) > 0
+    then
+      [.warning_checks[] | tostring]
+      | unique
+      | map("`" + gsub("`"; "") + "`")
+      | join("<br>")
+    elif (.warning_checks | type) == "string" and (.warning_checks | length) > 0 then
+      "`" + (.warning_checks | gsub("`"; "")) + "`"
     else
       "None"
     end
@@ -177,10 +216,23 @@ while IFS= read -r -d '' json; do
     if (.failed_checks | type) == "array" then
       [.failed_checks[] | tostring]
       | unique[]
+    elif (.failed_checks | type) == "string" and (.failed_checks | length) > 0 then
+      .failed_checks
     else
       empty
     end
   ' "$json" >> "$FAILED_CHECKS_FILE"
+
+  jq -r '
+    if (.warning_checks | type) == "array" then
+      [.warning_checks[] | tostring]
+      | unique[]
+    elif (.warning_checks | type) == "string" and (.warning_checks | length) > 0 then
+      .warning_checks
+    else
+      empty
+    end
+  ' "$json" >> "$OPTIONAL_CHECKS_FILE"
 
   REPOSITORY=$(markdown_escape "$REPOSITORY")
   TIMESTAMP=$(markdown_escape "$TIMESTAMP")
@@ -197,7 +249,13 @@ while IFS= read -r -d '' json; do
   case "$PASSED_VALUE" in
     true)
       PASSED=$((PASSED + 1))
-      STATUS="✅ Passed"
+      if ((WARNING_COUNT > 0)); then
+        PASSED_OPTIONAL=$((PASSED_OPTIONAL + 1))
+        STATUS="⚠️ Optional"
+      else
+        PASSED_CLEAN=$((PASSED_CLEAN + 1))
+        STATUS="✅ Passed"
+      fi
       ;;
 
     false)
@@ -227,10 +285,11 @@ while IFS= read -r -d '' json; do
       ;;
   esac
 
-  printf '| %s | %s | %s | %s | %s | %s | `%s` |\n' \
+  printf '| %s | %s | %s | %s | %s | %s | %s | `%s` |\n' \
     "$STATUS" \
     "$REPOSITORY" \
     "$FAILED_COUNT" \
+    "$WARNING_COUNT" \
     "$TAF_VERSION" \
     "$QCTAF_VERSION" \
     "$TIMESTAMP" \
@@ -361,8 +420,39 @@ head -n "$CHECK_LIMIT" \
   "$FAILED_CHECK_ROWS_FILE" \
   > "$FAILED_CHECK_PREVIEW_FILE"
 
+#
+# Build optional-check frequency tables.
+#
+
+if [[ -s "$OPTIONAL_CHECKS_FILE" ]]; then
+  while read -r count check; do
+    [[ -n "${check:-}" ]] || continue
+
+    check=$(markdown_escape "$check")
+
+    printf '| `%s` | %s |\n' \
+      "$check" \
+      "$count" \
+      >> "$OPTIONAL_CHECK_ROWS_FILE"
+
+  done < <(
+    LC_ALL=C sort "$OPTIONAL_CHECKS_FILE" \
+      | uniq -c \
+      | sort -k1,1nr -k2,2 \
+      | sed -E 's/^[[:space:]]+//'
+  )
+fi
+
+if [[ ! -s "$OPTIONAL_CHECK_ROWS_FILE" ]]; then
+  printf '| None | 0 |\n' > "$OPTIONAL_CHECK_ROWS_FILE"
+fi
+
+head -n "$CHECK_LIMIT" \
+  "$OPTIONAL_CHECK_ROWS_FILE" \
+  > "$OPTIONAL_CHECK_PREVIEW_FILE"
+
 if [[ ! -s "$REPORT_ROWS_FILE" ]]; then
-  printf '| ℹ️ No data | No valid repositories found | 0 | unknown | unknown | unknown | `unknown` |\n' \
+  printf '| ℹ️ No data | No valid repositories found | 0 | 0 | unknown | unknown | unknown | `unknown` |\n' \
     > "$REPORT_ROWS_FILE"
 fi
 
@@ -387,6 +477,20 @@ if ((CHECK_PREVIEW_COUNT > CHECK_LIMIT)); then
   CHECK_PREVIEW_COUNT=$CHECK_LIMIT
 fi
 
+OPTIONAL_CHECK_TYPE_COUNT=$(wc -l < "$OPTIONAL_CHECK_ROWS_FILE")
+OPTIONAL_CHECK_TYPE_COUNT=${OPTIONAL_CHECK_TYPE_COUNT//[[:space:]]/}
+
+if ((OPTIONAL_CHECK_TYPE_COUNT == 1)) &&
+   grep -q '^| None | 0 |$' "$OPTIONAL_CHECK_ROWS_FILE"; then
+  OPTIONAL_CHECK_TYPE_COUNT=0
+fi
+
+OPTIONAL_PREVIEW_COUNT=$OPTIONAL_CHECK_TYPE_COUNT
+
+if ((OPTIONAL_PREVIEW_COUNT > CHECK_LIMIT)); then
+  OPTIONAL_PREVIEW_COUNT=$CHECK_LIMIT
+fi
+
 GENERATED_AT=$(date -u '+%Y-%m-%d %H:%M:%S UTC')
 
 cat > "$OUTPUT_FILE" <<EOF
@@ -396,22 +500,35 @@ cat > "$OUTPUT_FILE" <<EOF
 
 ![Repositories](https://img.shields.io/badge/Total_repositories-${TOTAL}-blue)
 ![Passed](https://img.shields.io/badge/passed-${PASSED}-brightgreen)
+![Optional Flags](https://img.shields.io/badge/optional%20flags-${PASSED_OPTIONAL}-yellow)
 ![Failed](https://img.shields.io/badge/failed-${FAILED}-red)
 ![Unknown](https://img.shields.io/badge/unknown-${UNKNOWN}-orange)
 ![Pass Rate](https://img.shields.io/badge/pass%20rate-${PASS_RATE}%25-${PASS_RATE_COLOR})
 
-# TAF Documentation
-To see how to run these tests locally see [this documentation](docs/running-qcTAF-locally.md)
-To see how to interpret qcTAF test results you can view [this documentation](docs/fixing-qcTAF-issues.md)
+## Resources
+
+| Resource | Description |
+|-----------|-------------|
+| [Running qcTAF Locally](docs/running-qcTAF-locally.md) | How to install qcTAF and reproduce checks on your computer. |
+| [Fixing common issues with tests](docs/fixing-qcTAF-issues.md) | Guide on common test findings and how to fix them. |
+| [qcTAF Package](https://github.com/ices-tools-prod/qcTAF) | Source code and documentation for checks used by this dashboard. |
+| [ICES TAF Organisation](https://github.com/ices-taf) | Stock assessment repositories hosted by ICES. |
+EOF
+
+cat >> "$OUTPUT_FILE" <<'EOF'
 
 ## Flowchart of the system
-\`\`\`mermaid
+```mermaid
 flowchart LR
-    A[TAF Repository] --> B[GitHub Actions]
-    B --> C[qcTAF Validation]
-    C --> D[Metadata JSON]
-    D --> E[Dashboard]
-\`\`\`
+
+A[TAF Repository] --> B[GitHub Actions]
+B --> C[qcTAF Validation]
+C --> D[Metadata JSON]
+D --> E[Dashboard]
+```
+EOF
+
+cat >> "$OUTPUT_FILE" <<EOF
 
 ## Overall status
 
@@ -419,11 +536,11 @@ flowchart LR
 
 \`${PROGRESS_BAR}\`
 
-**${PASSED} of ${TOTAL} repositories passed QC validation.**
+**${PASSED} of ${TOTAL} repositories passed QC validation** (${PASSED_CLEAN} clean, ${PASSED_OPTIONAL} with optional checks flagged).
 
-| 📦 Processed repositories | ✅ Passed | ❌ Failed | ⚠️ Unknown | 🛑 Invalid metadata |
-|--------------------------:|----------:|----------:|-----------:|--------------------:|
-| **${TOTAL}** | **${PASSED}** | **${FAILED}** | **${UNKNOWN}** | **${INVALID}** |
+| 📦 Processed repositories | ✅ Clean Pass | ⚠️ Passed (Optional Flags) | ❌ Failed | ⚠️ Unknown | 🛑 Invalid metadata |
+|--------------------------:|--------------:|---------------------------:|----------:|-----------:|--------------------:|
+| **${TOTAL}** | **${PASSED_CLEAN}** | **${PASSED_OPTIONAL}** | **${FAILED}** | **${UNKNOWN}** | **${INVALID}** |
 
 ## Repositories requiring attention
 
@@ -481,6 +598,33 @@ cat >> "$OUTPUT_FILE" <<EOF
 
 </details>
 
+## Most common optional checks flagged
+
+Showing up to ${OPTIONAL_PREVIEW_COUNT} of ${OPTIONAL_CHECK_TYPE_COUNT} optional check types.
+
+| QC check | Affected repositories |
+|:---------|----------------------:|
+EOF
+
+cat "$OPTIONAL_CHECK_PREVIEW_FILE" >> "$OUTPUT_FILE"
+
+cat >> "$OUTPUT_FILE" <<EOF
+
+<details>
+<summary><strong>View all ${OPTIONAL_CHECK_TYPE_COUNT} optional check types</strong></summary>
+
+<br>
+
+| QC check | Affected repositories |
+|:---------|----------------------:|
+EOF
+
+cat "$OPTIONAL_CHECK_ROWS_FILE" >> "$OUTPUT_FILE"
+
+cat >> "$OUTPUT_FILE" <<EOF
+
+</details>
+
 ## Complete repository results
 
 <details>
@@ -488,8 +632,8 @@ cat >> "$OUTPUT_FILE" <<EOF
 
 <br>
 
-| Status | Repository | Failed checks | TAF | qcTAF | Last validation | Commit |
-|:-------|:-----------|--------------:|:----|:------|:----------------|:-------|
+| Status | Repository | Failed checks | Optional checks | TAF | qcTAF | Last validation | Commit |
+|:-------|:-----------|--------------:|----------------:|:----|:------|:----------------|:-------|
 EOF
 
 cat "$REPORT_ROWS_FILE" >> "$OUTPUT_FILE"

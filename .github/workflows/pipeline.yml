@@ -413,13 +413,41 @@ jobs:
               ' "$JSON_FILE"
             )
 
+            WARNING_COUNT=$(
+              jq '
+                if (.warning_checks | type) == "array" then
+                  [.warning_checks[] | tostring] | unique | length
+                elif (.warning_checks | type) == "string" and (.warning_checks | length) > 0 then
+                  1
+                else
+                  0
+                end
+              ' "$JSON_FILE"
+            )
+
+            FAILED_COUNT=$(
+              jq '
+                if (.failed_checks | type) == "array" then
+                  [.failed_checks[] | tostring] | unique | length
+                elif (.failed_checks | type) == "string" and (.failed_checks | length) > 0 then
+                  1
+                else
+                  0
+                end
+              ' "$JSON_FILE"
+            )
+
             case "$PASSED" in
               true)
-                SUMMARY_STATUS="✅ Passed"
+                if ((WARNING_COUNT > 0)); then
+                  SUMMARY_STATUS="✅ Passed (⚠️ $WARNING_COUNT optional flagged)"
+                else
+                  SUMMARY_STATUS="✅ Passed"
+                fi
                 ;;
 
               false)
-                SUMMARY_STATUS="❌ Failed"
+                SUMMARY_STATUS="❌ Failed ($FAILED_COUNT failed)"
                 ;;
 
               *)
@@ -434,6 +462,14 @@ jobs:
               echo "- Commit: \`${GITHUB_SHA:0:7}\`"
               echo "- QC hash: \`$QC_HASH\`"
               echo "- Validator exit code: \`$VALIDATOR_EXIT_CODE\`"
+              if ((FAILED_COUNT > 0)); then
+                FAILED_LIST=$(jq -r 'if (.failed_checks | type) == "array" then .failed_checks | join(", ") else (.failed_checks // "") end' "$JSON_FILE")
+                echo "- Failed checks: \`$FAILED_LIST\`"
+              fi
+              if ((WARNING_COUNT > 0)); then
+                WARNING_LIST=$(jq -r 'if (.warning_checks | type) == "array" then .warning_checks | join(", ") else (.warning_checks // "") end' "$JSON_FILE")
+                echo "- Optional checks: \`$WARNING_LIST\`"
+              fi
               echo
             } >> "$GITHUB_STEP_SUMMARY"
 
