@@ -1,13 +1,15 @@
 {
   "repository": "ices-taf_2024_her.27.irls_assessment",
-  "timestamp": "2026-10-09T08:51:42",
+  "timestamp": "2026-10-27T09:26:14",
   "taf_version": "4.4.0",
   "qctaf_version": "2026.5.23",
   "qc_hash": "ee203dfabc838ffff9c7ddf3c8214d85c8244c8423d70127a94e949c3d2e9f4e",
   "github_sha": "22e4701e8eb87a29c65c27fa5763818d0dea99e0",
+  "github_run_id": "40473267151",
   "isPrivate": "true",
   "updatedAt": "2024-03-20T17:18:52Z",
-  "failed_checks": ["qc.data.declared", "qc.software.declared"],
+  "failed_checks": "qc.data.declared",
+  "warning_checks": ["qc.data.bib.processed", "qc.software.bib.processed", "qc.software.declared"],
   "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.software.bib.exists", "qc.software.bib.valid", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
   "passed": false
 }

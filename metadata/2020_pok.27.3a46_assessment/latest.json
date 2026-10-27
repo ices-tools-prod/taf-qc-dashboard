@@ -1,13 +1,15 @@
 {
   "repository": "ices-taf_2020_pok.27.3a46_assessment",
-  "timestamp": "2026-10-09T08:50:48",
+  "timestamp": "2026-10-27T09:25:03",
   "taf_version": "4.4.0",
   "qctaf_version": "2026.5.23",
   "qc_hash": "ae6feb80eb3d1eda1cd04fc17295c53cf8dea6c3f1e6e1a8642e8667c4faa407",
   "github_sha": "b2ab91976c1f8c0f7c98acb39ec7c03e598fdb0a",
+  "github_run_id": "40473267151",
   "isPrivate": "true",
   "updatedAt": "2021-03-15T10:08:19Z",
   "failed_checks": [],
+  "warning_checks": ["qc.data.bib.processed", "qc.software.bib.processed"],
   "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
   "passed": true
 }
