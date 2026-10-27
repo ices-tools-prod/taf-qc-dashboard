@@ -1,0 +1,15 @@
+{
+  "repository": "ices-taf_seafloor_threshold_methods",
+  "timestamp": "2026-10-27T11:04:59",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "github_sha": "04ad3d3a289e6a57892797b5f37bd2026c9df855",
+  "github_run_id": "40484852255",
+  "isPrivate": "false",
+  "updatedAt": "2026-05-07T13:17:53Z",
+  "failed_checks": ["qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.any.scripts.exist", "qc.all.scripts.exist"],
+  "warning_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed"],
+  "passed_checks": ["dir.exists", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.only.relative.paths"],
+  "passed": false
+}

@@ -1,11 +1,11 @@
 {
   "repository": "ices-taf_2026_whg.27.6a_assessment",
-  "timestamp": "2026-10-27T09:27:25",
+  "timestamp": "2026-10-27T11:04:42",
   "taf_version": "4.4.0",
   "qctaf_version": "2026.5.23",
   "qc_hash": "9bd8b715957948b95a8bda9ac438ad5c69c7dde815fa0bbc49032fc42e7df286",
   "github_sha": "305afdf0a5c20d31300e7eb5fff7dacca7c832eb",
-  "github_run_id": "40473267151",
+  "github_run_id": "40484852255",
   "isPrivate": "true",
   "updatedAt": "2026-09-17T14:07:37Z",
   "failed_checks": ["qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid"],

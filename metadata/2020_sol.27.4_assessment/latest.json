@@ -1,11 +1,11 @@
 {
   "repository": "ices-taf_2020_sol.27.4_assessment",
-  "timestamp": "2026-10-27T09:25:05",
+  "timestamp": "2026-10-27T10:59:56",
   "taf_version": "4.4.0",
   "qctaf_version": "2026.5.23",
   "qc_hash": "9fdced4238a111c95a2645465d37e8942986815efd3c92933f4df58ce9e09b12",
   "github_sha": "0cc59fcf1210bcceda0ff8fba4786b464ae01bc5",
-  "github_run_id": "40473267151",
+  "github_run_id": "40484852255",
   "isPrivate": "true",
   "updatedAt": "2021-01-11T11:19:50Z",
   "failed_checks": "qc.only.relative.paths",

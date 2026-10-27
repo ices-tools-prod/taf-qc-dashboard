@@ -1,11 +1,11 @@
 {
   "repository": "ices-taf_2025_mac.27.nea_assessment",
-  "timestamp": "2026-10-27T09:26:36",
+  "timestamp": "2026-10-27T11:03:19",
   "taf_version": "4.4.0",
   "qctaf_version": "2026.5.23",
   "qc_hash": "426801467b8c28581f3cb73dae30c1b60c2ff1f078df16fbc58fac3226797476",
   "github_sha": "ed56219fbc69d41b5036146255d4ebb1d238f99e",
-  "github_run_id": "40473267151",
+  "github_run_id": "40484852255",
   "isPrivate": "true",
   "updatedAt": "2025-09-11T11:15:01Z",
   "failed_checks": "qc.initial.data",

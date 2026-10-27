@@ -1,0 +1,15 @@
+{
+  "repository": "ices-taf_wgnas-pfa-neac",
+  "timestamp": "2026-10-27T11:05:07",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "0123fd42c8c2e021f2d44e587e9da5c1b30312b70762d7ad91c87165b93fbe8d",
+  "github_sha": "a064e4632010dfaf21ef70e676ef36de6fda2d04",
+  "github_run_id": "40484852255",
+  "isPrivate": "true",
+  "updatedAt": "2024-03-07T12:42:06Z",
+  "failed_checks": ["qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "warning_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed"],
+  "passed_checks": ["dir.exists", "qc.data.declared", "qc.software.declared", "qc.initial.data"],
+  "passed": false
+}

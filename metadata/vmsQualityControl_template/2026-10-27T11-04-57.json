@@ -1,0 +1,15 @@
+{
+  "repository": "ices-taf_vmsQualityControl_template",
+  "timestamp": "2026-10-27T11:04:57",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "6b9f05a65d7d81a0229e42bbaa6c53a6f47fa7050473ab813bb74c3919712d8a",
+  "github_sha": "532f79e17b340bc73e3fae8dcafcd97ac44defde",
+  "github_run_id": "40484852255",
+  "isPrivate": "false",
+  "updatedAt": "2021-02-26T14:45:36Z",
+  "failed_checks": "qc.only.relative.paths",
+  "warning_checks": ["qc.data.bib.processed", "qc.software.bib.processed", "qc.all.scripts.exist"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist"],
+  "passed": false
+}

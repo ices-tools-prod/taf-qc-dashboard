@@ -1,0 +1,15 @@
+{
+  "repository": "ices-taf_datasets",
+  "timestamp": "2026-10-27T11:04:46",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "eefe320ecdc249ee620e213d7994e86135714de9a1c30a454b91609cf1063e88",
+  "github_sha": "59bbf52b32d745af80e9b46ef9a4ad350de5522b",
+  "github_run_id": "40484852255",
+  "isPrivate": "false",
+  "updatedAt": "2022-06-27T09:27:35Z",
+  "failed_checks": ["qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.any.scripts.exist", "qc.all.scripts.exist"],
+  "warning_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed"],
+  "passed_checks": ["dir.exists", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.only.relative.paths"],
+  "passed": false
+}

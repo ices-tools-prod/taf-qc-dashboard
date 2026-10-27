@@ -1,0 +1,15 @@
+{
+  "repository": "ices-taf_2026_dgs.27.nea_survey",
+  "timestamp": "2026-10-27T11:03:46",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "9422576b85dd47f543722af2b7424440c78c8655e97151fd028fe5aa5d1cc72f",
+  "github_sha": "19515b077338259b2842b1f83bfa9e5f0de21bd5",
+  "github_run_id": "40484852255",
+  "isPrivate": "true",
+  "updatedAt": "2026-07-01T13:50:21Z",
+  "failed_checks": [],
+  "warning_checks": ["qc.data.bib.processed", "qc.software.bib.processed", "qc.all.scripts.exist"],
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.only.relative.paths"],
+  "passed": true
+}
