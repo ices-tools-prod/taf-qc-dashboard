@@ -69,6 +69,14 @@ code_escape() {
   printf '%s' "$1" | tr '\r\n`' '   '
 }
 
+# Shared jq helper: normalise a check field (array, string or null) to a
+# sorted array of unique strings.
+JQ_CHECKS_DEF='def checks(f):
+  if (f | type) == "array" then [f[] | tostring] | unique
+  elif (f | type) == "string" and (f | length) > 0 then [f]
+  else [] end;
+'
+
 require_command find
 require_command jq
 require_command sort
@@ -122,117 +130,45 @@ while IFS= read -r -d '' json; do
 
   TOTAL=$((TOTAL + 1))
 
-  REPOSITORY=$(jq -r '
-    .repository // "unknown-repository"
-    | tostring
-  ' "$json")
-
-  TIMESTAMP=$(jq -r '
-    .timestamp // "unknown"
-    | tostring
-  ' "$json")
-
-  TAF_VERSION=$(jq -r '
-    .taf_version // "unknown"
-    | tostring
-  ' "$json")
-
-  QCTAF_VERSION=$(jq -r '
-    .qctaf_version // "unknown"
-    | tostring
-  ' "$json")
-
-  GITHUB_SHA=$(jq -r '
-    .github_sha // "unknown"
-    | tostring
-  ' "$json")
-
-  PASSED_VALUE=$(jq -r '
-    if .passed == true then
-      "true"
-    elif .passed == false then
-      "false"
-    else
-      "unknown"
-    end
-  ' "$json")
-
-  FAILED_COUNT=$(jq '
-    if (.failed_checks | type) == "array" then
-      [.failed_checks[] | tostring]
-      | unique
-      | length
-    elif (.failed_checks | type) == "string" and (.failed_checks | length) > 0 then
-      1
-    else
-      0
-    end
-  ' "$json")
-
-  FAILED_CHECKS=$(jq -r '
-    if (.failed_checks | type) == "array"
-       and (.failed_checks | length) > 0
-    then
-      [.failed_checks[] | tostring]
-      | unique
-      | map("`" + gsub("`"; "") + "`")
-      | join("<br>")
-    elif (.failed_checks | type) == "string" and (.failed_checks | length) > 0 then
-      "`" + (.failed_checks | gsub("`"; "")) + "`"
-    else
-      "None"
-    end
-  ' "$json")
-
-  WARNING_COUNT=$(jq '
-    if (.warning_checks | type) == "array" then
-      [.warning_checks[] | tostring]
-      | unique
-      | length
-    elif (.warning_checks | type) == "string" and (.warning_checks | length) > 0 then
-      1
-    else
-      0
-    end
-  ' "$json")
-
-  WARNING_CHECKS=$(jq -r '
-    if (.warning_checks | type) == "array"
-       and (.warning_checks | length) > 0
-    then
-      [.warning_checks[] | tostring]
-      | unique
-      | map("`" + gsub("`"; "") + "`")
-      | join("<br>")
-    elif (.warning_checks | type) == "string" and (.warning_checks | length) > 0 then
-      "`" + (.warning_checks | gsub("`"; "")) + "`"
-    else
-      "None"
-    end
-  ' "$json")
+  # Extract every field in a single jq call. Fields are separated by the
+  # ASCII unit separator (0x1f); check lists use the record separator (0x1e).
+  IFS=$'\x1f' read -r REPOSITORY TIMESTAMP TAF_VERSION QCTAF_VERSION \
+    GITHUB_SHA PASSED_VALUE FAILED_COUNT FAILED_CHECKS WARNING_COUNT \
+    WARNING_CHECKS FAILED_LIST WARNING_LIST < <(
+    jq -r "$JQ_CHECKS_DEF"'
+      def text(f): (f // "unknown" | tostring | gsub("[\r\n]"; " "));
+      def bullets(l): if (l | length) > 0
+        then (l | map("`" + gsub("`"; "") + "`") | join("<br>"))
+        else "None" end;
+      checks(.failed_checks) as $failed
+      | checks(.warning_checks) as $warned
+      | [
+          text(.repository // "unknown-repository"),
+          text(.timestamp),
+          text(.taf_version),
+          text(.qctaf_version),
+          text(.github_sha),
+          (if .passed == true then "true"
+           elif .passed == false then "false"
+           else "unknown" end),
+          ($failed | length),
+          bullets($failed),
+          ($warned | length),
+          bullets($warned),
+          ($failed | join("\u001e")),
+          ($warned | join("\u001e"))
+        ]
+      | join("\u001f")
+    ' "$json"
+  )
 
   # Count each check at most once per repository.
-  jq -r '
-    if (.failed_checks | type) == "array" then
-      [.failed_checks[] | tostring]
-      | unique[]
-    elif (.failed_checks | type) == "string" and (.failed_checks | length) > 0 then
-      .failed_checks
-    else
-      empty
-    end
-  ' "$json" >> "$FAILED_CHECKS_FILE"
-
-  jq -r '
-    if (.warning_checks | type) == "array" then
-      [.warning_checks[] | tostring]
-      | unique[]
-    elif (.warning_checks | type) == "string" and (.warning_checks | length) > 0 then
-      .warning_checks
-    else
-      empty
-    end
-  ' "$json" >> "$OPTIONAL_CHECKS_FILE"
+  if [[ -n "$FAILED_LIST" ]]; then
+    printf '%s\n' "${FAILED_LIST//$'\x1e'/$'\n'}" >> "$FAILED_CHECKS_FILE"
+  fi
+  if [[ -n "$WARNING_LIST" ]]; then
+    printf '%s\n' "${WARNING_LIST//$'\x1e'/$'\n'}" >> "$OPTIONAL_CHECKS_FILE"
+  fi
 
   REPOSITORY=$(markdown_escape "$REPOSITORY")
   TIMESTAMP=$(markdown_escape "$TIMESTAMP")
