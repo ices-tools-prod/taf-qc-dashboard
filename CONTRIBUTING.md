@@ -9,7 +9,11 @@ All three push to the same branch and share the `qc-metadata` concurrency group.
 
 ## Scripts
 Run from the repo root (see `Makefile`): `make dashboard`, `make master`,
-`make archive`, and for stock mapping `make mapping` then `make match`
+`make archive`, `make prune` (retention, supports `ARGS=--dry-run`), and for stock mapping `make mapping` then `make match`
 (needs `pip install -r requirements.txt`).
 
-`README.md` is generated; edit `scripts/dashboard`, not the README.
+`README.md` is generated; edit `scripts/dashboard` or the static text in
+`scripts/templates/`, not the README.
+
+Per-repo validation lives in `scripts/validate_repo.sh` (with `scripts/qc_hash.sh`);
+`collect-metadata.yml` only batches repos and calls it.
