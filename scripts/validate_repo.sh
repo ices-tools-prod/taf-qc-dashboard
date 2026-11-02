@@ -36,7 +36,8 @@ echo "Repository: $REPOSITORY"
 echo "Batch:      $BATCH_NAME"
 echo "=================================================="
 
-rm -rf "$REPO_WORK"
+# The validator container may leave root-owned files behind.
+rm -rf "$REPO_WORK" 2>/dev/null || sudo rm -rf "$REPO_WORK"
 mkdir -p "$REPO_WORK"
 mkdir -p "$ARTIFACT_DIR"
 
@@ -67,8 +68,6 @@ fi
 echo "Old hash: ${OLD_HASH:-<empty>}"
 
 echo "Force validation: $FORCE_VALIDATION"
-echo "Old hash: $OLD_HASH"
-echo "New hash: $QC_HASH"
 
 if [[ "$FORCE_VALIDATION" != "true" && -n "$OLD_HASH" && "$QC_HASH" == "$OLD_HASH" ]]; then
   echo "QC hash unchanged, validation skipped"
@@ -99,6 +98,7 @@ echo "Hash changed, running validator"
 # Record the current time so output created by the validator can
 # be distinguished from JSON files already present in the repo.
 VALIDATOR_STARTED_FILE=$(mktemp)
+trap 'rm -f "$VALIDATOR_STARTED_FILE"' EXIT
 touch "$VALIDATOR_STARTED_FILE"
 
 if docker run --rm \

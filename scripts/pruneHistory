@@ -17,6 +17,7 @@ fi
 
 removed=0
 for dir in "$METADATA_DIR"/*/; do
+  [[ -d "$dir" ]] || continue
   [[ "$(basename "$dir")" == "archive" ]] && continue
 
   # Timestamped names sort chronologically; newest first, skip the first KEEP.
@@ -24,7 +25,7 @@ for dir in "$METADATA_DIR"/*/; do
     [[ -n "$file" ]] || continue
     if $DRY_RUN; then echo "Would remove: $file"; else rm -f -- "$file"; fi
     removed=$((removed + 1))
-  done < <(find "$dir" -maxdepth 1 -type f -name '*.json' ! -name 'latest.json' | sort -r | tail -n +"$((KEEP + 1))")
+  done < <(find "$dir" -maxdepth 1 -type f -name '*.json' ! -name 'latest.json' | LC_ALL=C sort -r | tail -n +"$((10#$KEEP + 1))")
 done
 
 if $DRY_RUN; then echo "Files that would be removed: $removed"; else echo "Files removed: $removed"; fi

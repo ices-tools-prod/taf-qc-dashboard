@@ -197,7 +197,8 @@ jobs:
               0)  VALIDATED=$((VALIDATED + 1)) ;;
               10) SKIPPED=$((SKIPPED + 1)) ;;
               12) VALIDATED=$((VALIDATED + 1)); ERRORS=$((ERRORS + 1)) ;;
-              *)  ERRORS=$((ERRORS + 1)) ;;
+              *)  echo "::error title=Unexpected failure::validate_repo.sh exited with $RC"
+                  ERRORS=$((ERRORS + 1)) ;;
             esac
           done < <(
             jq -c '.[]' <<< "$REPOSITORIES"
