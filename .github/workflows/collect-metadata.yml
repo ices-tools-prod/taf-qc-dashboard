@@ -173,6 +173,7 @@ jobs:
           BATCH_NAME: ${{ matrix.name }}
           REPOSITORIES: ${{ toJson(matrix.repositories) }}
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          FORCE_VALIDATION: ${{ inputs.force_validation }}
         shell: bash
         run: |
           set -euo pipefail
@@ -274,7 +275,6 @@ jobs:
             fi
 
             echo "Old hash: ${OLD_HASH:-<empty>}"
-            FORCE_VALIDATION="${{ inputs.force_validation }}"
 
             echo "Force validation: $FORCE_VALIDATION"
             echo "Old hash: $OLD_HASH"
