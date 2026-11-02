@@ -1,4 +1,4 @@
-.PHONY: dashboard master archive match
+.PHONY: dashboard master archive mapping match
 
 dashboard:
 	bash scripts/dashboard
