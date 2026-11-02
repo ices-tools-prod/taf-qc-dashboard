@@ -4,11 +4,14 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 METADATA_DIR="$SCRIPT_DIR/../metadata"
 ARCHIVE_DIR="$METADATA_DIR/archive"
-REPOS_FILE="/home/davidolsenices/repositories/taf-qc-dashboard/json/repos.json"
+REPOS_FILE="$SCRIPT_DIR/../json/repos.json"
 
 mkdir -p "$ARCHIVE_DIR"
 
-jq -r '.[].name' "$REPOS_FILE" | sort > /tmp/current_repos.txt
+CURRENT_REPOS=$(mktemp)
+trap 'rm -f "$CURRENT_REPOS"' EXIT
+
+jq -r '.[].name' "$REPOS_FILE" | sort > "$CURRENT_REPOS"
 
 for dir in "$METADATA_DIR"/*; do
     [[ -d "$dir" ]] || continue
@@ -17,7 +20,7 @@ for dir in "$METADATA_DIR"/*; do
 
     [[ "$repo" == "archive" ]] && continue
 
-    if ! grep -Fxq "$repo" /tmp/current_repos.txt; then
+    if ! grep -Fxq "$repo" "$CURRENT_REPOS"; then
         echo "Archiving: $repo"
         mv "$dir" "$ARCHIVE_DIR/"
     fi

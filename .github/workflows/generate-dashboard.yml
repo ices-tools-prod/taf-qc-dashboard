@@ -30,7 +30,7 @@ jobs:
           set -euo pipefail
 
           if [[ ! -f "./scripts/dashboard" ]]; then
-            echo "::error::Dashboard script was not found at ./dashboard"
+            echo "::error::Dashboard script was not found at ./scripts/dashboard"
             exit 1
           fi
 

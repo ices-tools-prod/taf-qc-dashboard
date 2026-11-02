@@ -17,6 +17,10 @@ permissions:
   contents: write
   packages: read
 
+concurrency:
+  group: qc-metadata
+  cancel-in-progress: false
+
 jobs:
   build-matrix:
     name: Build repository batches
@@ -603,4 +607,5 @@ jobs:
           fi
 
           git commit -m "Update QC metadata"
+          git pull --rebase
           git push

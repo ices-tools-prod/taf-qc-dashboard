@@ -2,10 +2,11 @@ import json
 import re
 from pathlib import Path
 
-REPOS_PATH = Path(__file__).resolve().parent / "json/repos.json"
-MAPPING_PATH = Path(__file__).resolve().parent / "output" / "assessment_mapping.json"
-MATCHED_OUT = Path(__file__).resolve().parent / "matched_repositories_by_name.json"
-UNMATCHED_OUT = Path(__file__).resolve().parent / "unmatched_repositories.json"
+REPO_ROOT = Path(__file__).resolve().parents[1]
+REPOS_PATH = REPO_ROOT / "json" / "repos.json"
+MAPPING_PATH = REPO_ROOT / "json" / "assessment" / "assessment_mapping.json"
+MATCHED_OUT = REPO_ROOT / "json" / "matched_repositories_by_name.json"
+UNMATCHED_OUT = REPO_ROOT / "json" / "unmatched_repositories.json"
 
 
 def normalize(value):
@@ -44,66 +45,69 @@ def load_json(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-repos = load_json(REPOS_PATH)
-mapping = load_json(MAPPING_PATH)
+def main():
+    repos = load_json(REPOS_PATH)
+    mapping = load_json(MAPPING_PATH)
 
-matched = {}
-unmatched = []
+    matched = {}
+    unmatched = []
 
-for repo in repo_items(repos):
-    if not isinstance(repo, dict):
-        continue
-
-    repo_name = None
-    for key in ("name", "repo", "repository", "project", "slug"):
-        if repo.get(key):
-            repo_name = repo[key]
-            break
-    if repo_name is None:
-        continue
-
-    repo_norm = normalize(repo_name)
-    matched_info = None
-    matched_key = None
-
-    for map_key, info in mapping.items():
-        if not isinstance(info, dict):
+    for repo in repo_items(repos):
+        if not isinstance(repo, dict):
             continue
 
-        map_norm = normalize(map_key)
-        stock_norm = normalize(info.get("stock", ""))
+        repo_name = None
+        for key in ("name", "repo", "repository", "project", "slug"):
+            if repo.get(key):
+                repo_name = repo[key]
+                break
+        if repo_name is None:
+            continue
 
-        if (
-            repo_norm == map_norm
-            or repo_norm in map_norm
-            or map_norm in repo_norm
-            or repo_norm == stock_norm
-            or repo_norm in stock_norm
-            or stock_norm in repo_norm
-        ):
-            matched_key = map_key
-            matched_info = info
-            break
+        repo_norm = normalize(repo_name)
+        matched_info = None
+        matched_key = None
 
-    if matched_info is not None:
-        matched[repo_name] = {
-            "repo_data": repo,
-            "matched_mapping_key": matched_key,
-            "stock": matched_info.get("stock"),
-            "workingGroup": matched_info.get("expertGroup"),
-            "assessmentGroup": matched_info.get("adviceDraftingGroup"),
-            "raw_mapping": matched_info,
-        }
-    else:
-        unmatched.append({
-            "repo_name": repo_name,
-            "repo_data": repo,
-        })
+        for map_key, info in mapping.items():
+            if not isinstance(info, dict):
+                continue
 
-MATCHED_OUT.write_text(json.dumps(matched, indent=2, ensure_ascii=False), encoding="utf-8")
-UNMATCHED_OUT.write_text(json.dumps({"unmatched_repositories": unmatched}, indent=2, ensure_ascii=False), encoding="utf-8")
+            map_norm = normalize(map_key)
+            stock_norm = normalize(info.get("stock", ""))
 
-print(f"Matched repositories: {len(matched)}")
-print(f"Unmatched repositories: {len(unmatched)}")
-print(f"Saved matched output to: {MATCHED_OUT}")
-print(f"Saved unmatched output to: {UNMATCHED_OUT}")
+            if (
+                repo_norm == map_norm
+                or (map_norm and (repo_norm in map_norm or map_norm in repo_norm))
+                or repo_norm == stock_norm
+                or (stock_norm and (repo_norm in stock_norm or stock_norm in repo_norm))
+            ):
+                matched_key = map_key
+                matched_info = info
+                break
+
+        if matched_info is not None:
+            matched[repo_name] = {
+                "repo_data": repo,
+                "matched_mapping_key": matched_key,
+                "stock": matched_info.get("stock"),
+                "workingGroup": matched_info.get("expertGroup"),
+                "assessmentGroup": matched_info.get("adviceDraftingGroup"),
+                "raw_mapping": matched_info,
+            }
+        else:
+            unmatched.append({
+                "repo_name": repo_name,
+                "repo_data": repo,
+            })
+
+    MATCHED_OUT.write_text(json.dumps(matched, indent=2, ensure_ascii=False), encoding="utf-8")
+    UNMATCHED_OUT.write_text(json.dumps({"unmatched_repositories": unmatched}, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    print(f"Matched repositories: {len(matched)}")
+    print(f"Unmatched repositories: {len(unmatched)}")
+    print(f"Saved matched output to: {MATCHED_OUT}")
+    print(f"Saved unmatched output to: {UNMATCHED_OUT}")
+
+
+if __name__ == "__main__":
+    main()
