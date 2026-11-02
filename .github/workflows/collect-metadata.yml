@@ -192,13 +192,11 @@ jobs:
           UPDATED_AT=$(jq -r '.updatedAt' <<< "$REPO_JSON")
           REPO_SHORT_NAME=$(jq -r '.name' <<< "$REPO_JSON")
 
-          REPO_NAME="$REPO_SHORT_NAME"
-
           PROCESSED=$((PROCESSED + 1))
 
           REPO_WORK="$GITHUB_WORKSPACE/repo-work"
-          ARTIFACT_DIR="$GITHUB_WORKSPACE/artifact/$REPO_NAME"
-          LATEST_METADATA="$GITHUB_WORKSPACE/metadata/$REPO_NAME/latest.json"
+          ARTIFACT_DIR="$GITHUB_WORKSPACE/artifact/$REPO_SHORT_NAME"
+          LATEST_METADATA="$GITHUB_WORKSPACE/metadata/$REPO_SHORT_NAME/latest.json"
 
           echo "Repository: $REPOSITORY"
           echo "Private: $IS_PRIVATE"

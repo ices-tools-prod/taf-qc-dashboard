@@ -6,13 +6,17 @@ METADATA_DIR="metadata"
 OUTPUT_FILE="master.json"
 
 
+# Coerce a field to an array: array stays, null becomes [], scalar is wrapped.
+JQ_PROGRAM='def as_array: if type == "array" then . elif . == null then [] else [.] end;
+  map(. + {
+    warning_checks: (.warning_checks | as_array),
+    failed_checks: (.failed_checks | as_array),
+    passed_checks: (.passed_checks | as_array)
+  })'
+
 find "$METADATA_DIR" -type d -name archive -prune -o -type f -name "latest.json" -print0 \
-  | xargs -0 cat \
-  | jq -s 'map(. + {
-      warning_checks: (if (.warning_checks | type) == "array" then .warning_checks elif .warning_checks == null then [] else [.warning_checks] end),
-      failed_checks: (if (.failed_checks | type) == "array" then .failed_checks elif .failed_checks == null then [] else [.failed_checks] end),
-      passed_checks: (if (.passed_checks | type) == "array" then .passed_checks elif .passed_checks == null then [] else [.passed_checks] end)
-    })' > "$OUTPUT_FILE"
+  | xargs -0 -r cat \
+  | jq -s "$JQ_PROGRAM" > "$OUTPUT_FILE"
 
 COUNT=$(jq length "$OUTPUT_FILE")
 

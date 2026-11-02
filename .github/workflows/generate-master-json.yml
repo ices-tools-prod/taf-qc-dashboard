@@ -6,6 +6,13 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  contents: write
+
+concurrency:
+  group: qc-metadata
+  cancel-in-progress: false
+
 jobs:
   generate-master-json:
     runs-on: ubuntu-latest
@@ -56,4 +63,6 @@ jobs:
 
       - name: Push changes
         if: steps.commit.outputs.changed == 'true'
-        run: git push
+        run: |
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push

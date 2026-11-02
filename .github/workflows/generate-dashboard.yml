@@ -2,17 +2,17 @@ name: Generate QC Dashboard
 
 on:
 #  schedule:
-    # Kører hver halve time, på minut 7 og 37.
+    # Runs every half hour, at minutes 7 and 37.
 #    - cron: "7,37 * * * *"
 
-  # Gør det muligt at teste workflowet manuelt.
+  # Allows the workflow to be run manually.
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: generate-qc-dashboard
+  group: qc-metadata
   cancel-in-progress: false
 
 jobs:
@@ -105,6 +105,7 @@ jobs:
         run: |
           set -euo pipefail
 
+          git pull --rebase origin "$GITHUB_REF_NAME"
           git push
 
       - name: Write workflow summary
@@ -118,11 +119,11 @@ jobs:
             echo
 
             if [[ "$DASHBOARD_CHANGED" == "true" ]]; then
-              echo "✅ Dashboardet blev genereret, committet og pushed."
+              echo "✅ Dashboard was generated, committed and pushed."
             elif [[ "$DASHBOARD_CHANGED" == "false" ]]; then
-              echo "ℹ️ Dashboardet blev genereret, men README.md var uændret."
+              echo "ℹ️ Dashboard was generated, but README.md was unchanged."
             else
-              echo "⚠️ Workflowet nåede ikke til commit-steppet."
+              echo "⚠️ Workflow did not reach the commit step."
             fi
 
             echo
