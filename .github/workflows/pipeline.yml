@@ -607,5 +607,5 @@ jobs:
           fi
 
           git commit -m "Update QC metadata"
-          git pull --rebase
+          git pull --rebase origin "$GITHUB_REF_NAME"
           git push

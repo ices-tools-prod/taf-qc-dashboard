@@ -65,6 +65,9 @@ def main():
             continue
 
         repo_norm = normalize(repo_name)
+        if not repo_norm:
+            unmatched.append({"repo_name": repo_name, "repo_data": repo})
+            continue
         matched_info = None
         matched_key = None
 
