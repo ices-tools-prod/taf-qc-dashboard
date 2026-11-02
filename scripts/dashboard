@@ -71,9 +71,10 @@ code_escape() {
 
 # Shared jq helper: normalise a check field (array, string or null) to a
 # sorted array of unique strings.
-JQ_CHECKS_DEF='def checks(f):
-  if (f | type) == "array" then [f[] | tostring] | unique
-  elif (f | type) == "string" and (f | length) > 0 then [f]
+JQ_CHECKS_DEF='def clean: gsub("[\r\n\u001e\u001f]"; " ");
+def checks(f):
+  if (f | type) == "array" then [f[] | tostring | clean] | unique
+  elif (f | type) == "string" and (f | length) > 0 then [f | clean]
   else [] end;
 '
 
@@ -132,11 +133,8 @@ while IFS= read -r -d '' json; do
 
   # Extract every field in a single jq call. Fields are separated by the
   # ASCII unit separator (0x1f); check lists use the record separator (0x1e).
-  IFS=$'\x1f' read -r REPOSITORY TIMESTAMP TAF_VERSION QCTAF_VERSION \
-    GITHUB_SHA PASSED_VALUE FAILED_COUNT FAILED_CHECKS WARNING_COUNT \
-    WARNING_CHECKS FAILED_LIST WARNING_LIST < <(
-    jq -r "$JQ_CHECKS_DEF"'
-      def text(f): (f // "unknown" | tostring | gsub("[\r\n]"; " "));
+  RECORD=$(jq -r "$JQ_CHECKS_DEF"'
+      def text(f): (f // "unknown" | tostring | clean);
       def bullets(l): if (l | length) > 0
         then (l | map("`" + gsub("`"; "") + "`") | join("<br>"))
         else "None" end;
@@ -160,7 +158,19 @@ while IFS= read -r -d '' json; do
         ]
       | join("\u001f")
     ' "$json"
-  )
+  ) || {
+    printf 'Error: failed to read metadata: %s\n' "$json" >&2
+    exit 1
+  }
+
+  IFS=$'\x1f' read -r REPOSITORY TIMESTAMP TAF_VERSION QCTAF_VERSION \
+    GITHUB_SHA PASSED_VALUE FAILED_COUNT FAILED_CHECKS WARNING_COUNT \
+    WARNING_CHECKS FAILED_LIST WARNING_LIST <<< "$RECORD"
+
+  if [[ ! "$FAILED_COUNT" =~ ^[0-9]+$ || ! "$WARNING_COUNT" =~ ^[0-9]+$ ]]; then
+    printf 'Error: malformed record for %s\n' "$json" >&2
+    exit 1
+  fi
 
   # Count each check at most once per repository.
   if [[ -n "$FAILED_LIST" ]]; then
