@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Checkout dashboard repository
-        uses: ices-tools-prod/ices-tools-prod-actions-checkout@main
+        uses: ices-tools-prod/ices-tools-prod-actions-checkout@f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a # main
 
       - name: Generate master.json
         shell: bash

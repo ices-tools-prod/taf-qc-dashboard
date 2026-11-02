@@ -33,7 +33,7 @@ jobs:
 
     steps:
       - name: Checkout dashboard repository
-        uses: ices-tools-prod/ices-tools-prod-actions-checkout@main
+        uses: ices-tools-prod/ices-tools-prod-actions-checkout@f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a # main
 
       - name: Build batch matrix
         id: matrix
@@ -151,7 +151,7 @@ jobs:
 
     steps:
       - name: Checkout dashboard repository
-        uses: ices-tools-prod/ices-tools-prod-actions-checkout@main
+        uses: ices-tools-prod/ices-tools-prod-actions-checkout@f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a # main
 
       - name: Show batch information
         env:
@@ -174,6 +174,7 @@ jobs:
           REPOSITORIES: ${{ toJson(matrix.repositories) }}
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           FORCE_VALIDATION: ${{ inputs.force_validation }}
+          VALIDATOR_IMAGE: ghcr.io/ices-tools-prod/taf-qc-validator:latest
         shell: bash
         run: |
           set -euo pipefail
@@ -186,295 +187,18 @@ jobs:
           ERRORS=0
 
           while IFS= read -r REPO_JSON; do
-          [[ -n "$REPO_JSON" ]] || continue
+            [[ -n "$REPO_JSON" ]] || continue
+            PROCESSED=$((PROCESSED + 1))
 
-          REPOSITORY=$(jq -r '.nameWithOwner' <<< "$REPO_JSON")
-          IS_PRIVATE=$(jq -r '.isPrivate' <<< "$REPO_JSON")
-          UPDATED_AT=$(jq -r '.updatedAt' <<< "$REPO_JSON")
-          REPO_SHORT_NAME=$(jq -r '.name' <<< "$REPO_JSON")
+            RC=0
+            bash scripts/validate_repo.sh "$REPO_JSON" || RC=$?
 
-          PROCESSED=$((PROCESSED + 1))
-
-          REPO_WORK="$GITHUB_WORKSPACE/repo-work"
-          ARTIFACT_DIR="$GITHUB_WORKSPACE/artifact/$REPO_SHORT_NAME"
-          LATEST_METADATA="$GITHUB_WORKSPACE/metadata/$REPO_SHORT_NAME/latest.json"
-
-          echo "Repository: $REPOSITORY"
-          echo "Private: $IS_PRIVATE"
-          echo "Updated at: $UPDATED_AT"
-
-            echo
-            echo "=================================================="
-            echo "Repository: $REPOSITORY"
-            echo "Batch:      $BATCH_NAME"
-            echo "=================================================="
-
-            rm -rf "$REPO_WORK"
-            mkdir -p "$REPO_WORK"
-            mkdir -p "$ARTIFACT_DIR"
-
-            if ! gh repo clone "$REPOSITORY" "$REPO_WORK"; then
-              echo "::warning title=Clone failed::$REPOSITORY could not be cloned"
-
-              ERRORS=$((ERRORS + 1))
-              continue
-            fi
-
-            echo "Repository cloned successfully"
-
-            if [[ -n "$(find "$REPO_WORK/boot" -type f 2>/dev/null | head -1)" ]]; then
-              ROOT="boot"
-            elif [[ -n "$(find "$REPO_WORK/bootstrap" -type f 2>/dev/null | head -1)" ]]; then
-              ROOT="bootstrap"
-            else
-              ROOT="."
-            fi
-
-            echo "Using validation root: $ROOT"
-
-            QC_HASH=$(
-              cd "$REPO_WORK"
-
-              {
-                find "$ROOT" \
-                  -maxdepth 1 \
-                  -type f \
-                  -name "DATA.bib" \
-                  -print0
-
-                find "$ROOT" \
-                  -maxdepth 1 \
-                  -type f \
-                  -name "*.R" \
-                  -print0
-
-                if [[ -d "$ROOT/initial/data" ]]; then
-                  find "$ROOT/initial/data" \
-                    -type f \
-                    -print0
-                fi
-              } \
-                | sort -z \
-                | xargs -0 -r sha256sum \
-                | sha256sum \
-                | cut -d' ' -f1
-            )
-
-            echo "New hash: $QC_HASH"
-
-            OLD_HASH=""
-
-            if [[ -f "$LATEST_METADATA" ]]; then
-              if jq empty "$LATEST_METADATA" >/dev/null 2>&1; then
-                OLD_HASH=$(
-                  jq -r '.qc_hash // empty' "$LATEST_METADATA"
-                )
-              else
-                echo "::warning title=Invalid existing metadata::$LATEST_METADATA contains invalid JSON"
-              fi
-            fi
-
-            echo "Old hash: ${OLD_HASH:-<empty>}"
-
-            echo "Force validation: $FORCE_VALIDATION"
-            echo "Old hash: $OLD_HASH"
-            echo "New hash: $QC_HASH"
-
-            if [[ "$FORCE_VALIDATION" != "true" && -n "$OLD_HASH" && "$QC_HASH" == "$OLD_HASH" ]]; then
-              echo "QC hash unchanged, validation skipped"
-
-              SKIPPED=$((SKIPPED + 1))
-
-              {
-                echo "### ⏭️ $REPOSITORY"
-                echo
-                echo "QC hash unchanged, validation skipped."
-                echo
-                echo "- Batch: \`$BATCH_NAME\`"
-                echo "- Hash: \`$QC_HASH\`"
-                echo
-              } >> "$GITHUB_STEP_SUMMARY"
-              continue
-            fi
-
-            if [[ "$FORCE_VALIDATION" == "true" ]]; then
-              echo "Force validation enabled, running validator regardless of hash"
-            fi
-            
-            GITHUB_SHA=$(
-              git -C "$REPO_WORK" rev-parse HEAD
-            )
-
-            echo "Commit SHA: $GITHUB_SHA"
-            echo "Hash changed, running validator"
-
-            # Record the current time so output created by the validator can
-            # be distinguished from JSON files already present in the repo.
-            VALIDATOR_STARTED_FILE=$(mktemp)
-            touch "$VALIDATOR_STARTED_FILE"
-
-            if docker run --rm \
-              -v "$REPO_WORK:/repo" \
-              -e GITHUB_SHA="$GITHUB_SHA" \
-              -e QC_HASH="$QC_HASH" \
-              -e IS_PRIVATE="$IS_PRIVATE" \
-              -e UPDATED_AT="$UPDATED_AT" \
-              -e GITHUB_RUN_ID="$GITHUB_RUN_ID" \
-              -e GITHUB_REPOSITORY="$REPOSITORY" \
-              ghcr.io/ices-tools-prod/taf-qc-validator:latest \
-              /repo
-            then
-              VALIDATOR_EXIT_CODE=0
-              echo "Validator completed successfully"
-            else
-              VALIDATOR_EXIT_CODE=$?
-              echo "::warning title=Validator failed::$REPOSITORY returned exit code $VALIDATOR_EXIT_CODE"
-            fi
-
-            VALIDATED=$((VALIDATED + 1))
-
-            JSON_FILE=$(
-              find "$REPO_WORK" \
-                -type f \
-                -name "*.json" \
-                -newer "$VALIDATOR_STARTED_FILE" \
-                -printf '%T@ %p\n' 2>/dev/null \
-                | sort -nr \
-                | head -1 \
-                | cut -d' ' -f2-
-            )
-
-            rm -f "$VALIDATOR_STARTED_FILE"
-
-            if [[ -z "$JSON_FILE" ]]; then
-              echo "::warning title=Metadata missing::Validator did not produce a new JSON file for $REPOSITORY"
-
-              ERRORS=$((ERRORS + 1))
-
-              {
-                echo "### ⚠️ $REPOSITORY"
-                echo
-                echo "The validator ran, but no generated metadata JSON file was found."
-                echo
-                echo "- Batch: \`$BATCH_NAME\`"
-                echo "- Validator exit code: \`$VALIDATOR_EXIT_CODE\`"
-                echo "- Commit: \`${GITHUB_SHA:0:7}\`"
-                echo
-              } >> "$GITHUB_STEP_SUMMARY"
-
-              continue
-            fi
-
-            echo "Metadata JSON: $JSON_FILE"
-
-            if ! jq empty "$JSON_FILE" >/dev/null 2>&1; then
-              echo "::warning title=Invalid metadata::Generated file contains invalid JSON: $JSON_FILE"
-
-              ERRORS=$((ERRORS + 1))
-              continue
-            fi
-
-            TIMESTAMP=$(
-              jq -r '.timestamp // empty' "$JSON_FILE"
-            )
-
-            if [[ -z "$TIMESTAMP" ]]; then
-              TIMESTAMP=$(
-                date -u '+%Y-%m-%dT%H:%M:%SZ'
-              )
-            fi
-
-            SAFE_TIMESTAMP=$(
-              printf '%s' "$TIMESTAMP" \
-                | tr ':/' '--' \
-                | tr -cd '[:alnum:]_.-'
-            )
-
-            if [[ -z "$SAFE_TIMESTAMP" ]]; then
-              SAFE_TIMESTAMP=$(
-                date -u '+%Y-%m-%dT%H-%M-%SZ'
-              )
-            fi
-
-            cp "$JSON_FILE" "$ARTIFACT_DIR/latest.json"
-            cp "$JSON_FILE" "$ARTIFACT_DIR/$SAFE_TIMESTAMP.json"
-
-            echo "Prepared metadata:"
-            echo "  $ARTIFACT_DIR/latest.json"
-            echo "  $ARTIFACT_DIR/$SAFE_TIMESTAMP.json"
-
-            PASSED=$(
-              jq -r '
-                if .passed == true then
-                  "true"
-                elif .passed == false then
-                  "false"
-                else
-                  "unknown"
-                end
-              ' "$JSON_FILE"
-            )
-
-            WARNING_COUNT=$(
-              jq '
-                if (.warning_checks | type) == "array" then
-                  [.warning_checks[] | tostring] | unique | length
-                elif (.warning_checks | type) == "string" and (.warning_checks | length) > 0 then
-                  1
-                else
-                  0
-                end
-              ' "$JSON_FILE"
-            )
-
-            FAILED_COUNT=$(
-              jq '
-                if (.failed_checks | type) == "array" then
-                  [.failed_checks[] | tostring] | unique | length
-                elif (.failed_checks | type) == "string" and (.failed_checks | length) > 0 then
-                  1
-                else
-                  0
-                end
-              ' "$JSON_FILE"
-            )
-
-            case "$PASSED" in
-              true)
-                if ((WARNING_COUNT > 0)); then
-                  SUMMARY_STATUS="✅ Passed (⚠️ $WARNING_COUNT optional flagged)"
-                else
-                  SUMMARY_STATUS="✅ Passed"
-                fi
-                ;;
-
-              false)
-                SUMMARY_STATUS="❌ Failed ($FAILED_COUNT failed)"
-                ;;
-
-              *)
-                SUMMARY_STATUS="⚠️ Unknown"
-                ;;
+            case "$RC" in
+              0)  VALIDATED=$((VALIDATED + 1)) ;;
+              10) SKIPPED=$((SKIPPED + 1)) ;;
+              12) VALIDATED=$((VALIDATED + 1)); ERRORS=$((ERRORS + 1)) ;;
+              *)  ERRORS=$((ERRORS + 1)) ;;
             esac
-
-            {
-              echo "### $SUMMARY_STATUS: $REPOSITORY"
-              echo
-              echo "- Batch: \`$BATCH_NAME\`"
-              echo "- Commit: \`${GITHUB_SHA:0:7}\`"
-              echo "- QC hash: \`$QC_HASH\`"
-              echo "- Validator exit code: \`$VALIDATOR_EXIT_CODE\`"
-              if ((FAILED_COUNT > 0)); then
-                FAILED_LIST=$(jq -r 'if (.failed_checks | type) == "array" then .failed_checks | join(", ") else (.failed_checks // "") end' "$JSON_FILE")
-                echo "- Failed checks: \`$FAILED_LIST\`"
-              fi
-              if ((WARNING_COUNT > 0)); then
-                WARNING_LIST=$(jq -r 'if (.warning_checks | type) == "array" then .warning_checks | join(", ") else (.warning_checks // "") end' "$JSON_FILE")
-                echo "- Optional checks: \`$WARNING_LIST\`"
-              fi
-              echo
-            } >> "$GITHUB_STEP_SUMMARY"
-
           done < <(
             jq -c '.[]' <<< "$REPOSITORIES"
           )
@@ -535,7 +259,7 @@ jobs:
 
     steps:
       - name: Checkout dashboard repository
-        uses: ices-tools-prod/ices-tools-prod-actions-checkout@main
+        uses: ices-tools-prod/ices-tools-prod-actions-checkout@f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a # main
 
       - name: Download metadata artifacts
         uses: actions/download-artifact@v4
