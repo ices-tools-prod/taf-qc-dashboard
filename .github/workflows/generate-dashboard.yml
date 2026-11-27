@@ -77,36 +77,12 @@ jobs:
 
           sed -n '1,40p' README.md
 
-      - name: Commit dashboard
+      - name: Commit and push dashboard
         id: commit
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          git config user.name "github-actions[bot]"
-          git config user.email \
-            "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add README.md
-
-          if git diff --cached --quiet; then
-            echo "README.md is unchanged"
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          git commit -m "Update TAF QC dashboard"
-
-          echo "changed=true" >> "$GITHUB_OUTPUT"
-
-      - name: Push dashboard
-        if: steps.commit.outputs.changed == 'true'
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          git pull --rebase origin "$GITHUB_REF_NAME"
-          git push
+        uses: ./.github/actions/commit-generated-file
+        with:
+          file: README.md
+          message: Update TAF QC dashboard
 
       - name: Write workflow summary
         if: always()

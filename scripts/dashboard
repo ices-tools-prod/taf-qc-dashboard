@@ -3,7 +3,8 @@
 set -euo pipefail
 
 METADATA_DIR="${METADATA_DIR:-metadata}"
-TEMPLATE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/templates"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+TEMPLATE_DIR="$SCRIPT_DIR/templates"
 README_FILE="${README_FILE:-README.md}"
 
 # Number of failing repositories shown before the collapsed section.
@@ -70,15 +71,6 @@ code_escape() {
   printf '%s' "$1" | tr '\r\n`' '   '
 }
 
-# Shared jq helper: normalise a check field (array, string or null) to a
-# sorted array of unique strings.
-JQ_CHECKS_DEF='def clean: gsub("[\r\n\u001e\u001f]"; " ");
-def checks(f):
-  if (f | type) == "array" then [f[] | tostring | clean] | unique
-  elif (f | type) == "string" and (f | length) > 0 then [f | clean]
-  else [] end;
-'
-
 require_command find
 require_command jq
 require_command sort
@@ -134,13 +126,15 @@ while IFS= read -r -d '' json; do
 
   # Extract every field in a single jq call. Fields are separated by the
   # ASCII unit separator (0x1f); check lists use the record separator (0x1e).
-  RECORD=$(jq -r "$JQ_CHECKS_DEF"'
+  RECORD=$(jq -r -L "$SCRIPT_DIR" '
+      include "metadata";
+      def clean: tostring | gsub("[\r\n\u001e\u001f]"; " ");
       def text(f): (f // "unknown" | tostring | clean);
       def bullets(l): if (l | length) > 0
         then (l | map("`" + gsub("`"; "") + "`") | join("<br>"))
         else "None" end;
-      checks(.failed_checks) as $failed
-      | checks(.warning_checks) as $warned
+      (.failed_checks | normalize_checks) as $failed
+      | (.warning_checks | normalize_checks) as $warned
       | [
           text(.repository // "unknown-repository"),
           text(.timestamp),
@@ -336,67 +330,40 @@ if [[ ! -s "$ATTENTION_ALL_FILE" ]]; then
     > "$ATTENTION_ALL_FILE"
 fi
 
-#
-# Build failed-check frequency tables.
-#
+build_check_frequency_table() {
+  local checks_file=$1
+  local rows_file=$2
+  local preview_file=$3
+  local count check
 
-if [[ -s "$FAILED_CHECKS_FILE" ]]; then
-  while read -r count check; do
-    [[ -n "${check:-}" ]] || continue
+  if [[ -s "$checks_file" ]]; then
+    while read -r count check; do
+      [[ -n "${check:-}" ]] || continue
+      check=$(markdown_escape "$check")
+      printf '| `%s` | %s |\n' "$check" "$count" >> "$rows_file"
+    done < <(
+      LC_ALL=C sort "$checks_file" \
+        | uniq -c \
+        | sort -k1,1nr -k2,2 \
+        | sed -E 's/^[[:space:]]+//'
+    )
+  fi
 
-    check=$(markdown_escape "$check")
+  if [[ ! -s "$rows_file" ]]; then
+    printf '| None | 0 |\n' > "$rows_file"
+  fi
 
-    printf '| `%s` | %s |\n' \
-      "$check" \
-      "$count" \
-      >> "$FAILED_CHECK_ROWS_FILE"
+  head -n "$CHECK_LIMIT" "$rows_file" > "$preview_file"
+}
 
-  done < <(
-    LC_ALL=C sort "$FAILED_CHECKS_FILE" \
-      | uniq -c \
-      | sort -k1,1nr -k2,2 \
-      | sed -E 's/^[[:space:]]+//'
-  )
-fi
-
-if [[ ! -s "$FAILED_CHECK_ROWS_FILE" ]]; then
-  printf '| None | 0 |\n' > "$FAILED_CHECK_ROWS_FILE"
-fi
-
-head -n "$CHECK_LIMIT" \
+build_check_frequency_table \
+  "$FAILED_CHECKS_FILE" \
   "$FAILED_CHECK_ROWS_FILE" \
-  > "$FAILED_CHECK_PREVIEW_FILE"
-
-#
-# Build optional-check frequency tables.
-#
-
-if [[ -s "$OPTIONAL_CHECKS_FILE" ]]; then
-  while read -r count check; do
-    [[ -n "${check:-}" ]] || continue
-
-    check=$(markdown_escape "$check")
-
-    printf '| `%s` | %s |\n' \
-      "$check" \
-      "$count" \
-      >> "$OPTIONAL_CHECK_ROWS_FILE"
-
-  done < <(
-    LC_ALL=C sort "$OPTIONAL_CHECKS_FILE" \
-      | uniq -c \
-      | sort -k1,1nr -k2,2 \
-      | sed -E 's/^[[:space:]]+//'
-  )
-fi
-
-if [[ ! -s "$OPTIONAL_CHECK_ROWS_FILE" ]]; then
-  printf '| None | 0 |\n' > "$OPTIONAL_CHECK_ROWS_FILE"
-fi
-
-head -n "$CHECK_LIMIT" \
+  "$FAILED_CHECK_PREVIEW_FILE"
+build_check_frequency_table \
+  "$OPTIONAL_CHECKS_FILE" \
   "$OPTIONAL_CHECK_ROWS_FILE" \
-  > "$OPTIONAL_CHECK_PREVIEW_FILE"
+  "$OPTIONAL_CHECK_PREVIEW_FILE"
 
 if [[ ! -s "$REPORT_ROWS_FILE" ]]; then
   printf '| ℹ️ No data | No valid repositories found | 0 | 0 | unknown | unknown | unknown | `unknown` |\n' \
@@ -438,144 +405,8 @@ if ((OPTIONAL_PREVIEW_COUNT > CHECK_LIMIT)); then
   OPTIONAL_PREVIEW_COUNT=$CHECK_LIMIT
 fi
 
-GENERATED_AT=$(date -u '+%Y-%m-%d %H:%M:%S UTC')
-
-cat > "$OUTPUT_FILE" <<EOF
-# TAF QC Dashboard
-
-> Automatically generated from active repository metadata under \`${METADATA_DIR}/\`. Archived metadata is excluded.
-
-![Repositories](https://img.shields.io/badge/Total_repositories-${TOTAL}-blue)
-![Passed](https://img.shields.io/badge/passed-${PASSED}-brightgreen)
-![Optional Flags](https://img.shields.io/badge/optional%20flags-${PASSED_OPTIONAL}-yellow)
-![Failed](https://img.shields.io/badge/failed-${FAILED}-red)
-![Unknown](https://img.shields.io/badge/unknown-${UNKNOWN}-orange)
-![Pass Rate](https://img.shields.io/badge/pass%20rate-${PASS_RATE}%25-${PASS_RATE_COLOR})
-
-EOF
-cat "$TEMPLATE_DIR/resources.md" >> "$OUTPUT_FILE"
-
-cat "$TEMPLATE_DIR/flowchart.md" >> "$OUTPUT_FILE"
-
-cat >> "$OUTPUT_FILE" <<EOF
-
-## Overall status
-
-### ${PASS_RATE}% passing
-
-\`${PROGRESS_BAR}\`
-
-**${PASSED} of ${TOTAL} repositories passed QC validation** (${PASSED_CLEAN} clean, ${PASSED_OPTIONAL} with optional checks flagged).
-
-| 📦 Processed repositories | ✅ Clean Pass | ⚠️ Passed (Optional Flags) | ❌ Failed | ⚠️ Unknown | 🛑 Invalid metadata |
-|--------------------------:|--------------:|---------------------------:|----------:|-----------:|--------------------:|
-| **${TOTAL}** | **${PASSED_CLEAN}** | **${PASSED_OPTIONAL}** | **${FAILED}** | **${UNKNOWN}** | **${INVALID}** |
-
-## Repositories requiring attention
-
-**${ATTENTION_TOTAL} repositories currently require attention.**
-
-Showing up to ${ATTENTION_PREVIEW_COUNT} repositories, ordered by number of failed checks.
-
-| Repository | Failed checks | Last validation |
-|:-----------|--------------:|:----------------|
-EOF
-
-cat "$ATTENTION_PREVIEW_FILE" >> "$OUTPUT_FILE"
-
-cat >> "$OUTPUT_FILE" <<EOF
-
-<details>
-<summary><strong>View all ${ATTENTION_TOTAL} repositories requiring attention</strong></summary>
-
-<br>
-
-| Repository | Failed checks | Details | Last validation |
-|:-----------|--------------:|:--------|:----------------|
-EOF
-
-cat "$ATTENTION_ALL_FILE" >> "$OUTPUT_FILE"
-
-cat >> "$OUTPUT_FILE" <<EOF
-
-</details>
-
-## Most common failed checks
-
-Showing up to ${CHECK_PREVIEW_COUNT} of ${FAILED_CHECK_TYPE_COUNT} failed check types.
-
-| QC check | Affected repositories |
-|:---------|----------------------:|
-EOF
-
-cat "$FAILED_CHECK_PREVIEW_FILE" >> "$OUTPUT_FILE"
-
-cat >> "$OUTPUT_FILE" <<EOF
-
-<details>
-<summary><strong>View all ${FAILED_CHECK_TYPE_COUNT} failed check types</strong></summary>
-
-<br>
-
-| QC check | Affected repositories |
-|:---------|----------------------:|
-EOF
-
-cat "$FAILED_CHECK_ROWS_FILE" >> "$OUTPUT_FILE"
-
-cat >> "$OUTPUT_FILE" <<EOF
-
-</details>
-
-## Most common optional checks flagged
-
-Showing up to ${OPTIONAL_PREVIEW_COUNT} of ${OPTIONAL_CHECK_TYPE_COUNT} optional check types.
-
-| QC check | Affected repositories |
-|:---------|----------------------:|
-EOF
-
-cat "$OPTIONAL_CHECK_PREVIEW_FILE" >> "$OUTPUT_FILE"
-
-cat >> "$OUTPUT_FILE" <<EOF
-
-<details>
-<summary><strong>View all ${OPTIONAL_CHECK_TYPE_COUNT} optional check types</strong></summary>
-
-<br>
-
-| QC check | Affected repositories |
-|:---------|----------------------:|
-EOF
-
-cat "$OPTIONAL_CHECK_ROWS_FILE" >> "$OUTPUT_FILE"
-
-cat >> "$OUTPUT_FILE" <<EOF
-
-</details>
-
-## Complete repository results
-
-<details>
-<summary><strong>View all ${TOTAL} repository results</strong></summary>
-
-<br>
-
-| Status | Repository | Failed checks | Optional checks | TAF | qcTAF | Last validation | Commit |
-|:-------|:-----------|--------------:|----------------:|:----|:------|:----------------|:-------|
-EOF
-
-cat "$REPORT_ROWS_FILE" >> "$OUTPUT_FILE"
-
-cat >> "$OUTPUT_FILE" <<EOF
-
-</details>
-
-EOF
-cat "$TEMPLATE_DIR/disclaimer.md" >> "$OUTPUT_FILE"
-cat >> "$OUTPUT_FILE" <<EOF
-_Last generated at ${GENERATED_AT} from ${TOTAL} valid active metadata files. ${INVALID} invalid files were skipped._
-EOF
+source "$SCRIPT_DIR/dashboard_render.sh"
+render_dashboard
 
 # Replace README only after the complete dashboard has been generated.
 mv "$OUTPUT_FILE" "$README_FILE"

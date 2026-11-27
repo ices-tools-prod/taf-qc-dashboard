@@ -186,41 +186,12 @@ echo "Prepared metadata:"
 echo "  $ARTIFACT_DIR/latest.json"
 echo "  $ARTIFACT_DIR/$SAFE_TIMESTAMP.json"
 
-PASSED=$(
-  jq -r '
-    if .passed == true then
-      "true"
-    elif .passed == false then
-      "false"
-    else
-      "unknown"
-    end
-  ' "$JSON_FILE"
+NORMALIZED_JSON=$(
+  jq -L "$SCRIPT_DIR" 'include "metadata"; normalize_metadata' "$JSON_FILE"
 )
-
-WARNING_COUNT=$(
-  jq '
-    if (.warning_checks | type) == "array" then
-      [.warning_checks[] | tostring] | unique | length
-    elif (.warning_checks | type) == "string" and (.warning_checks | length) > 0 then
-      1
-    else
-      0
-    end
-  ' "$JSON_FILE"
-)
-
-FAILED_COUNT=$(
-  jq '
-    if (.failed_checks | type) == "array" then
-      [.failed_checks[] | tostring] | unique | length
-    elif (.failed_checks | type) == "string" and (.failed_checks | length) > 0 then
-      1
-    else
-      0
-    end
-  ' "$JSON_FILE"
-)
+PASSED=$(jq -r 'if .passed == true then "true" elif .passed == false then "false" else "unknown" end' <<< "$NORMALIZED_JSON")
+WARNING_COUNT=$(jq '.warning_checks | length' <<< "$NORMALIZED_JSON")
+FAILED_COUNT=$(jq '.failed_checks | length' <<< "$NORMALIZED_JSON")
 
 case "$PASSED" in
   true)
@@ -248,11 +219,11 @@ esac
   echo "- QC hash: \`$QC_HASH\`"
   echo "- Validator exit code: \`$VALIDATOR_EXIT_CODE\`"
   if ((FAILED_COUNT > 0)); then
-    FAILED_LIST=$(jq -r 'if (.failed_checks | type) == "array" then .failed_checks | join(", ") else (.failed_checks // "") end' "$JSON_FILE")
+    FAILED_LIST=$(jq -r '.failed_checks | join(", ")' <<< "$NORMALIZED_JSON")
     echo "- Failed checks: \`$FAILED_LIST\`"
   fi
   if ((WARNING_COUNT > 0)); then
-    WARNING_LIST=$(jq -r 'if (.warning_checks | type) == "array" then .warning_checks | join(", ") else (.warning_checks // "") end' "$JSON_FILE")
+    WARNING_LIST=$(jq -r '.warning_checks | join(", ")' <<< "$NORMALIZED_JSON")
     echo "- Optional checks: \`$WARNING_LIST\`"
   fi
   echo

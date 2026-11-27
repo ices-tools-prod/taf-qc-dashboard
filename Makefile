@@ -1,4 +1,4 @@
-.PHONY: dashboard master archive prune mapping match
+.PHONY: dashboard master archive prune mapping match test
 
 dashboard:
 	bash scripts/dashboard
@@ -19,3 +19,6 @@ mapping:
 
 match:
 	python3 scripts/match_repositories.py
+
+test:
+	bash tests/metadata.sh
