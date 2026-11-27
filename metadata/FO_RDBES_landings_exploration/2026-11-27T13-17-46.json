@@ -1,0 +1,15 @@
+{
+  "repository": "ices-taf_FO_RDBES_landings_exploration",
+  "timestamp": "2026-11-27T13:17:46",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "6396548829047774f337c4937510467185f213632dcbc898f58169a48166495d",
+  "github_sha": "a3ffba21ec1ed9c9bc7757e7eca3ad7fdd87e3f2",
+  "github_run_id": "45996915510",
+  "isPrivate": "false",
+  "updatedAt": "2026-10-19T14:17:10Z",
+  "failed_checks": ["qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "warning_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed"],
+  "passed_checks": ["dir.exists", "qc.data.declared", "qc.software.declared", "qc.initial.data"],
+  "passed": false
+}

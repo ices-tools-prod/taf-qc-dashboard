@@ -1,0 +1,15 @@
+{
+  "repository": "ices-taf_ices-advice.taf-universe",
+  "timestamp": "2026-11-27T13:18:18",
+  "taf_version": "4.4.0",
+  "qctaf_version": "2026.5.23",
+  "qc_hash": "413c22554e815014b6d497c6c36e2533b21cc98a5adc32f7e5a014ab966f8bba",
+  "github_sha": "0b14e3536cecf5fcbca991bc86061a74cb18f3c3",
+  "github_run_id": "45996915510",
+  "isPrivate": "false",
+  "updatedAt": "2026-10-12T23:37:07Z",
+  "failed_checks": ["qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.any.scripts.exist", "qc.all.scripts.exist"],
+  "warning_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed"],
+  "passed_checks": ["dir.exists", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.only.relative.paths"],
+  "passed": false
+}

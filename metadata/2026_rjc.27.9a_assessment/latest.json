@@ -1,15 +1,15 @@
 {
   "repository": "ices-taf_2026_rjc.27.9a_assessment",
-  "timestamp": "2026-10-27T11:04:31",
+  "timestamp": "2026-11-27T13:17:35",
   "taf_version": "4.4.0",
   "qctaf_version": "2026.5.23",
-  "qc_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-  "github_sha": "129fecbbf797c3bc875c4873f31e717a8b6a76e7",
-  "github_run_id": "40484852255",
+  "qc_hash": "051f24dace143c92e04b3b95a90c3243de6c9eec937ae06e9a63ee96bf557763",
+  "github_sha": "64924e715a1d49d1b2884609218d293e9222a9e3",
+  "github_run_id": "45996915510",
   "isPrivate": "true",
   "updatedAt": "2026-08-03T09:15:45Z",
-  "failed_checks": ["qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.any.scripts.exist", "qc.all.scripts.exist"],
+  "failed_checks": [],
   "warning_checks": ["qc.data.bib.processed", "qc.software.bib.exists", "qc.software.bib.valid", "qc.software.bib.processed"],
-  "passed_checks": ["dir.exists", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.only.relative.paths"],
-  "passed": false
+  "passed_checks": ["dir.exists", "qc.boot.exists", "qc.data.bib.exists", "qc.data.bib.valid", "qc.data.declared", "qc.software.declared", "qc.initial.data", "qc.any.scripts.exist", "qc.all.scripts.exist", "qc.only.relative.paths"],
+  "passed": true
 }
