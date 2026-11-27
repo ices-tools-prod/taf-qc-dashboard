@@ -2,17 +2,17 @@ name: Generate QC Dashboard
 
 on:
 #  schedule:
-    # Kører hver halve time, på minut 7 og 37.
+    # Runs every half hour, at minutes 7 and 37.
 #    - cron: "7,37 * * * *"
 
-  # Gør det muligt at teste workflowet manuelt.
+  # Allows the workflow to be run manually.
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: generate-qc-dashboard
+  group: qc-metadata
   cancel-in-progress: false
 
 jobs:
@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Checkout dashboard repository
-        uses: ices-tools-prod/ices-tools-prod-actions-checkout@main
+        uses: ices-tools-prod/ices-tools-prod-actions-checkout@f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a # main
 
       - name: Verify dashboard script
         shell: bash
@@ -30,7 +30,7 @@ jobs:
           set -euo pipefail
 
           if [[ ! -f "./scripts/dashboard" ]]; then
-            echo "::error::Dashboard script was not found at ./dashboard"
+            echo "::error::Dashboard script was not found at ./scripts/dashboard"
             exit 1
           fi
 
@@ -77,35 +77,12 @@ jobs:
 
           sed -n '1,40p' README.md
 
-      - name: Commit dashboard
+      - name: Commit and push dashboard
         id: commit
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          git config user.name "github-actions[bot]"
-          git config user.email \
-            "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add README.md
-
-          if git diff --cached --quiet; then
-            echo "README.md is unchanged"
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          git commit -m "Update TAF QC dashboard"
-
-          echo "changed=true" >> "$GITHUB_OUTPUT"
-
-      - name: Push dashboard
-        if: steps.commit.outputs.changed == 'true'
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          git push
+        uses: ./.github/actions/commit-generated-file
+        with:
+          file: README.md
+          message: Update TAF QC dashboard
 
       - name: Write workflow summary
         if: always()
@@ -118,11 +95,11 @@ jobs:
             echo
 
             if [[ "$DASHBOARD_CHANGED" == "true" ]]; then
-              echo "✅ Dashboardet blev genereret, committet og pushed."
+              echo "✅ Dashboard was generated, committed and pushed."
             elif [[ "$DASHBOARD_CHANGED" == "false" ]]; then
-              echo "ℹ️ Dashboardet blev genereret, men README.md var uændret."
+              echo "ℹ️ Dashboard was generated, but README.md was unchanged."
             else
-              echo "⚠️ Workflowet nåede ikke til commit-steppet."
+              echo "⚠️ Workflow did not reach the commit step."
             fi
 
             echo

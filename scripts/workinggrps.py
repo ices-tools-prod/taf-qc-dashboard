@@ -4,7 +4,7 @@ from pathlib import Path
 import requests
 
 url = "https://sid.ices.dk/services/odata3/StockListDWs3?"
-output_dir = Path(__file__).resolve().parent / "output"
+output_dir = Path(__file__).resolve().parents[1] / "json" / "assessment"
 output_dir.mkdir(exist_ok=True)
 output_file = output_dir / "assessment_mapping.json"
 

@@ -2,17 +2,13 @@
 
 set -euo pipefail
 
-METADATA_DIR="metadata"
-OUTPUT_FILE="master.json"
-
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+METADATA_DIR="${METADATA_DIR:-$SCRIPT_DIR/../metadata}"
+OUTPUT_FILE="${OUTPUT_FILE:-$SCRIPT_DIR/../master.json}"
 
 find "$METADATA_DIR" -type d -name archive -prune -o -type f -name "latest.json" -print0 \
-  | xargs -0 cat \
-  | jq -s 'map(. + {
-      warning_checks: (if (.warning_checks | type) == "array" then .warning_checks elif .warning_checks == null then [] else [.warning_checks] end),
-      failed_checks: (if (.failed_checks | type) == "array" then .failed_checks elif .failed_checks == null then [] else [.failed_checks] end),
-      passed_checks: (if (.passed_checks | type) == "array" then .passed_checks elif .passed_checks == null then [] else [.passed_checks] end)
-    })' > "$OUTPUT_FILE"
+  | xargs -0 -r cat \
+  | jq -L "$SCRIPT_DIR" -s 'include "metadata"; map(normalize_metadata)' > "$OUTPUT_FILE"
 
 COUNT=$(jq length "$OUTPUT_FILE")
 
